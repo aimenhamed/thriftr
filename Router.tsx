@@ -1,15 +1,14 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabScreenProps,
 } from "@react-navigation/material-top-tabs";
 
-
 import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
 import Template from "./screens/template";
-import { Image } from 'react-native';
+import { Image } from "react-native";
 
 type TabsParamList = {
   Thriftr: undefined;
@@ -44,42 +43,46 @@ const Router = () => {
             backgroundColor: "#FFE600",
           },
           tabBarIconStyle: {
-            width: '100%',
-            height: '100%'
+            width: "100%",
+            height: "100%",
           },
           tabBarIndicator: () => null,
-          animationEnabled: false
+          animationEnabled: false,
         }}
       >
-        <Tab.Screen name="Matches"
+        <Tab.Screen
+          name="Matches"
           component={Template}
-          options = {{
+          options={{
             tabBarIcon: (props) => {
-              return (
-                props.focused ? <Image 
-                style = {{ width: 24, height: 24}}
-                source={require('./assets/FocusedChat.svg')} /> : 
-                <Image 
-                style = {{ width: 24, height: 24}}
-                source={require('./assets/Chat.svg')} />
-              )
-            },
-          }}/>
-        {!isAuthenticated ? (
-          <Tab.Screen name="Thriftr"          options = {{
-            title: '',
-            tabBarIcon: (props) => {
-              return (
-                <Image 
-                style = {{ width: 91, height: 38}}
-                source={require('./assets/Thriftr.svg')} />
+              return props.focused ? (
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  source={require("./assets/FocusedChat.svg")}
+                />
+              ) : (
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  source={require("./assets/Chat.svg")}
+                />
               );
             },
-            tabBarIconStyle: {
-              width: '100%',
-              height: '100%'
-            }
-          }}>
+          }}
+        />
+        {!isAuthenticated ? (
+          <Tab.Screen
+            name="Thriftr"
+            options={{
+              tabBarIcon: () => {
+                return (
+                  <Image
+                    style={{ width: 91, height: 38 }}
+                    source={require("./assets/Thriftr.svg")}
+                  />
+                );
+              },
+            }}
+          >
             {(props: any) => (
               <LoginScreen
                 logIn={(uId: string) => {
@@ -91,7 +94,19 @@ const Router = () => {
             )}
           </Tab.Screen>
         ) : (
-          <Tab.Screen name="Thriftr">
+          <Tab.Screen
+            name="Thriftr"
+            options={{
+              tabBarIcon: () => {
+                return (
+                  <Image
+                    style={{ width: 91, height: 38 }}
+                    source={require("./assets/Thriftr.svg")}
+                  />
+                );
+              },
+            }}
+          >
             {(props: any) => (
               <FeedScreen
                 logOut={() => setIsAuthenticated(false)}
@@ -101,23 +116,25 @@ const Router = () => {
             )}
           </Tab.Screen>
         )}
-        <Tab.Screen name="Account" component={Template}           options = {{
-            title: '',
+        <Tab.Screen
+          name="Account"
+          component={Template}
+          options={{
             tabBarIcon: (props) => {
-              return (
-                props.focused ? <Image 
-                style = {{ width: 24, height: 24}}
-                source={require('./assets/FocusedUser.svg')} /> : 
-                <Image 
-                style = {{ width: 24, height: 24}}
-                source={require('./assets/User.svg')} />
-              )
+              return props.focused ? (
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  source={require("./assets/FocusedUser.svg")}
+                />
+              ) : (
+                <Image
+                  style={{ width: 24, height: 24 }}
+                  source={require("./assets/User.svg")}
+                />
+              );
             },
-            tabBarIconStyle: {
-              width: '100%',
-              height: '100%',
-            }
-          }}/>
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
