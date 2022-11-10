@@ -7,6 +7,7 @@ import {
 
 import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
+import MatchesScreen from "./screens/MatchesScreen";
 import Template from "./screens/template";
 import { Image } from "react-native";
 
@@ -52,7 +53,7 @@ const Router = () => {
       >
         <Tab.Screen
           name="Matches"
-          component={Template}
+          component={MatchesScreen}
           options={{
             tabBarIcon: (props) => {
               return props.focused ? (
