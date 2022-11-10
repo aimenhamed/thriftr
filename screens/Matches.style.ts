@@ -9,9 +9,8 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
-  section: {
+  column: {
     flex: 1,
-    alignItems: "center",
     flexDirection: "column",
   },
   row: {

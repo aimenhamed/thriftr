@@ -6,7 +6,7 @@ type LoginScreenProps = {
 } & PageProps;
 
 const LoginScreen = ({ logIn }: LoginScreenProps) => {
-  const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
+  const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74"; // aaron smith
   return (
     <View>
       <Text>Thriftr</Text>

@@ -28,6 +28,24 @@ const Router = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
 
+  const Main = (props: any) =>
+    isAuthenticated ? (
+      <FeedScreen
+        logOut={() => setIsAuthenticated(false)}
+        userId={userId}
+        {...props}
+      />
+    ) : (
+      <LoginScreen
+        logIn={(uId: string) => {
+          setIsAuthenticated(true);
+          setUserId(uId);
+        }}
+        {...props}
+      />
+    );
+  const Matches = () => <MatchesScreen userId={userId} />;
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -53,7 +71,7 @@ const Router = () => {
       >
         <Tab.Screen
           name="Matches"
-          component={MatchesScreen}
+          component={Matches}
           options={{
             tabBarIcon: (props) => {
               return props.focused ? (
@@ -72,23 +90,7 @@ const Router = () => {
         />
         <Tab.Screen
           name="Thriftr"
-          component={(props: any) =>
-            isAuthenticated ? (
-              <FeedScreen
-                logOut={() => setIsAuthenticated(false)}
-                userId={userId}
-                {...props}
-              />
-            ) : (
-              <LoginScreen
-                logIn={(uId: string) => {
-                  setIsAuthenticated(true);
-                  setUserId(uId);
-                }}
-                {...props}
-              />
-            )
-          }
+          component={Main}
           options={{
             tabBarIcon: () => {
               return (

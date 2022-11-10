@@ -5,4 +5,5 @@ export interface Match {
   matchItemId: string;
   chatId: string;
   blocked: boolean;
+  newMatch: boolean;
 }
