@@ -69,21 +69,16 @@ const Router = () => {
             },
           }}
         />
-        {!isAuthenticated ? (
-          <Tab.Screen
-            name="Thriftr"
-            options={{
-              tabBarIcon: () => {
-                return (
-                  <Image
-                    style={{ width: 91, height: 38 }}
-                    source={require("./assets/Thriftr.svg")}
-                  />
-                );
-              },
-            }}
-          >
-            {(props: any) => (
+        <Tab.Screen
+          name="Thriftr"
+          component={(props: any) =>
+            isAuthenticated ? (
+              <FeedScreen
+                logOut={() => setIsAuthenticated(false)}
+                userId={userId}
+                {...props}
+              />
+            ) : (
               <LoginScreen
                 logIn={(uId: string) => {
                   setIsAuthenticated(true);
@@ -91,31 +86,19 @@ const Router = () => {
                 }}
                 {...props}
               />
-            )}
-          </Tab.Screen>
-        ) : (
-          <Tab.Screen
-            name="Thriftr"
-            options={{
-              tabBarIcon: () => {
-                return (
-                  <Image
-                    style={{ width: 91, height: 38 }}
-                    source={require("./assets/Thriftr.svg")}
-                  />
-                );
-              },
-            }}
-          >
-            {(props: any) => (
-              <FeedScreen
-                logOut={() => setIsAuthenticated(false)}
-                userId={userId}
-                {...props}
-              />
-            )}
-          </Tab.Screen>
-        )}
+            )
+          }
+          options={{
+            tabBarIcon: () => {
+              return (
+                <Image
+                  style={{ width: 91, height: 38 }}
+                  source={require("./assets/Thriftr.svg")}
+                />
+              );
+            },
+          }}
+        />
         <Tab.Screen
           name="Account"
           component={Template}
