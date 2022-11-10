@@ -14,6 +14,29 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "column",
   },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  counter: {
+    fontSize: 18,
+    fontWeight: "bold",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderColor: "#FFE600",
+    borderWidth: 3,
+    backgroundColor: "#1F1F1F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 15,
+    marginBottom: 15,
+  },
+  counterText: {
+    color: "#FFE600",
+    fontWeight: "bold",
+    fontFamily: "Azeret",
+  },
   title: {
     width: 300,
     textAlign: "left",
@@ -44,6 +67,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     fontFamily: "Azeret",
+    marginTop: 4,
   },
   fact: {
     fontSize: 18,
