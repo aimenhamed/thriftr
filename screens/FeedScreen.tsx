@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
+import IgnoreIcon from "../assets/IgnoreIcon";
+import LikeIcon from "../assets/LikeIcon";
+import OfferIcon from "../assets/OfferIcon";
 import ItemCard from "../components/ItemCard";
 import { profiles } from "../data/profiles";
 import { PageProps } from "../Router";
@@ -16,8 +19,6 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
-  console.log("items are", items);
-
   const [page, setPage] = useState(0);
 
   const onNext = () => {
@@ -29,12 +30,20 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
       <ItemCard item={items[page].item} seller={items[page].seller} />
-      <Button onPress={onNext} title="Next" />
-      <Button onPress={logOut} title="Sign out" />
-      <Button
-        onPress={() => navigation.navigate("Template")}
-        title="Go To Template"
-      />
+      <View style={styles.userActions}>
+        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+          <IgnoreIcon />
+          <Text style={styles.userActionText}>Ignore</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+          <OfferIcon />
+          <Text style={styles.userActionText}>Offer</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+          <LikeIcon />
+          <Text style={styles.userActionText}>Like</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

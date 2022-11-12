@@ -122,9 +122,14 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   itemInfo: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    backgroundColor: "#1f1f1f",
     borderColor: "#fff",
     borderTopWidth: 2,
-    padding: 10,
+    padding: 6,
+    flexGrow: 1,
   },
   name: {
     fontSize: 18,
