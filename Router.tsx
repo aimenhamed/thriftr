@@ -4,7 +4,6 @@ import {
   createMaterialTopTabNavigator,
   MaterialTopTabScreenProps,
 } from "@react-navigation/material-top-tabs";
-
 import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
 import MatchesScreen from "./screens/MatchesScreen";
@@ -63,12 +62,12 @@ const Router = () => {
               return props.focused ? (
                 <Image
                   style={{ width: 24, height: 24 }}
-                  source={require("./assets/FocusedChat.svg")}
+                  source={require("./assets/FocusedChat.png")}
                 />
               ) : (
                 <Image
                   style={{ width: 24, height: 24 }}
-                  source={require("./assets/Chat.svg")}
+                  source={require("./assets/Chat.png")}
                 />
               );
             },
@@ -98,7 +97,7 @@ const Router = () => {
               return (
                 <Image
                   style={{ width: 91, height: 38 }}
-                  source={require("./assets/Thriftr.svg")}
+                  source={require('./assets/Thriftr.png')}
                 />
               );
             },
@@ -147,12 +146,12 @@ const Router = () => {
               return props.focused ? (
                 <Image
                   style={{ width: 24, height: 24 }}
-                  source={require("./assets/FocusedUser.svg")}
+                  source={require("./assets/FocusedUser.png")}
                 />
               ) : (
                 <Image
                   style={{ width: 24, height: 24 }}
-                  source={require("./assets/User.svg")}
+                  source={require("./assets/User.png")}
                 />
               );
             },
