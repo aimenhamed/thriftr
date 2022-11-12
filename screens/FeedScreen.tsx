@@ -14,12 +14,11 @@ export type FeedScreenProps = {
 } & PageProps;
 
 const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
-  const user = profiles.find((profile) => profile.userId === userId);
+  const [page, setPage] = useState(0);
+
   const items = profiles.filter(profile => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
-
-  const [page, setPage] = useState(0);
 
   const nextPage = (page + 1) % items.length;
 

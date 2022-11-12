@@ -9,6 +9,12 @@ import FeedScreen from "./screens/FeedScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import Template from "./screens/template";
 import { Image } from "react-native";
+import MessagesFilled from "./assets/MessagesOutline";
+import MessagesOutline from "./assets/MessagesFilled";
+import AccountFilled from "./assets/AccountFilled";
+import AccountOutline from "./assets/AccountOutline";
+import ThriftrFilled from "./assets/ThriftrFilled";
+import ThriftrOutlined from "./assets/ThriftrOutlined";
 
 type TabsParamList = {
   Thriftr: undefined;
@@ -37,7 +43,8 @@ const Router = () => {
           tabBarItemStyle: { padding: 0, minHeight: 0 },
           tabBarContentContainerStyle: {
             justifyContent: "space-between",
-            paddingTop: 40,
+            paddingTop: 60,
+            paddingBottom: 10,
           },
           tabBarStyle: {
             backgroundColor: "#FFE600",
@@ -54,19 +61,7 @@ const Router = () => {
           name="Matches"
           component={MatchesScreen}
           options={{
-            tabBarIcon: (props) => {
-              return props.focused ? (
-                <Image
-                  style={{ width: 24, height: 24 }}
-                  source={require("./assets/FocusedChat.png")}
-                />
-              ) : (
-                <Image
-                  style={{ width: 24, height: 24 }}
-                  source={require("./assets/Chat.png")}
-                />
-              );
-            },
+            tabBarIcon: (props) => props.focused ? <MessagesFilled /> : <MessagesOutline />
           }}
         />
         <Tab.Screen
@@ -89,33 +84,14 @@ const Router = () => {
             )
           }
           options={{
-            tabBarIcon: () => {
-              return (
-                <Image
-                  style={{ width: 91, height: 38 }}
-                  source={require('./assets/Thriftr.png')}
-                />
-              );
-            },
+            tabBarIcon: (props) => props.focused ? <ThriftrFilled /> : <ThriftrOutlined />
           }}
         />
         <Tab.Screen
           name="Account"
           component={Template}
           options={{
-            tabBarIcon: (props) => {
-              return props.focused ? (
-                <Image
-                  style={{ width: 24, height: 24 }}
-                  source={require("./assets/FocusedUser.png")}
-                />
-              ) : (
-                <Image
-                  style={{ width: 24, height: 24 }}
-                  source={require("./assets/User.png")}
-                />
-              );
-            },
+            tabBarIcon: (props) => props.focused ? <AccountFilled /> : <AccountOutline />
           }}
         />
       </Tab.Navigator>
