@@ -8,13 +8,12 @@ export type ItemCardProps = {
     name: string,
     image: any,
   };
-  onNext: () => void;
 };
 
 // const SWIPE_THRESHOLD = 200;
 // const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const ItemCard = ({ item: { itemId, name, photos, description, color, type, gender, size, condition }, seller, onNext }: ItemCardProps) => {
+const ItemCard = ({ item: { itemId, name, photos, description, color, type, gender, size, condition }, seller }: ItemCardProps) => {
   const [expandDescription, setExpandDescription] = useState(false);
   const [photoPage, setPhotoPage] = useState(0);
 

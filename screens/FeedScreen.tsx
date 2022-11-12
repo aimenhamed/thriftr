@@ -32,8 +32,8 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
       <View style={styles.cardStack}>
-        <ItemCard item={items[nextPage].item} seller={items[nextPage].seller} onNext={() => {}} />
-        <ItemCard item={items[page].item} seller={items[page].seller} onNext={onNext} />
+        <ItemCard item={items[nextPage].item} seller={items[nextPage].seller} />
+        <ItemCard item={items[page].item} seller={items[page].seller} />
       </View>
       <View style={styles.userActions}>
         <TouchableOpacity style={styles.userAction} onPress={onNext}>
