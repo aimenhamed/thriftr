@@ -3,7 +3,7 @@ import { styles } from "./Matches.style";
 
 const MatchesScreen = () => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       <Text style={styles.heading}>New Matches</Text>
     </ScrollView>
   );

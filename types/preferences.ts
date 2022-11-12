@@ -25,8 +25,8 @@ export enum Size {
 }
 
 export interface Preferences {
-  categories: Category[];
-  sizes: Size[];
-  genders: Gender[];
-  colors: string[];
+  categories?: Category[];
+  sizes?: Size[];
+  genders?: Gender[];
+  colors?: string[];
 }

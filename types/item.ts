@@ -1,3 +1,4 @@
+import { ImageSourcePropType } from "react-native";
 import { Category, Gender, Size } from "./preferences";
 
 export enum Condition {
@@ -11,7 +12,7 @@ export interface Item {
   itemId: string;
   name: string;
   description: string;
-  photos: string[];
+  photos: ImageSourcePropType[];
   color: string;
   type: Category;
   size: Size;

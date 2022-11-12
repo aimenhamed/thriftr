@@ -8,8 +8,11 @@ import {
 import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
 import MatchesScreen from "./screens/MatchesScreen";
-import Template from "./screens/template";
 import { Image } from "react-native";
+import AccountScreen from "./screens/AccountScreen";
+import { styles } from "./screens/Matches.style";
+import { Category, Gender, Size } from "./types/preferences";
+import { Condition } from "./types/item";
 
 type TabsParamList = {
   Thriftr: undefined;
@@ -32,6 +35,7 @@ const Router = () => {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Entry"
+        sceneContainerStyle={styles.container}
         screenOptions={{
           swipeEnabled: false,
           tabBarShowLabel: false,
@@ -102,7 +106,42 @@ const Router = () => {
         />
         <Tab.Screen
           name="Account"
-          component={Template}
+          component={() => (
+            <AccountScreen
+              currentUser={true}
+              profile={{
+                userId: "74aa9a46-aff3-4ecc-a817-f6697b18eb74",
+                name: "itsViggo",
+                image: require("./assets/test.png"),
+                items: [
+                  {
+                    itemId: "0",
+                    name: "item",
+                    description: "description",
+                    photos: [require("./assets/item1.png")],
+                    color: "black",
+                    type: Category.HOODIE,
+                    size: Size.SMALL,
+                    gender: Gender.MALE,
+                    condition: Condition.NEW,
+                  },
+                  {
+                    itemId: "1",
+                    name: "item",
+                    description: "description",
+                    photos: [require("./assets/item2.png")],
+                    color: "black",
+                    type: Category.HOODIE,
+                    size: Size.SMALL,
+                    gender: Gender.MALE,
+                    condition: Condition.NEW,
+                  },
+                ],
+                matches: [],
+                preferences: {},
+              }}
+            />
+          )}
           options={{
             tabBarIcon: (props) => {
               return props.focused ? (
