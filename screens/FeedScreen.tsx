@@ -21,15 +21,20 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
 
   const [page, setPage] = useState(0);
 
+  const nextPage = (page + 1) % items.length;
+
   const onNext = () => {
-    const newPage = (page + 1) % items.length;
-    setPage(newPage);
+    setPage(nextPage);
+    console.log("going to next item");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
-      <ItemCard item={items[page].item} seller={items[page].seller} />
+      <View style={styles.cardStack}>
+        <ItemCard item={items[nextPage].item} seller={items[nextPage].seller} onNext={() => {}} />
+        <ItemCard item={items[page].item} seller={items[page].seller} onNext={onNext} />
+      </View>
       <View style={styles.userActions}>
         <TouchableOpacity style={styles.userAction} onPress={onNext}>
           <IgnoreIcon />
