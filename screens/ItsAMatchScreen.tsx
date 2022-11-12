@@ -4,23 +4,23 @@ import ItsA from "../assets/ItsA";
 import Match from "../assets/Match";
 import { PageProps } from "../Router";
 import { Item } from "../types/item";
-import { styles } from "./Match.style";
+import { styles } from "./ItsAMatch.style";
 import ExchangeArrows from "../assets/ExchangeArrows";
 import Bag from "../assets/Bag";
 import MessagesOutline from "../assets/MessagesFilled";
 
-export type MatchScreenProps = {
+export type ItsAMatchScreenProps = {
     itemMatched: Item;
   } & PageProps;
 
-const MatchScreen = ({ itemMatched }: MatchScreenProps) => {
+const ItsAMatchScreen = ({ navigation, itemMatched }: ItsAMatchScreenProps) => {
 
   const onSendMessagePress = () => {
-    console.log("send message button pressed");
+    console.log("// TODO: send message button pressed");
   };
 
   const onKeepThriftingPress = () => {
-    console.log("keep thrifting button pressed");
+    navigation.goBack();
   };
 
   return (
@@ -86,4 +86,4 @@ const MatchScreen = ({ itemMatched }: MatchScreenProps) => {
   );
 };
 
-export default MatchScreen;
+export default ItsAMatchScreen;

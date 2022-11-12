@@ -121,13 +121,15 @@ export const aaronSmith = (): Profile => {
     userId,
     name: "aaronsmith",
     phoneNumber: "0404555444",
-    image: "",
+    image: require("../images/users/74aa9a46-aff3-4ecc-a817-f6697b18eb74.jpg"),
     items: [
       {
         itemId: "4ed21f2a-dcb5-49be-a398-335704328fa1",
         name: "Green Jacket",
         description: "A cool jacket for cool people",
-        photos: [],
+        photos: [
+          require("../images/items/d9f3c27c-a378-49ae-9589-7f91e0f41b59.png")
+        ],
         color: "blue",
         type: Category.JACKETS,
         gender: Gender.MALE,

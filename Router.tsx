@@ -5,7 +5,7 @@ import {
   MaterialTopTabScreenProps,
 } from "@react-navigation/material-top-tabs";
 import LoginScreen from "./screens/LoginScreen";
-import FeedScreen from "./screens/FeedScreen";
+import ThriftingScreen from "./screens/ThriftingScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import Template from "./screens/template";
 import { Image, SafeAreaView } from "react-native";
@@ -15,17 +15,17 @@ import AccountFilled from "./assets/AccountFilled";
 import AccountOutline from "./assets/AccountOutline";
 import ThriftrFilled from "./assets/ThriftrFilled";
 import ThriftrOutlined from "./assets/ThriftrOutlined";
+import ItsAMatchScreen from "./screens/ItsAMatchScreen";
+import FeedStackScreen from "./screens/FeedStackScreen";
 
 type TabsParamList = {
-  Thriftr: undefined;
-  Template: undefined;
+  Thriftr: any;
+  Template: any;
+  ThriftingScreen: any;
+  ItsAMatchScreen: any;
 };
 
-export type PageProps = MaterialTopTabScreenProps<
-  TabsParamList,
-  "Thriftr",
-  "Template"
->;
+export type PageProps = MaterialTopTabScreenProps<TabsParamList>;
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -67,9 +67,13 @@ const Router = () => {
         />
         <Tab.Screen
           name="Thriftr"
-          component={(props: any) =>
+          options={{
+            tabBarIcon: (props) => props.focused ? <ThriftrFilled /> : <ThriftrOutlined />
+          }}
+        >
+          {(props: any) =>
             isAuthenticated ? (
-              <FeedScreen
+              <FeedStackScreen
                 logOut={() => setIsAuthenticated(false)}
                 userId={userId}
                 {...props}
@@ -84,10 +88,7 @@ const Router = () => {
               />
             )
           }
-          options={{
-            tabBarIcon: (props) => props.focused ? <ThriftrFilled /> : <ThriftrOutlined />
-          }}
-        />
+        </Tab.Screen>
         <Tab.Screen
           name="Account"
           component={Template}

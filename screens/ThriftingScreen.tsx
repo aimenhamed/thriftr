@@ -6,25 +6,43 @@ import OfferIcon from "../assets/OfferIcon";
 import ItemCard from "../components/ItemCard";
 import { profiles } from "../data/profiles";
 import { PageProps } from "../Router";
-import { styles } from "./Feed.style";
+import { Item } from "../types/item";
+import { styles } from "./Thrifting.style";
 
-export type FeedScreenProps = {
+export type ThriftingScreenProps = {
   logOut: () => void;
   userId: string;
 } & PageProps;
 
-const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
+const isMatch = (item: Item, userId: string): boolean => {
+  const userProfile = profiles.find(profile => profile.userId === userId);
+  return userProfile?.matches.some((match) => match.matchItemId === item.itemId) || false;
+};
+
+const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   const [page, setPage] = useState(0);
 
-  const items = profiles.filter(profile => profile.userId !== userId)
+  const items = profiles.filter((profile) => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
   const nextPage = (page + 1) % items.length;
 
-  const onNext = () => {
+  const onIgnore = () => {
     setPage(nextPage);
-    console.log("going to next item");
+  };
+
+  const onLike = () => {
+    if (isMatch(items[page].item, userId)) {
+      navigation.navigate("ItsAMatchScreen");
+    }
+
+    setPage(nextPage);
+  };
+
+  const onOfferSelectively = () => {
+    setPage(nextPage);
+    // TODO
   };
 
   return (
@@ -35,15 +53,15 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
         <ItemCard item={items[page].item} seller={items[page].seller} />
       </View>
       <View style={styles.userActions}>
-        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+        <TouchableOpacity style={styles.userAction} onPress={onIgnore}>
           <IgnoreIcon />
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+        <TouchableOpacity style={styles.userAction} onPress={onOfferSelectively}>
           <OfferIcon />
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userAction} onPress={onNext}>
+        <TouchableOpacity style={styles.userAction} onPress={onLike}>
           <LikeIcon />
           <Text style={styles.userActionText}>Like</Text>
         </TouchableOpacity>
@@ -52,4 +70,4 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
   );
 };
 
-export default FeedScreen;
+export default ThriftingScreen;
