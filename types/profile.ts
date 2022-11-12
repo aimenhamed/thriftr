@@ -6,7 +6,7 @@ export interface Profile {
   userId: string;
   name: string;
   phoneNumber: string;
-  image: string;
+  image: any;
   items: Item[];
   matches: Match[];
   preferences: Preferences;

@@ -10,7 +10,7 @@ export const coolHoodieCollector = (): Profile => {
     userId,
     name: "coolhoodiecollector",
     phoneNumber: "0404555777",
-    image: "",
+    image: require("../images/users/49b6a8f8-ca20-4e71-a4ec-73b705f476b3.jpg"),
     items: [
       {
         itemId,
