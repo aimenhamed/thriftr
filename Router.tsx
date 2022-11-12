@@ -8,7 +8,7 @@ import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import Template from "./screens/template";
-import { Image } from "react-native";
+import { Image, SafeAreaView } from "react-native";
 import MessagesFilled from "./assets/MessagesOutline";
 import MessagesOutline from "./assets/MessagesFilled";
 import AccountFilled from "./assets/AccountFilled";
@@ -43,11 +43,12 @@ const Router = () => {
           tabBarItemStyle: { padding: 0, minHeight: 0 },
           tabBarContentContainerStyle: {
             justifyContent: "space-between",
-            paddingTop: 60,
-            paddingBottom: 10,
+            marginTop: 60,
           },
           tabBarStyle: {
             backgroundColor: "#FFE600",
+            shadowColor: 'transparent',
+            elevation: 0,
           },
           tabBarIconStyle: {
             width: "100%",

@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   cardStack: {
     position: "absolute",
-    top: 0,
+    top: "1%",
     bottom: "15%",
     left: "5%",
     right: "5%",
