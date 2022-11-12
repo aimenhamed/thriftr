@@ -3,12 +3,13 @@ import { profiles } from "../data/profiles";
 import { styles } from "./Matches.style";
 import Match from "../components/Match/Match";
 import NewMatch from "../components/NewMatch/NewMatch";
+import { ChatPageProps } from "../Router";
 
 type MatchesScreenProps = {
   userId: string;
-};
+} & ChatPageProps;
 
-const MatchesScreen = ({ userId }: MatchesScreenProps) => {
+const MatchesScreen = ({ userId, navigation }: MatchesScreenProps) => {
   const user =
     profiles.find((profile) => profile.userId === userId) || profiles[1];
   const newMatches = user?.matches.filter((match) => match.newMatch) || [];
@@ -42,7 +43,13 @@ const MatchesScreen = ({ userId }: MatchesScreenProps) => {
           <Match
             key={match.matchId + match.userId}
             matched={match}
-            newMatch={false}
+            press={() =>
+              navigation.navigate("Chat", {
+                userId,
+                chatId: match.chatId,
+                matched: match,
+              })
+            }
           />
         ))}
       </View>

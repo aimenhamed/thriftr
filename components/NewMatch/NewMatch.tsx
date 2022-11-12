@@ -1,4 +1,5 @@
 import { View, Image, Text } from "react-native";
+import images from "../../assets";
 import { profiles } from "../../data/profiles";
 import { Match } from "../../types/match";
 import { styles } from "./style";
@@ -15,13 +16,10 @@ const NewMatchCard = ({ matched }: NewMatchCardProps) => {
     <View>
       <View style={styles.stack}>
         <Image
-          source={require(`../../assets/${matched.matchItemId}.png`)}
+          source={images[matched.matchItemId]}
           style={{ ...styles.image, top: 12, right: 20 }}
         />
-        <Image
-          source={require(`../../assets/${matched.itemId}.png`)}
-          style={styles.image}
-        />
+        <Image source={images[matched.matchItemId]} style={styles.image} />
       </View>
       <Text style={styles.text}>{`@${
         matchedWith?.name.substring(10) || "missing"

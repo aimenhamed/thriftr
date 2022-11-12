@@ -6,4 +6,5 @@ export interface Match {
   chatId: string;
   blocked: boolean;
   newMatch: boolean;
+  image: string;
 }

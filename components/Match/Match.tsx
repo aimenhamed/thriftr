@@ -1,44 +1,44 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { getChats } from "../../data/chats";
 import { profiles } from "../../data/profiles";
 import { Match } from "../../types/match";
+import { getLastMessage } from "../../utils";
 import { styles } from "./style";
 
 type MatchCardProps = {
   matched: Match;
-  newMatch: boolean;
+  press: () => void;
 };
 
-const MatchCard = ({ matched, newMatch }: MatchCardProps) => {
+const MatchCard = ({ matched, press }: MatchCardProps) => {
   const matchedWith = profiles.find(
     (profile) => profile.userId === matched.matchId
   );
 
   const chat = getChats(matched.userId, matched.matchId, [], []).find(
     (chat) => chat.chatId === matched.chatId
-  );
+  )!;
+  const imagePath = `../../assets/${matched.matchItemId}.png`;
 
-  const lastMessage = chat?.messages
-    .filter((message) => message.type === "MESSAGE")
-    .pop();
+  const lastMessage = getLastMessage(chat);
   return (
-    <View style={{ flex: 1, flexDirection: "column" }}>
+    <TouchableOpacity
+      onPress={press}
+      style={{ flex: 1, flexDirection: "column" }}
+    >
       <View
         style={{
-          marginBottom: newMatch ? "0" : "2rem",
+          marginBottom: "2rem",
           flex: 1,
           flexDirection: "row",
         }}
       >
         <View style={styles.stack}>
           <Image
-            source={require(`../../assets/${matched.matchItemId}.png`)}
+            source={images[matched.matchItemId]}
             style={{ ...styles.image, top: 12, right: 20 }}
           />
-          <Image
-            source={require(`../../assets/${matched.itemId}.png`)}
-            style={styles.image}
-          />
+          <Image source={images[matched.matchItemId]} style={styles.image} />
         </View>
         <Text
           style={{
@@ -50,9 +50,9 @@ const MatchCard = ({ matched, newMatch }: MatchCardProps) => {
         >{`@${matchedWith?.name}`}</Text>
       </View>
       <Text
-        style={{ ...styles.text, marginLeft: 105 }}
+        style={{ ...styles.text, marginLeft: 105, marginTop: 15 }}
       >{`${lastMessage?.content.text?.substring(0, 35)}..`}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

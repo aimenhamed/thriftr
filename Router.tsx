@@ -9,20 +9,30 @@ import LoginScreen from "./screens/LoginScreen";
 import FeedScreen from "./screens/FeedScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import Template from "./screens/template";
+import ChatScreen from "./screens/ChatScreen";
 import { Image } from "react-native";
+import { Match } from "./types/match";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 type TabsParamList = {
   Thriftr: undefined;
+  Matches: undefined;
+  Feed: undefined;
+  Account: undefined;
   Template: undefined;
 };
 
-export type PageProps = MaterialTopTabScreenProps<
-  TabsParamList,
-  "Thriftr",
-  "Template"
->;
+type MatchesParamList = {
+  MatchesScreen: undefined;
+  Chat: { userId: string; chatId: string; matched: Match };
+};
 
-const Tab = createMaterialTopTabNavigator();
+export type PageProps = MaterialTopTabScreenProps<TabsParamList, "Thriftr">;
+export type ChatPageProps = NativeStackScreenProps<MatchesParamList, "Chat">;
+
+const Tab = createMaterialTopTabNavigator<TabsParamList>();
+const MatchesStack = createNativeStackNavigator<MatchesParamList>();
 
 const Router = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -44,12 +54,29 @@ const Router = () => {
         {...props}
       />
     );
-  const Matches = () => <MatchesScreen userId={userId} />;
+
+  const Matches = (props: any) => <MatchesScreen {...props} userId={userId} />;
+  const Chat = (props: any) => <ChatScreen {...props} />;
+  const MatchesStackScreen = () => (
+    <MatchesStack.Navigator>
+      <MatchesStack.Screen
+        name="MatchesScreen"
+        component={Matches}
+        options={{ headerShown: false }}
+      />
+      <MatchesStack.Screen
+        name="Chat"
+        component={Chat}
+        options={{ headerShown: false }}
+        initialParams={{ userId, chatId: "", matched: {} as Match }}
+      />
+    </MatchesStack.Navigator>
+  );
 
   return (
     <NavigationContainer>
       <Tab.Navigator
-        initialRouteName="Entry"
+        initialRouteName="Thriftr"
         screenOptions={{
           swipeEnabled: false,
           tabBarShowLabel: false,
@@ -71,7 +98,7 @@ const Router = () => {
       >
         <Tab.Screen
           name="Matches"
-          component={Matches}
+          component={MatchesStackScreen}
           options={{
             tabBarIcon: (props) => {
               return props.focused ? (

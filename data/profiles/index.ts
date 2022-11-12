@@ -33,6 +33,7 @@ export const coolHoodieCollector = (): Profile => {
         chatId: "ef466674-51c6-4fe1-aee0-80360fd9f73a",
         blocked: false,
         newMatch: false,
+        image: "../../assets/icon1111.png",
       },
     ],
     preferences: {
@@ -84,6 +85,7 @@ export const aaronSmith = (): Profile => {
         chatId: "ef466674-51c6-4fe1-aee0-80360fd9f73a",
         blocked: false,
         newMatch: false,
+        image: "../../assets/icon1111.png",
       },
     ],
     preferences: {
