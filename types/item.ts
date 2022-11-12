@@ -11,7 +11,7 @@ export interface Item {
   itemId: string;
   name: string;
   description: string;
-  photos: string[];
+  photos: any[];
   color: string;
   type: Category;
   size: Size;
