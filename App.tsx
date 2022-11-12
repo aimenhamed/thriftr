@@ -1,10 +1,14 @@
 import Router from "./Router";
-import { useFonts } from "expo-font";
+import {
+  useFonts,
+  AzeretMono_400Regular,
+  AzeretMono_700Bold,
+} from "@expo-google-fonts/azeret-mono";
 
 export default function App() {
   const [loaded] = useFonts({
-    Azeret: require("./assets/AzeretMono.ttf"),
-    azeret: require("./assets/AzeretMono.ttf"),
+    AzeretMono_400Regular,
+    AzeretMono_700Bold,
   });
   if (!loaded) {
     return null;

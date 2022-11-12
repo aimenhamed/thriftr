@@ -41,9 +41,8 @@ export const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 18,
-    fontWeight: "bold",
     color: "white",
-    fontFamily: "Azeret",
+    fontFamily: "AzeretMono_700Bold",
   },
   fact: {
     fontSize: 18,
