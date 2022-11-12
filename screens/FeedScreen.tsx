@@ -13,7 +13,7 @@ export type FeedScreenProps = {
 const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
   const user = profiles.find((profile) => profile.userId === userId);
   const items = profiles.filter(profile => profile.userId !== userId)
-                  .map((profile) => profile.items)
+                  .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
   console.log("items are", items);
@@ -27,7 +27,8 @@ const FeedScreen = ({ navigation, logOut, userId }: FeedScreenProps) => {
 
   return (
     <View style={styles.container}>
-      <ItemCard item={items[page]} />
+      <View style={styles.slantedBackground} />
+      <ItemCard item={items[page].item} seller={items[page].seller} />
       <Button onPress={onNext} title="Next" />
       <Button onPress={logOut} title="Sign out" />
       <Button
