@@ -52,6 +52,9 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     flexGrow: 1,
   },
+  boldCaption: {
+    fontFamily: "AzeretMono_700Bold",
+  },
   sendMessageButton: {
     flexDirection: "row",
     backgroundColor: "#FFE600",

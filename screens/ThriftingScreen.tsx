@@ -15,7 +15,7 @@ export type ThriftingScreenProps = {
 } & PageProps;
 
 const isMatch = (item: Item, userId: string): boolean => {
-  const userProfile = profiles.find(profile => profile.userId === userId);
+  const userProfile = profiles.find((profile) => profile.userId === userId);
   return userProfile?.matches.some((match) => match.matchItemId === item.itemId) || false;
 };
 
@@ -34,7 +34,11 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
 
   const onLike = () => {
     if (isMatch(items[page].item, userId)) {
-      navigation.navigate("ItsAMatchScreen");
+      navigation.navigate("ItsAMatchScreen", {
+        userId,
+        itemMatched: items[page].item,
+        sellerMatched: items[page].seller,
+      });
     }
 
     setPage(nextPage);

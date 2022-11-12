@@ -8,15 +8,38 @@ import { styles } from "./ItsAMatch.style";
 import ExchangeArrows from "../assets/ExchangeArrows";
 import Bag from "../assets/Bag";
 import MessagesOutline from "../assets/MessagesFilled";
+import { profiles } from "../data/profiles";
 
 export type ItsAMatchScreenProps = {
-    itemMatched: Item;
-  } & PageProps;
+  route: {
+    params: {
+      userId: string,
+      itemMatched: Item,
+      sellerMatched: {
+        name: string,
+        image: any,
+      },
+    },
+  };
+} & PageProps;
 
-const ItsAMatchScreen = ({ navigation, itemMatched }: ItsAMatchScreenProps) => {
+const getUsersMatchedItem = (userId: string, receivingItemId: string) => {
+  const userProfile = profiles.find((profile) => profile.userId === userId);
+  const match = userProfile?.matches.find((match) => match.matchItemId === receivingItemId);
+  const usersMatchedItemId = match?.itemId;
+  return userProfile?.items.find((item) => item.itemId === usersMatchedItemId);
+}
+
+const getUsersProfilePicture = (userId: string) => {
+  return profiles.find((profile) => profile.userId === userId)?.image;
+}
+
+const ItsAMatchScreen = ({ navigation, route: { params: { userId, itemMatched, sellerMatched }} }: ItsAMatchScreenProps) => {
+  const usersGivingItem = getUsersMatchedItem(userId, itemMatched.itemId);
 
   const onSendMessagePress = () => {
     console.log("// TODO: send message button pressed");
+    // navigation.navigate("Matches", { screen: "name???" });
   };
 
   const onKeepThriftingPress = () => {
@@ -26,7 +49,7 @@ const ItsAMatchScreen = ({ navigation, itemMatched }: ItsAMatchScreenProps) => {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../data/images/items/faa794a4-9ff0-426b-ad31-69421db6c176.png")}
+        source={itemMatched.photos[0]}
         resizeMode="cover"
         style={styles.background}
       >
@@ -43,28 +66,35 @@ const ItsAMatchScreen = ({ navigation, itemMatched }: ItsAMatchScreenProps) => {
           <View style={styles.swapDiagram}>
             <View style={styles.userAndItem}>
               <Image
-                  source={require("../data/images/items/65f73402-6225-11ed-9b6a-0242ac120002.png")}
+                  source={usersGivingItem?.photos[0]}
                   style={styles.itemImage}
               />
                 <Image
-                  source={require("../data/images/users/49b6a8f8-ca20-4e71-a4ec-73b705f476b3.jpg")}
+                  source={getUsersProfilePicture(userId)}
                   style={{...styles.userImage, left: -6 }}
               />
             </View>
             <ExchangeArrows />
             <View style={styles.userAndItem}>
               <Image
-                  source={require("../data/images/items/65f73402-6225-11ed-9b6a-0242ac120002.png")}
+                  source={itemMatched.photos[0]}
                   style={styles.itemImage}
               />
                 <Image
-                  source={require("../data/images/users/49b6a8f8-ca20-4e71-a4ec-73b705f476b3.jpg")}
+                  source={sellerMatched.image}
                   style={{...styles.userImage, right: -6 }}
               />
             </View>
           </View>
           <Text style={styles.caption}>
-            @yepstyle also wants your Super Cool Hoodie!
+            <Text style={styles.boldCaption}>
+              @{sellerMatched.name}
+            </Text>
+            {" "}also wants your{" "}
+            <Text style={styles.boldCaption}>
+              {usersGivingItem?.name}
+            </Text>
+            !
           </Text>
           <TouchableOpacity
             style={styles.sendMessageButton}
