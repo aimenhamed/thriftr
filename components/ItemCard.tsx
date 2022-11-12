@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { Item } from "../types/item";
 
@@ -11,14 +11,15 @@ export type ItemCardProps = {
   }
 };
 
-const ItemCard = ({ item: { name, photos, description, color, type, gender, size, condition }, seller }: ItemCardProps) => {
+const ItemCard = ({ item: { itemId, name, photos, description, color, type, gender, size, condition }, seller }: ItemCardProps) => {
   const [expandDescription, setExpandDescription] = useState(false);
   const [photoPage, setPhotoPage] = useState(0);
 
-  // TODO pagination bar
+  useEffect(() => {
+    setPhotoPage(0);
+  }, [itemId]);
 
   const redirectToProfile = () => {
-    // TODO
     console.log("//TODO redirecting to", seller.name);
   };
 
@@ -42,8 +43,8 @@ const ItemCard = ({ item: { name, photos, description, color, type, gender, size
         <TouchableOpacity onPress={paginateRight} style={styles.rightPaginator} />
         <View style={styles.pageDisplayer}>
           {pageDisplayer.map((_, i) => i === photoPage
-            ? <View style={styles.selectedPage} />
-            : <View style={styles.deselectedPage} />
+            ? <View key={i} style={styles.selectedPage} />
+            : <View key={i} style={styles.deselectedPage} />
           )}
         </View>
       </View>
@@ -104,17 +105,18 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     flexDirection: "row",
-    padding: 4,
   },
   selectedPage: {
     flexGrow: 1,
     height: 4,
     backgroundColor: "#fff",
+    margin: 4
   },
   deselectedPage: {
     flexGrow: 1,
     height: 4,
     backgroundColor: "#1f1f1fE6",
+    margin: 4,
   },
   image: {
     // flexGrow: 1,
@@ -125,6 +127,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
+    width: "100%",
     backgroundColor: "#1f1f1f",
     borderColor: "#fff",
     borderTopWidth: 2,
