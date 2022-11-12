@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   stack: {
     width: 75,
-    height: 75,
+    height: 45,
   },
 
   image: {
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontFamily: "AzeretMono_700Regular",
+    fontFamily: "AzeretMono_400Regular",
     flex: 1,
   },
 });

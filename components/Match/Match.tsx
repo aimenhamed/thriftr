@@ -24,11 +24,10 @@ const MatchCard = ({ matched, press }: MatchCardProps) => {
   return (
     <TouchableOpacity
       onPress={press}
-      style={{ flex: 1, flexDirection: "column" }}
+      style={{ flex: 1, flexDirection: "column", marginBottom: 16 }}
     >
       <View
         style={{
-          marginBottom: 16,
           flex: 1,
           flexDirection: "row",
         }}
@@ -50,7 +49,7 @@ const MatchCard = ({ matched, press }: MatchCardProps) => {
         >{`@${matchedWith?.name}`}</Text>
       </View>
       <Text
-        style={{ ...styles.text, marginLeft: 105, marginTop: 15 }}
+        style={{ ...styles.text, marginLeft: 105 }}
       >{`${lastMessage?.content.text?.substring(0, 35)}..`}</Text>
     </TouchableOpacity>
   );
