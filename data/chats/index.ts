@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { Chat } from "../../types/chat";
 
 export const getChats = (
@@ -14,7 +13,7 @@ export const getChats = (
       chatId,
       messages: [
         {
-          messageId: uuid(),
+          messageId: "f12fa5de-435e-4926-b9d0-7090810bd317",
           sentBy: matchedId,
           type: "MESSAGE",
           content: {
@@ -23,7 +22,7 @@ export const getChats = (
           timestamp: 1620000000000,
         },
         {
-          messageId: uuid(),
+          messageId: "10213fb6-07f1-40df-b1f2-d1ec6d4f7a9c",
           sentBy: userId,
           type: "COUNTER_OFFER",
           content: {

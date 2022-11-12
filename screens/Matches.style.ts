@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
   counterText: {
     color: "#FFE600",
     fontWeight: "bold",
-    fontFamily: "Azeret",
+    fontFamily: "AzeretMono_700Bold",
   },
   title: {
     width: 300,
@@ -63,10 +63,8 @@ export const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 18,
-    fontWeight: "bold",
     color: "white",
-    fontFamily: "Azeret",
-    marginTop: 4,
+    fontFamily: "AzeretMono_700Bold",
   },
   fact: {
     fontSize: 18,

@@ -1,4 +1,5 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
+import images from "../../assets";
 import { getChats } from "../../data/chats";
 import { profiles } from "../../data/profiles";
 import { Match } from "../../types/match";
@@ -18,7 +19,6 @@ const MatchCard = ({ matched, press }: MatchCardProps) => {
   const chat = getChats(matched.userId, matched.matchId, [], []).find(
     (chat) => chat.chatId === matched.chatId
   )!;
-  const imagePath = `../../assets/${matched.matchItemId}.png`;
 
   const lastMessage = getLastMessage(chat);
   return (
@@ -28,7 +28,7 @@ const MatchCard = ({ matched, press }: MatchCardProps) => {
     >
       <View
         style={{
-          marginBottom: "2rem",
+          marginBottom: 16,
           flex: 1,
           flexDirection: "row",
         }}

@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontFamily: "Azeret",
+    fontFamily: "AzeretMono_700Regular",
     flex: 1,
   },
 });
