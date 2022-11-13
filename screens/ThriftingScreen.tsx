@@ -90,7 +90,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         onSwipedRight={onLike}
         onSwipedTop={onOfferSelectively}
         backgroundColor="transparent"
-        stackSize={3}
+        stackSize={2}
         cardVerticalMargin={0}
         marginTop={20}
         containerStyle={{ height: "80%" }}
@@ -101,8 +101,8 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         disableBottomSwipe
         stackSeparation={20}
         animateCardOpacity
-        outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]}
-        outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]}
+        outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
+        outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
         overlayOpacityHorizontalThreshold={1}
         overlayOpacityVerticalThreshold={1}
         animateOverlayLabelsOpacity
