@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
   dimmer: {
     flex: 1,
     alignItems: "center",
-    // justifyContent: "center",
   },
   closeIcon: {
     marginTop: "10%",
@@ -45,7 +44,6 @@ export const styles = StyleSheet.create({
   itemPhotoButton: {
     height: Dimensions.get("screen").width / 2.5,
     width: Dimensions.get("screen").width / 2.5,
-    // aspectRatio: 1,
     margin: 10,
     overflow: "hidden",
   },

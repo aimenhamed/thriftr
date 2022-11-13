@@ -1,4 +1,4 @@
-import { View, Text, ImageBackground, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, ImageBackground, TouchableOpacity, ScrollView, DeviceEventEmitter } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { PageProps } from "../Router";
 import { Item } from "../types/item";
@@ -17,6 +17,7 @@ export type OfferSelectivelyScreenProps = {
         name: string,
         image: any,
       },
+      swipedCardIndex: number,
     },
   };
 } & PageProps;
@@ -26,7 +27,7 @@ const getUsersItems = (userId: string) => {
   return userProfile?.items;
 }
 
-const OfferSelectivelyScreen = ({ navigation, route: { params: { userId, itemMatched, sellerMatched }} }: OfferSelectivelyScreenProps) => {
+const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex, userId, itemMatched, sellerMatched }} }: OfferSelectivelyScreenProps) => {
   const usersItems = getUsersItems(userId);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
@@ -36,7 +37,9 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { userId, itemMat
   };
 
   const onBackButtonPress = () => {
-    navigation.goBack();
+    DeviceEventEmitter.emit("cancelOfferSelectively", { startingIndex: swipedCardIndex });
+    DeviceEventEmitter.removeAllListeners("cancelOfferSelectively");
+    navigation.navigate("ThriftingScreen");
   };
 
   const handleSelect = (itemId: string) => {
@@ -66,7 +69,9 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { userId, itemMat
           end={{ x: 0, y: 0.5 }}
           style={styles.dimmer}
         >
-          <CloseIcon style={styles.closeIcon} onPress={onBackButtonPress}/>
+          <TouchableOpacity onPress={onBackButtonPress} style={styles.closeIcon}>
+            <CloseIcon />
+          </TouchableOpacity>
           <Text style={styles.caption}>
             Select items that you'd like to trade for @{sellerMatched.name}'s{" "}
             <Text style={styles.boldCaption}>

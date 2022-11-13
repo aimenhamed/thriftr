@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import { View, TouchableOpacity, Text, Dimensions, DeviceEventEmitter } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
 import LikeIcon from "../assets/LikeIcon";
@@ -23,8 +22,13 @@ const isMatch = (item: Item, userId: string): boolean => {
   return userProfile?.matches.some((match) => match.matchItemId === item.itemId) || false;
 };
 
+
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   let swiperRef: Swiper<{ item: Item; seller: { name: string; image: any; }; }> | undefined = undefined;
+
+  DeviceEventEmitter.addListener("cancelOfferSelectively", ({ startingIndex }) => {
+    swiperRef?.jumpToCardIndex(startingIndex);
+  });
 
   const items = profiles.filter((profile) => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
@@ -45,6 +49,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
       userId,
       itemMatched: items[swipedCardIndex].item,
       sellerMatched: items[swipedCardIndex].seller,
+      swipedCardIndex,
     });
   };
 
@@ -55,7 +60,9 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
       <Swiper
-        ref={(swiper) => { swiperRef = swiper; }}
+        ref={(swiper) => {
+          swiperRef = swiper;
+        }}
         cards={items}
         renderCard={(item) => <ItemCard item={item.item} seller={item.seller} />}
         onSwipedRight={onLike}
