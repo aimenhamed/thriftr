@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { View, TouchableOpacity, Text, Dimensions } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
@@ -24,33 +24,23 @@ const isMatch = (item: Item, userId: string): boolean => {
 };
 
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
-  const [page, setPage] = useState(0);
-  let swiperRef: Swiper<{ item: Item; seller: { name: string; image: any; }; }> | null | undefined = undefined;
+  let swiperRef: Swiper<{ item: Item; seller: { name: string; image: any; }; }> | undefined = undefined;
 
   const items = profiles.filter((profile) => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
-  const nextPage = (page + 1) % items.length;
-
-  const onIgnore = () => {
-    setPage(nextPage);
-  };
-
-  const onLike = () => {
-    if (isMatch(items[page].item, userId)) {
+  const onLike = (swipedCardIndex: number) => {
+    if (isMatch(items[swipedCardIndex].item, userId)) {
       navigation.navigate("ItsAMatchScreen", {
         userId,
-        itemMatched: items[page].item,
-        sellerMatched: items[page].seller,
+        itemMatched: items[swipedCardIndex].item,
+        sellerMatched: items[swipedCardIndex].seller,
       });
     }
-
-    setPage(nextPage);
   };
 
-  const onOfferSelectively = () => {
-    setPage(nextPage);
+  const onOfferSelectively = (swipedCardIndex: number) => {
     // TODO
   };
 
@@ -61,12 +51,9 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
       <Swiper
-        ref={(swiper) => {
-          swiperRef = swiper;
-        }}
+        ref={(swiper) => { swiperRef = swiper; }}
         cards={items}
         renderCard={(item) => <ItemCard item={item.item} seller={item.seller} />}
-        onSwipedLeft={onIgnore}
         onSwipedRight={onLike}
         onSwipedTop={onOfferSelectively}
         backgroundColor="transparent"
