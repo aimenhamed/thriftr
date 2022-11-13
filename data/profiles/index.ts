@@ -136,6 +136,36 @@ export const aaronSmith = (): Profile => {
         size: Size.LARGE,
         condition: Condition.SIX_MONTHS,
       },
+      {
+        itemId: "d57bf492-7f53-4062-9d4c-30b74991e058",
+        name: "Supreme Hoodie",
+        description: "Authentic, like new",
+        photos: [
+          require("../images/items/c5ab49dd-7789-400e-825e-42d6a99df501.jpg"),
+          require("../images/items/73d79a65-063d-4129-8ce1-4900d2cdf262.jpg"),
+        ],
+        color: "WHITE",
+        type: Category.HOODIE,
+        gender: Gender.MALE,
+        size: Size.LARGE,
+        condition: Condition.NEW,
+      },
+      {
+        itemId: "7124ea76-6a1e-40dc-9e51-41ee09aa5f24",
+        name: "Purple Kathmandu down jacket",
+        description: "Womens size 12 purple Kathmandu down jacket. The bottom of the zipper is worn but works. Condition as per picture.",
+        photos: [
+          require("../images/items/15bc95ef-52f5-418c-ade2-ce203c315cc9.jpg"),
+          require("../images/items/0e4744e1-8e1c-4f83-a21a-804e01f864de.jpg"),
+          require("../images/items/ecdfa90d-f62f-4240-ae3b-7aecbcdb699f.jpg"),
+          require("../images/items/9cfd48eb-fba9-4405-b3bb-29db4cbb4e04.jpg"),
+        ],
+        color: "BLACK",
+        type: Category.JACKETS,
+        gender: Gender.FEMALE,
+        size: Size.LARGE,
+        condition: Condition.TWO_YEARS,
+      },
     ],
     matches: [
       {

@@ -3,7 +3,7 @@
 import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
 
-const IgnoreIcon = (props: SvgProps) => (
+const Selected = (props: SvgProps) => (
   <Svg
     width={24}
     height={24}
@@ -11,8 +11,8 @@ const IgnoreIcon = (props: SvgProps) => (
     {...props}
   >
     <Path
-      d="M18 6 6 18M6 6l12 12"
-      stroke="#1f1f1f"
+      d="M20 6 9 17l-5-5"
+      stroke="#fff"
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -20,4 +20,4 @@ const IgnoreIcon = (props: SvgProps) => (
   </Svg>
 )
 
-export default IgnoreIcon
+export default Selected

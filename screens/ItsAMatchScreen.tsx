@@ -55,8 +55,8 @@ const ItsAMatchScreen = ({ navigation, route: { params: { userId, itemMatched, s
       >
         <LinearGradient
           colors={["#1F1F1FB0", "#1F1F1FFF"]}
-          start={{x: 0, y: 0}}
-          end={{x:0, y: 0.5}}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 0, y: 0.5 }}
           style={styles.dimmer}
         >
           <View style={styles.itsAMatch}>

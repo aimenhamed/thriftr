@@ -12,7 +12,7 @@ const LikeIcon = (props: SvgProps) => (
   >
     <Path
       d="M20 6 9 17l-5-5"
-      stroke="#000"
+      stroke="#1f1f1f"
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"

@@ -41,7 +41,11 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   };
 
   const onOfferSelectively = (swipedCardIndex: number) => {
-    // TODO
+    navigation.navigate("OfferSelectivelyScreen", {
+      userId,
+      itemMatched: items[swipedCardIndex].item,
+      sellerMatched: items[swipedCardIndex].seller,
+    });
   };
 
   //! Ignore type error below, the react-native-deck-swiper library incorrectly defined

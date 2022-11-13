@@ -3,16 +3,16 @@
 import * as React from "react"
 import Svg, { SvgProps, Path } from "react-native-svg"
 
-const IgnoreIcon = (props: SvgProps) => (
+const CloseIcon = (props: SvgProps) => (
   <Svg
-    width={24}
-    height={24}
+    width={36}
+    height={36}
     fill="none"
     {...props}
   >
     <Path
-      d="M18 6 6 18M6 6l12 12"
-      stroke="#1f1f1f"
+      d="M27 9 9 27M9 9l18 18"
+      stroke="#fff"
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -20,4 +20,4 @@ const IgnoreIcon = (props: SvgProps) => (
   </Svg>
 )
 
-export default IgnoreIcon
+export default CloseIcon

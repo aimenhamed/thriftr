@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
   },
   userActionText: {
     marginTop: 4,
+    color: "#1F1F1F",
     fontFamily: "AzeretMono_400Regular"
   },
 });

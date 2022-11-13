@@ -2,10 +2,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ItsAMatchScreen from "./ItsAMatchScreen";
 import ThriftingScreen from "./ThriftingScreen";
 import { PageProps } from "../Router";
+import OfferSelectivelyScreen from "./OfferSelectivelyScreen";
 
 type StackParamList = {
   ThriftingScreen: any;
   ItsAMatchScreen: any;
+  OfferSelectivelyScreen: any;
 };
 
 const FeedStack = createNativeStackNavigator<StackParamList>();
@@ -33,6 +35,11 @@ const FeedStackScreen = ({ userId }: FeedStackScreenProps) => {
         name="ItsAMatchScreen"
       >
         {(props: any) => (<ItsAMatchScreen {...props} />)}
+      </FeedStack.Screen>
+      <FeedStack.Screen
+        name="OfferSelectivelyScreen"
+      >
+        {(props: any) => (<OfferSelectivelyScreen {...props} />)}
       </FeedStack.Screen>
     </FeedStack.Navigator>
   );
