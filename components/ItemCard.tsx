@@ -10,70 +10,14 @@ export type ItemCardProps = {
   };
 };
 
-// const SWIPE_THRESHOLD = 200;
-// const SCREEN_WIDTH = Dimensions.get("window").width;
-
 const ItemCard = ({ item: { itemId, name, photos, description, color, type, gender, size, condition }, seller }: ItemCardProps) => {
   const [expandDescription, setExpandDescription] = useState(false);
   const [photoPage, setPhotoPage] = useState(0);
-
-  // const [xPos, setXPos] = useState(new Animated.Value(0));
-  // const [yPos, setYPos] = useState(new Animated.Value(0));
-  // const opacity = new Animated.Value(1);
 
   useEffect(() => {
     setPhotoPage(0);
     setExpandDescription(false);
   }, [itemId]);
-
-  // const sufficientSwipeDistance = (dDist: number, maxDist: number) => {
-  //   return dDist < maxDist - SWIPE_THRESHOLD && dDist > SWIPE_THRESHOLD - maxDist;
-  // }
-
-  // const isRightSwipe = (dx:number) => {
-  //   return dx > SCREEN_WIDTH - SWIPE_THRESHOLD;
-  // }
-
-  // const isLeftSwipe = (dx: number) => {
-  //   return dx < SWIPE_THRESHOLD - SCREEN_WIDTH;
-  // }
-
-  // const panResponder = useRef(
-  //   PanResponder.create({
-  //     onStartShouldSetPanResponder: (event, gestureState) => true,
-  //     onMoveShouldSetPanResponder: (event, gestureState) => true,
-  //     onPanResponderMove: (event, gestureState) => {
-  //       xPos.setValue(gestureState.dx);
-  //       if (isRightSwipe(gestureState.dx)) {
-  //         console.log("Right")
-  //       } else if (isLeftSwipe(gestureState.dx)) {
-  //         console.log("Left")
-  //       }
-  //     },
-  //     onPanResponderRelease: (event, gestureState) => {
-  //       if (sufficientSwipeDistance(gestureState.dx, SCREEN_WIDTH)) {
-  //         Animated.spring(xPos, {
-  //           toValue: 0,
-  //           speed: 5,
-  //           bounciness: 10,
-  //           useNativeDriver: false,
-  //         }).start();
-  //       } else if (gestureState.dx > SCREEN_WIDTH - 150) {
-  //         Animated.timing(xPos, {
-  //           toValue: SCREEN_WIDTH,
-  //           duration: 200,
-  //           useNativeDriver: false,
-  //         }).start(() => onNext());
-  //       } else if (gestureState.dx < -SCREEN_WIDTH + 150) {
-  //         Animated.timing(xPos, {
-  //           toValue: -SCREEN_WIDTH,
-  //           duration: 200,
-  //           useNativeDriver: false,
-  //         }).start(() => onNext());
-  //       }
-  //     }
-  //   })
-  // ).current;
 
   const redirectToProfile = () => {
     console.log("//TODO redirecting to", seller.name);
@@ -91,9 +35,6 @@ const ItemCard = ({ item: { itemId, name, photos, description, color, type, gend
 
   const pageDisplayer = [...Array(photos.length).keys()];
 
-  // <Animated.View {...panResponder.panHandlers} style={[styles.card, {
-  //   transform: [{ translateX: xPos }],
-  // }]}>
   return (
     <View style={styles.card}>
       <View style={styles.photos}>
@@ -136,7 +77,6 @@ const ItemCard = ({ item: { itemId, name, photos, description, color, type, gend
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#1f1f1f",
-    position: "absolute",
     borderColor: "#fff",
     borderWidth: 2,
     overflow: "hidden",
@@ -179,8 +119,7 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   image: {
-    // flexGrow: 1,
-    // height: "70%",
+    height: "100%",
     width: "100%",
   },
   itemInfo: {
