@@ -27,6 +27,11 @@ export default function () {
   const [categoryItemsOpen, setCategoryItemsOpen] = React.useState(false);
 
   const { height, width } = useWindowDimensions();
+  const { profile, setCurrentProfile, item } = useContext(profileContext);
+
+  const currentItem = item
+    ? profile.items.find((x) => x.itemId === item)
+    : undefined;
 
   const onSizeItemsOpen = useCallback(() => {
     setColourItemsOpen(false), setCategoryItemsOpen(false), Keyboard.dismiss();
@@ -76,20 +81,24 @@ export default function () {
     { label: "Gloves", value: Category.GLOVES },
   ];
 
-  const [images, setImages] = React.useState([] as Array<ImageSourcePropType>);
-  const [name, setName] = React.useState(undefined as string | undefined);
-  const [colour, setColour] = React.useState(undefined as string | undefined);
-  const [size, setSize] = React.useState(undefined as Size | undefined);
+  const [images, setImages] = React.useState(
+    currentItem ? currentItem.photos : ([] as Array<ImageSourcePropType>)
+  );
+  const [name, setName] = React.useState(
+    currentItem ? currentItem.name : (undefined as string | undefined)
+  );
+  const [colour, setColour] = React.useState(
+    currentItem ? currentItem.color : (undefined as string | undefined)
+  );
+  const [size, setSize] = React.useState(
+    currentItem ? currentItem.size : (undefined as Size | undefined)
+  );
   const [category, setCategory] = React.useState(
-    undefined as Category | undefined
+    currentItem ? currentItem.type : (undefined as Category | undefined)
   );
   const [description, setDescription] = React.useState(
-    undefined as String | undefined
+    currentItem ? currentItem.description : (undefined as string | undefined)
   );
-
-  const { profile, setCurrentProfile } = useContext(profileContext);
-
-  console.log(profile);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -138,6 +147,7 @@ export default function () {
           }}
           placeholder="Item name"
           placeholderTextColor="#AAAAAA"
+          value={name}
         />
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Dropdown
@@ -196,8 +206,10 @@ export default function () {
             setColourItemsOpen(false);
             setCategoryItemsOpen(false);
           }}
+          onChangeText={(newText) => setDescription(newText)}
           placeholderTextColor="#AAAAAA"
           multiline={true}
+          value={description}
         />
         <Text
           style={{
@@ -268,41 +280,38 @@ export default function () {
                 userId: profile.userId,
                 name: profile.name,
                 image: profile.image,
-                items: [
-                  ...profile.items,
-                  {
-                    itemId: "0",
-                    name: "",
-                    description: "",
-                    color: colour ?? "",
-                    type: category ?? Category.GLOVES,
-                    size: size ?? Size.LARGE,
-                    photos: images,
-                    gender: Gender.FEMALE,
-                    condition: Condition.NEW,
-                  },
-                ],
-                matches: profile.matches,
-                preferences: profile.preferences,
-              });
-              console.log({
-                userId: profile.userId,
-                name: profile.name,
-                image: profile.image,
-                items: [
-                  ...profile.items,
-                  {
-                    itemId: "0",
-                    name: "",
-                    description: "",
-                    color: colour ?? "",
-                    type: category ?? Category.GLOVES,
-                    size: size ?? Size.LARGE,
-                    photos: images,
-                    gender: Gender.FEMALE,
-                    condition: Condition.NEW,
-                  },
-                ],
+                items: currentItem
+                  ? profile.items.map((item) => {
+                      if (item.itemId !== currentItem.itemId) {
+                        return item;
+                      } else {
+                        return {
+                          itemId: item.itemId,
+                          name: name ?? "",
+                          description: description ?? "",
+                          color: colour ?? "",
+                          type: category ?? Category.GLOVES,
+                          size: size ?? Size.LARGE,
+                          photos: images,
+                          gender: Gender.FEMALE,
+                          condition: Condition.NEW,
+                        };
+                      }
+                    })
+                  : [
+                      ...profile.items,
+                      {
+                        itemId: "0",
+                        name: name ?? "",
+                        description: description ?? "",
+                        color: colour ?? "",
+                        type: category ?? Category.GLOVES,
+                        size: size ?? Size.LARGE,
+                        photos: images,
+                        gender: Gender.FEMALE,
+                        condition: Condition.NEW,
+                      },
+                    ],
                 matches: profile.matches,
                 preferences: profile.preferences,
               });
@@ -313,7 +322,7 @@ export default function () {
                 fontFamily: "AzeretMono_400Regular",
               }}
             >
-              Add Listing
+              {currentItem ? "Finish Editing" : "Add Listing"}
             </Text>
           </Pressable>
         </View>

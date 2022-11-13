@@ -10,8 +10,6 @@ import MatchesScreen from "./screens/MatchesScreen";
 import { Image } from "react-native";
 import AccountScreen from "./screens/AccountScreen";
 import { styles } from "./screens/Matches.style";
-import { Category, Gender, Size } from "./types/preferences";
-import { Condition } from "./types/item";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddListingScreen from "./screens/AddListingScreen";
 import { profileContext, useProfile } from "./profileContext";

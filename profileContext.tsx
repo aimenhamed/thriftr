@@ -4,6 +4,8 @@ import { Profile } from "./types/profile";
 export interface ProfileContext {
   profile: Profile;
   setCurrentProfile: (currentProfile: Profile) => void;
+  item: string | undefined;
+  setCurrentItem: (currentItem: string | undefined) => void;
 }
 
 export const profileContext = React.createContext<ProfileContext>({
@@ -16,6 +18,8 @@ export const profileContext = React.createContext<ProfileContext>({
     preferences: {},
   },
   setCurrentProfile: () => {},
+  item: undefined,
+  setCurrentItem: () => {},
 });
 
 export const useProfile = (): ProfileContext => {
@@ -28,6 +32,8 @@ export const useProfile = (): ProfileContext => {
     preferences: {},
   } as Profile);
 
+  const [item, setItem] = React.useState(undefined as string | undefined);
+
   const setCurrentProfile = React.useCallback(
     (currentProfile: Profile): void => {
       setProfile(currentProfile);
@@ -35,8 +41,17 @@ export const useProfile = (): ProfileContext => {
     []
   );
 
+  const setCurrentItem = React.useCallback(
+    (currentItem: string | undefined): void => {
+      setItem(currentItem);
+    },
+    []
+  );
+
   return {
     profile,
     setCurrentProfile,
+    item,
+    setCurrentItem,
   };
 };

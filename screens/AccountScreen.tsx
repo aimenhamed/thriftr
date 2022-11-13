@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from "react";
 import {
   View,
   Image,
@@ -6,6 +7,7 @@ import {
   Text,
   useWindowDimensions,
 } from "react-native";
+import { profileContext } from "../profileContext";
 import { Profile } from "../types/profile";
 
 type AccountScreenProps = {
@@ -16,6 +18,7 @@ type AccountScreenProps = {
 export default function (props: AccountScreenProps) {
   const { height, width } = useWindowDimensions();
   const navigation = useNavigation();
+  const { setCurrentItem } = useContext(profileContext);
 
   return (
     <View>
@@ -43,7 +46,10 @@ export default function (props: AccountScreenProps) {
                 justifyContent: "center",
                 alignItems: "center",
               }}
-              onPress={() => navigation.navigate("modal")}
+              onPress={() => {
+                navigation.navigate("modal");
+                setCurrentItem(undefined);
+              }}
             >
               <Image
                 style={{ width: "50%", height: "50%" }}
@@ -90,11 +96,18 @@ export default function (props: AccountScreenProps) {
       </View>
       <View style={{ flexDirection: "row" }}>
         {props.profile.items.map((item, i) => (
-          <Image
-            key={i}
-            source={item.photos[0]}
-            style={{ width: width / 3, height: width / 3 }}
-          />
+          <Pressable
+            onPress={() => {
+              navigation.navigate("modal");
+              setCurrentItem(item.itemId);
+            }}
+          >
+            <Image
+              key={i}
+              source={item.photos[0]}
+              style={{ width: width / 3, height: width / 3 }}
+            />
+          </Pressable>
         ))}
       </View>
     </View>
