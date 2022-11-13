@@ -8,6 +8,7 @@ import images from "../assets";
 import MessageList from "../components/MessageList/MessageList";
 import MessageInput from "../components/MessageInput/MessageInput";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Flag from "../assets/Flag";
 
 const ChatScreen = ({ navigation, route }: ChatPageProps) => {
   const { userId, chatId, matched } = route.params;
@@ -31,12 +32,13 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
         <View style={styles.row}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={styles.text}>Close</Text>
+            <FontAwesomeIcon icon="fa-thin fa-chevron-left" />
           </TouchableOpacity>
           <ImageStack
             topImage={images[matched.matchItemId]}
             bottomImage={images[matched.matchItemId]}
           />
-          <Text style={styles.text}>Flag</Text>
+          <Flag />
         </View>
         <Text
           style={{ ...styles.text, marginTop: "10%", marginLeft: "25%" }}

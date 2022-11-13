@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { View, TouchableOpacity, Text } from "react-native";
+import { useState, useRef } from "react";
+import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
 import LikeIcon from "../assets/LikeIcon";
 import OfferIcon from "../assets/OfferIcon";
@@ -14,6 +15,9 @@ export type ThriftingScreenProps = {
   userId: string;
 } & PageProps;
 
+const SCREEN_WIDTH = Dimensions.get("screen").width;
+const SCREEN_HEIGHT = Dimensions.get("screen").height;
+
 const isMatch = (item: Item, userId: string): boolean => {
   const userProfile = profiles.find((profile) => profile.userId === userId);
   return (
@@ -23,7 +27,9 @@ const isMatch = (item: Item, userId: string): boolean => {
 };
 
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
-  const [page, setPage] = useState(0);
+  let swiperRef:
+    | Swiper<{ item: Item; seller: { name: string; image: any } }>
+    | undefined = undefined;
 
   const items = profiles
     .filter((profile) => profile.userId !== userId)
@@ -35,49 +41,139 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
     )
     .flat();
 
-  const nextPage = (page + 1) % items.length;
-
-  const onIgnore = () => {
-    setPage(nextPage);
-  };
-
-  const onLike = () => {
-    if (isMatch(items[page].item, userId)) {
+  const onLike = (swipedCardIndex: number) => {
+    if (isMatch(items[swipedCardIndex].item, userId)) {
       navigation.navigate("ItsAMatchScreen", {
         userId,
-        itemMatched: items[page].item,
-        sellerMatched: items[page].seller,
+        itemMatched: items[swipedCardIndex].item,
+        sellerMatched: items[swipedCardIndex].seller,
       });
     }
-
-    setPage(nextPage);
   };
 
-  const onOfferSelectively = () => {
-    setPage(nextPage);
+  const onOfferSelectively = (swipedCardIndex: number) => {
     // TODO
   };
 
+  //! Ignore type error below, the react-native-deck-swiper library incorrectly defined
+  //! outputOverlayLabelsOpacityRangeX and outputOverlayLabelsOpacityRangeY to be of type
+  //! [number, number, number] instead of [number, number, number, number, number]
   return (
     <View style={styles.container}>
       <View style={styles.slantedBackground} />
-      <View style={styles.cardStack}>
-        <ItemCard item={items[nextPage].item} seller={items[nextPage].seller} />
-        <ItemCard item={items[page].item} seller={items[page].seller} />
-      </View>
+      <Swiper
+        ref={(swiper) => {
+          swiperRef = swiper;
+        }}
+        cards={items}
+        renderCard={(item) => (
+          <ItemCard item={item.item} seller={item.seller} />
+        )}
+        onSwipedRight={onLike}
+        onSwipedTop={onOfferSelectively}
+        backgroundColor="transparent"
+        stackSize={3}
+        cardVerticalMargin={0}
+        marginTop={20}
+        containerStyle={{ height: "80%" }}
+        cardStyle={{ height: "100%" }}
+        infinite
+        verticalThreshold={SCREEN_HEIGHT / 5}
+        horizontalThreshold={SCREEN_WIDTH / 4}
+        disableBottomSwipe
+        stackSeparation={20}
+        animateCardOpacity
+        outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]}
+        outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]}
+        overlayOpacityHorizontalThreshold={1}
+        overlayOpacityVerticalThreshold={1}
+        animateOverlayLabelsOpacity
+        overlayLabels={{
+          left: {
+            title: "Ignore",
+            style: {
+              label: {
+                backgroundColor: "#1F1F1F",
+                borderColor: "#FF0000",
+                color: "#FF0000",
+                borderWidth: 4,
+                fontFamily: "AzeretMono_400Regular",
+                borderRadius: 0,
+                fontSize: 36,
+              },
+              wrapper: {
+                flexDirection: "column",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+                marginTop: 20,
+                marginLeft: -20,
+              },
+            },
+          },
+          right: {
+            title: "Like",
+            style: {
+              label: {
+                backgroundColor: "#1F1F1F",
+                borderColor: "#00BF36",
+                color: "#00BF36",
+                borderWidth: 4,
+                fontFamily: "AzeretMono_400Regular",
+                borderRadius: 0,
+                fontSize: 36,
+              },
+              wrapper: {
+                flexDirection: "column",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+                marginTop: 20,
+                marginLeft: 20,
+              },
+            },
+          },
+          top: {
+            title: "Offer\nSelectively",
+            style: {
+              label: {
+                backgroundColor: "#1F1F1F",
+                borderColor: "#00BF36",
+                color: "#00BF36",
+                borderWidth: 4,
+                fontFamily: "AzeretMono_400Regular",
+                borderRadius: 0,
+                fontSize: 36,
+                textAlign: "center",
+                marginBottom: "50%",
+              },
+              wrapper: {
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "flex-end",
+              },
+            },
+          },
+        }}
+      />
+
       <View style={styles.userActions}>
-        <TouchableOpacity style={styles.userAction} onPress={onIgnore}>
+        <TouchableOpacity
+          style={styles.userAction}
+          onPress={() => swiperRef?.swipeLeft()}
+        >
           <IgnoreIcon />
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.userAction}
-          onPress={onOfferSelectively}
+          onPress={() => swiperRef?.swipeTop()}
         >
           <OfferIcon />
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userAction} onPress={onLike}>
+        <TouchableOpacity
+          style={styles.userAction}
+          onPress={() => swiperRef?.swipeRight()}
+        >
           <LikeIcon />
           <Text style={styles.userActionText}>Like</Text>
         </TouchableOpacity>

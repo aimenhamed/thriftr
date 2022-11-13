@@ -8,15 +8,6 @@ export const styles = StyleSheet.create({
     backgroundColor: "#1F1F1F",
     width: "100%",
   },
-  cardStack: {
-    position: "absolute",
-    top: "1%",
-    bottom: "15%",
-    left: "5%",
-    right: "5%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   slantedBackground: {
     position: "absolute",
     top: -300,
@@ -38,8 +29,8 @@ export const styles = StyleSheet.create({
   userAction: {
     backgroundColor: "#fff",
     width: "30%",
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingTop: "3%",
+    paddingBottom: "3%",
     alignItems: "center",
   },
   userActionText: {
