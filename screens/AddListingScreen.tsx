@@ -19,6 +19,7 @@ import * as ImagePicker from "expo-image-picker";
 import { profileContext } from "../profileContext";
 import { Category, Gender, Size } from "../types/preferences";
 import { Condition } from "../types/item";
+import uuid from "react-native-uuid";
 
 export default function () {
   const navigation = useNavigation();
@@ -301,7 +302,7 @@ export default function () {
                   : [
                       ...profile.items,
                       {
-                        itemId: "0",
+                        itemId: uuid.v4(),
                         name: name ?? "",
                         description: description ?? "",
                         color: colour ?? "",
