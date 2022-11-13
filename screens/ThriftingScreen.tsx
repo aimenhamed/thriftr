@@ -17,11 +17,11 @@ export type ThriftingScreenProps = {
 const SCREEN_WIDTH = Dimensions.get("screen").width;
 const SCREEN_HEIGHT = Dimensions.get("screen").height;
 
-const isMatch = (item: Item, userId: string): boolean => {
+const isMatch = (item: Item, userId: string, selectedItems: string[] = []): boolean => {
   const userProfile = profiles.find((profile) => profile.userId === userId);
-  return userProfile?.matches.some((match) => match.matchItemId === item.itemId) || false;
+  const filteredMatches = selectedItems.length > 0 ? userProfile?.matches.filter((match) => selectedItems.includes(match.itemId)) : userProfile?.matches;
+  return filteredMatches?.some((match) => match.matchItemId === item.itemId) || false;
 };
-
 
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   let swiperRef: Swiper<{ item: Item; seller: { name: string; image: any; }; }> | undefined = undefined;
@@ -29,6 +29,16 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   DeviceEventEmitter.addListener("cancelOfferSelectively", ({ startingIndex }) => {
     swiperRef?.jumpToCardIndex(startingIndex);
   });
+
+  DeviceEventEmitter.addListener("finishOfferSelectively", ({ swipedCardIndex, selectedItems }) => {
+    if (isMatch(items[swipedCardIndex].item, userId, selectedItems)) {
+      navigation.navigate("ItsAMatchScreen", {
+        userId,
+        itemMatched: items[swipedCardIndex].item,
+        sellerMatched: items[swipedCardIndex].seller,
+      });
+    }
+  })
 
   const items = profiles.filter((profile) => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))

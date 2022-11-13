@@ -32,14 +32,15 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const onOfferButtonPress = () => {
-    console.log("// TODO: offer button pressed");
-    navigation.goBack();
+    navigation.navigate("ThriftingScreen");
+    DeviceEventEmitter.emit("finishOfferSelectively", { swipedCardIndex, selectedItems });
+    DeviceEventEmitter.removeAllListeners("finishOfferSelectively");
   };
 
   const onBackButtonPress = () => {
+    navigation.goBack();
     DeviceEventEmitter.emit("cancelOfferSelectively", { startingIndex: swipedCardIndex });
     DeviceEventEmitter.removeAllListeners("cancelOfferSelectively");
-    navigation.navigate("ThriftingScreen");
   };
 
   const handleSelect = (itemId: string) => {
