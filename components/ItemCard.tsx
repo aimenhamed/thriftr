@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Animated,
-  PanResponder,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import { Item } from "../types/item";
 
 export type ItemCardProps = {

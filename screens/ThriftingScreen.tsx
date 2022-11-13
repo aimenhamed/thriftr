@@ -1,5 +1,11 @@
-import { useState, useRef } from "react";
-import { View, TouchableOpacity, Text, Dimensions } from "react-native";
+import { useState } from "react";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  Dimensions,
+  DeviceEventEmitter,
+} from "react-native";
 import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
 import LikeIcon from "../assets/LikeIcon";
@@ -18,11 +24,20 @@ export type ThriftingScreenProps = {
 const SCREEN_WIDTH = Dimensions.get("screen").width;
 const SCREEN_HEIGHT = Dimensions.get("screen").height;
 
-const isMatch = (item: Item, userId: string): boolean => {
+const isMatch = (
+  item: Item,
+  userId: string,
+  selectedItems: string[] = []
+): boolean => {
   const userProfile = profiles.find((profile) => profile.userId === userId);
+  const filteredMatches =
+    selectedItems.length > 0
+      ? userProfile?.matches.filter((match) =>
+          selectedItems.includes(match.itemId)
+        )
+      : userProfile?.matches;
   return (
-    userProfile?.matches.some((match) => match.matchItemId === item.itemId) ||
-    false
+    filteredMatches?.some((match) => match.matchItemId === item.itemId) || false
   );
 };
 
@@ -30,6 +45,28 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   let swiperRef:
     | Swiper<{ item: Item; seller: { name: string; image: any } }>
     | undefined = undefined;
+
+  DeviceEventEmitter.addListener(
+    "cancelOfferSelectively",
+    ({ startingIndex }) => {
+      swiperRef?.jumpToCardIndex(startingIndex);
+    }
+  );
+
+  DeviceEventEmitter.addListener(
+    "finishOfferSelectively",
+    ({ swipedCardIndex, selectedItems }) => {
+      if (isMatch(items[swipedCardIndex].item, userId, selectedItems)) {
+        navigation.navigate("ItsAMatchScreen", {
+          userId,
+          itemMatched: items[swipedCardIndex].item,
+          sellerMatched: items[swipedCardIndex].seller,
+        });
+      }
+      swiperRef?.jumpToCardIndex(nextCardIndex(swipedCardIndex));
+      setLastSwipedCard(swipedCardIndex);
+    }
+  );
 
   const items = profiles
     .filter((profile) => profile.userId !== userId)
@@ -40,6 +77,13 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
       }))
     )
     .flat();
+
+  const [lastSwipedCard, setLastSwipedCard] = useState(items.length - 1);
+  const nextCardIndex = (idx: number) => (idx + 1) % items.length;
+
+  const updateCardIndex = (swipedCardIndex: number) => {
+    setLastSwipedCard(swipedCardIndex);
+  };
 
   const onLike = (swipedCardIndex: number) => {
     if (isMatch(items[swipedCardIndex].item, userId)) {
@@ -52,7 +96,12 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   };
 
   const onOfferSelectively = (swipedCardIndex: number) => {
-    // TODO
+    navigation.navigate("OfferSelectivelyScreen", {
+      userId,
+      itemMatched: items[swipedCardIndex].item,
+      sellerMatched: items[swipedCardIndex].seller,
+      swipedCardIndex,
+    });
   };
 
   //! Ignore type error below, the react-native-deck-swiper library incorrectly defined
@@ -69,6 +118,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         renderCard={(item) => (
           <ItemCard item={item.item} seller={item.seller} />
         )}
+        onSwiped={updateCardIndex}
         onSwipedRight={onLike}
         onSwipedTop={onOfferSelectively}
         backgroundColor="transparent"
@@ -83,8 +133,8 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         disableBottomSwipe
         stackSeparation={20}
         animateCardOpacity
-        outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]}
-        outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]}
+        outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
+        outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
         overlayOpacityHorizontalThreshold={1}
         overlayOpacityVerticalThreshold={1}
         animateOverlayLabelsOpacity
@@ -165,7 +215,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.userAction}
-          onPress={() => swiperRef?.swipeTop()}
+          onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}
         >
           <OfferIcon />
           <Text style={styles.userActionText}>Offer</Text>
