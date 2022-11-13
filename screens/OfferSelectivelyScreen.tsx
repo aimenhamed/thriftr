@@ -100,10 +100,11 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex
             ))}
           </ScrollView>
           <TouchableOpacity
-            style={styles.offerButton}
+            style={selectedItems.length === 0 ? styles.disabledOfferButton : styles.offerButton}
             onPress={onOfferButtonPress}
+            disabled={selectedItems.length === 0}
           >
-            <Text style={styles.offerButtonText}>Send Message</Text>
+            <Text style={styles.offerButtonText}>Offer selected items</Text>
           </TouchableOpacity>
         </LinearGradient>
       </ImageBackground>

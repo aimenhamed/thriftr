@@ -24,6 +24,7 @@ const FeedStackScreen = ({ userId }: FeedStackScreenProps) => {
         headerShown: false,
         gestureEnabled: false,
         gestureDirection: "vertical",
+        animationDuration: 200,
       }}
     >
       <FeedStack.Screen

@@ -61,6 +61,15 @@ export const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
   },
+  disabledOfferButton: {
+    flexDirection: "row",
+    backgroundColor: "#FFE60030",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "70%",
+    height: 50,
+    marginBottom: "10%",
+  },
   offerButton: {
     flexDirection: "row",
     backgroundColor: "#FFE600",

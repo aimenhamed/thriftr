@@ -34,6 +34,10 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
+  const updateCardIndex = (swipedCardIndex: number) => {
+    console.log(swipedCardIndex);
+  }
+
   const onLike = (swipedCardIndex: number) => {
     if (isMatch(items[swipedCardIndex].item, userId)) {
       navigation.navigate("ItsAMatchScreen", {
@@ -65,6 +69,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         }}
         cards={items}
         renderCard={(item) => <ItemCard item={item.item} seller={item.seller} />}
+        onSwiped={updateCardIndex}
         onSwipedRight={onLike}
         onSwipedTop={onOfferSelectively}
         backgroundColor="transparent"
