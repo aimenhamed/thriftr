@@ -1,7 +1,6 @@
 import { View, Image, Text, TouchableOpacity } from "react-native";
 import images from "../../assets";
-import { getChats } from "../../data/chats";
-import { profiles } from "../../data/profiles";
+import { Backend } from "../../backend";
 import { Match } from "../../types/match";
 import { getLastMessage } from "../../utils";
 import { styles } from "./style";
@@ -12,13 +11,8 @@ type MatchCardProps = {
 };
 
 const MatchCard = ({ matched, press }: MatchCardProps) => {
-  const matchedWith = profiles.find(
-    (profile) => profile.userId === matched.matchId
-  );
-
-  const chat = getChats(matched.userId, matched.matchId, [], []).find(
-    (chat) => chat.chatId === matched.chatId
-  )!;
+  const matchedWith = Backend.getProfile(matched.matchId)!;
+  const chat = Backend.getChat(matched.chatId)!;
 
   const lastMessage = getLastMessage(chat);
   return (
