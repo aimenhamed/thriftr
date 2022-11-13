@@ -90,7 +90,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         onSwipedRight={onLike}
         onSwipedTop={onOfferSelectively}
         backgroundColor="transparent"
-        stackSize={2}
+        stackSize={3}
         cardVerticalMargin={0}
         marginTop={20}
         containerStyle={{ height: "80%" }}

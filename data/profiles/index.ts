@@ -94,6 +94,22 @@ export const yepstyle = (): Profile => {
         size: Size.LARGE,
         condition: Condition.NEW,
       },
+      {
+        itemId: "a25d56d5-6168-45bd-87d6-b68ca8c5d432",
+        name: "Bear Print Hoodie",
+        description: "A hoodie is always a comfy addition to an outfit during chilly weather but what makes it even more fun? A print of a snuggly teddy bear! This drawcord hoodie features a minimal bear print and lettering for a cute touch while its ribbed hem and cuffs trap in heat. Available in light pink and blue.",
+        photos: [
+          require("../images/items/beebad68-d1bd-4658-b9c3-6da3f66e4def.png"),
+          require("../images/items/97f2562e-d94d-4b95-b34c-9ff3f2881f3f.png"),
+          require("../images/items/80b67f31-c475-4170-8a9c-21a509494dc8.png"),
+
+        ],
+        color: "BLUE",
+        type: Category.HOODIE,
+        gender: Gender.UNISEX,
+        size: Size.LARGE,
+        condition: Condition.ONE_YEAR,
+      },
     ],
     matches: [],
     preferences: {
