@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, TouchableOpacity, Text, Dimensions, DeviceEventEmitter } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
@@ -23,6 +24,7 @@ const isMatch = (item: Item, userId: string, selectedItems: string[] = []): bool
   return filteredMatches?.some((match) => match.matchItemId === item.itemId) || false;
 };
 
+
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   let swiperRef: Swiper<{ item: Item; seller: { name: string; image: any; }; }> | undefined = undefined;
 
@@ -38,14 +40,19 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
         sellerMatched: items[swipedCardIndex].seller,
       });
     }
+    swiperRef?.jumpToCardIndex(nextCardIndex(swipedCardIndex));
+    setLastSwipedCard(swipedCardIndex);
   })
 
   const items = profiles.filter((profile) => profile.userId !== userId)
                   .map((profile) => profile.items.map((item) => ({item, seller: {name: profile.name, image: profile.image}})))
                   .flat();
 
+  const [lastSwipedCard, setLastSwipedCard] = useState(items.length - 1);
+  const nextCardIndex = (idx: number) => (idx + 1) % items.length;
+
   const updateCardIndex = (swipedCardIndex: number) => {
-    console.log(swipedCardIndex);
+    setLastSwipedCard(swipedCardIndex);
   }
 
   const onLike = (swipedCardIndex: number) => {
@@ -171,7 +178,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
           <IgnoreIcon />
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.userAction} onPress={() => swiperRef?.swipeTop()}>
+        <TouchableOpacity style={styles.userAction} onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}>
           <OfferIcon />
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
