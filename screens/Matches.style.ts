@@ -65,32 +65,4 @@ export const styles = StyleSheet.create({
       height: 4,
     },
   },
-  profilePicture: {
-    width: "25vw",
-    height: "25vw",
-  },
-  addListingPressable: {
-    width: "25vw",
-    height: "25vw",
-    backgroundColor: "#FFE600",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  addListingText: {
-    fontSize: 13,
-    fontFamily: "Azeret",
-  },
-  usernameText: {
-    fontSize: 13,
-    fontFamily: "Azeret",
-    color: "white",
-    marginVertical: "2px",
-  },
-  editProfilePressable: {
-    width: "100%",
-    height: 21,
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 });
