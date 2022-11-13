@@ -59,11 +59,11 @@ const ItemCard = ({ item: { itemId, name, photos, description, color, type, gend
           {description}
         </Text>
         <View style={styles.tags}>
-          <Text style={styles.color}>{color}</Text>
-          <Text style={styles.type}>{type}</Text>
-          <Text style={styles.gender}>{gender}</Text>
-          <Text style={styles.size}>{size}</Text>
-          <Text style={styles.condition}>{condition}</Text>
+          <Text style={styles.tag}>{color}</Text>
+          <Text style={styles.tag}>{type}</Text>
+          <Text style={styles.tag}>{gender}</Text>
+          <Text style={styles.tag}>{size}</Text>
+          <Text style={styles.tag}>{condition}</Text>
         </View>
         <View style={styles.seller} onTouchStart={redirectToProfile}>
           <Image style={styles.sellerImage} source={seller.image} />
@@ -148,35 +148,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 8,
   },
-  color: {
+  tag: {
     marginRight: 6,
     padding: 4,
     backgroundColor: "#FFE600",
     fontFamily: "AzeretMono_400Regular",
-  },
-  type: {
-    marginRight: 6,
-    padding: 4,
-    backgroundColor: "#FFE600",
-    fontFamily: "AzeretMono_400Regular",
-  },
-  gender: {
-    marginRight: 6,
-    padding: 4,
-    backgroundColor: "#FFE600",
-    fontFamily: "AzeretMono_400Regular",
-  },
-  size: {
-    marginRight: 6,
-    padding: 4,
-    backgroundColor: "#FFE600",
-    fontFamily: "AzeretMono_400Regular",
-  },
-  condition: {
-    marginRight: 6,
-    padding: 4,
-    backgroundColor: "#FFE600",
-    fontFamily: "AzeretMono_400Regular",
+    fontSize: 12,
   },
   seller: {
     flexDirection: "row",

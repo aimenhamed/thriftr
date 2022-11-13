@@ -1,14 +1,14 @@
 export enum Category {
-  SHIRTS = "shirts",
-  PANTS = "pants",
-  SHOES = "shoes",
-  HOODIE = "hoodie",
-  HATS = "hats",
-  SWEATERS = "sweaters",
-  JEWELLERY = "jewellery",
-  JACKETS = "jackets",
-  SHORTS = "shorts",
-  GLOVES = "gloves",
+  SHIRTS = "SHIRTS",
+  PANTS = "PANTS",
+  SHOES = "SHOES",
+  HOODIE = "HOODIE",
+  HATS = "HATS",
+  SWEATERS = "SWEATERS",
+  JEWELLERY = "JEWELLERY",
+  JACKETS = "JACKETS",
+  SHORTS = "SHORTS",
+  GLOVES = "GLOVES",
 }
 
 export enum Gender {
