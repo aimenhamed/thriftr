@@ -8,10 +8,34 @@ export const styles = StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
-  section: {
+  column: {
     flex: 1,
-    alignItems: "center",
     flexDirection: "column",
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  counter: {
+    fontSize: 18,
+    fontWeight: "bold",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderColor: "#FFE600",
+    borderWidth: 3,
+    backgroundColor: "#1F1F1F",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 15,
+    marginBottom: 15,
+  },
+  counterText: {
+    color: "#FFE600",
+    fontWeight: "bold",
+    fontFamily: "AzeretMono_700Bold",
   },
   title: {
     width: 300,

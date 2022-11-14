@@ -3,9 +3,9 @@ import { Category, Gender, Size } from "./preferences";
 
 export enum Condition {
   NEW = "NEW",
-  SIX_MONTHS = "SIX_MONTHS",
-  ONE_YEAR = "ONE_YEAR",
-  TWO_YEARS = "TWO_YEARS",
+  SIX_MONTHS = "6 MONTHS",
+  ONE_YEAR = "1 YEAR",
+  TWO_YEARS = "2 YEARS",
 }
 
 export interface Item {
