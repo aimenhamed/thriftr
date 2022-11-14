@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, TextInput, Alert } from "react-nat
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, {useState} from 'react';
-import Thrift from "../assets/ThriftrFilled";
+import ThriftBig from "../assets/ThriftrBig";
 
 type LoginScreenProps = {
   logIn: (userId: string) => void;
@@ -16,7 +16,7 @@ const returnValue = (username: string, password: string) => {
   }
 }
 
-const LoginScreen = ({ logIn }: LoginScreenProps) => {
+const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ const LoginScreen = ({ logIn }: LoginScreenProps) => {
   return (
     <View style={styles.backgroundView}>
       <View style={styles.upperView}>
-        <Thrift
+        <ThriftBig
           style={styles.logoimage}
         />
         <View style={styles.yellowBox}></View>
@@ -44,7 +44,8 @@ const LoginScreen = ({ logIn }: LoginScreenProps) => {
         
         {returnValue(username, password) ? (
           <TouchableOpacity
-          onPress={() => logIn(userId)}
+          // onPress={() => logIn(userId)}
+          onPress={() => navigation.navigate("ThriftingScreen")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
@@ -59,7 +60,10 @@ const LoginScreen = ({ logIn }: LoginScreenProps) => {
         )}
 
 
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity 
+          style={styles.signupButton}
+          onPress={() => navigation.navigate("SignupScreen")}
+        >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
         <Text style={styles.forgotText}>
