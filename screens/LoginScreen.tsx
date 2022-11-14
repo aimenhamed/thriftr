@@ -44,8 +44,8 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
         
         {returnValue(username, password) ? (
           <TouchableOpacity
-          // onPress={() => logIn(userId)}
-          onPress={() => navigation.navigate("ThriftingScreen")}
+          onPress={() => logIn(userId)}
+          // onPress={() => navigation.navigate("ThriftingScreen")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
