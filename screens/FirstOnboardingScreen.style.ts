@@ -23,16 +23,21 @@ export const styles = StyleSheet.create({
         height: 40,
         justifyContent: "center",
         alignItems: "center",
+        flexDirection: "row",
     },
     buttonText: {
         fontSize: 16,
         fontFamily: "AzeretMono_400Regular",
         color: "black",
+        position: "absolute",
     },
     normalText: {
         fontSize: 12,
         fontFamily: "AzeretMono_400Regular",
         color: "white",
+    },
+    arrow: {
+        zIndex: 2,
     }
 })
 

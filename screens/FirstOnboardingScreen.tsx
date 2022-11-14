@@ -3,6 +3,7 @@ import { PageProps } from "../Router";
 import React, {useState} from 'react';
 import { styles } from "./FirstOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import ArrowRight from "../assets/ArrowRight";
 
 type FirstOnboardingScreenProps = {
   logIn: (userId: string) => void;
@@ -49,10 +50,19 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
         <Text style={styles.normalText}>
           through your profile
         </Text>
-        <TouchableOpacity style={[styles.submitButton, {marginTop: 30}]}>
+        <TouchableOpacity 
+          style={[styles.submitButton, 
+          {marginTop: 30}]}
+          // onPress={ () => navigation.navigate("SecondOnboarding")}
+        >
           <Text style={styles.buttonText}>
             Next
           </Text>
+          <View style={{flex: 3}}>
+          </View>
+          <View style={{flex: 1}}>
+            <ArrowRight style={styles.arrow}/>
+          </View>
         </TouchableOpacity>
       </View>
 
