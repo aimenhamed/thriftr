@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView } from "react-native";
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, {useState} from 'react';
-import Thrift from "../assets/ThriftrFilled";
+import ThriftBig from "../assets/ThriftrBig";
 
 type LoginScreenProps = {
   logIn: (userId: string) => void;
@@ -16,15 +16,18 @@ const returnValue = (username: string, password: string) => {
   }
 }
 
-const LoginScreen = ({ logIn }: LoginScreenProps) => {
+const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   return (
-    <View style={styles.backgroundView}>
+    <KeyboardAvoidingView 
+      style={styles.backgroundView}
+      behavior= 'padding'
+    >
       <View style={styles.upperView}>
-        <Thrift
+        <ThriftBig
           style={styles.logoimage}
         />
         <View style={styles.yellowBox}></View>
@@ -45,6 +48,7 @@ const LoginScreen = ({ logIn }: LoginScreenProps) => {
         {returnValue(username, password) ? (
           <TouchableOpacity
           onPress={() => logIn(userId)}
+          // onPress={() => navigation.navigate("ThriftingScreen")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
@@ -57,16 +61,18 @@ const LoginScreen = ({ logIn }: LoginScreenProps) => {
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
         )}
-
-
-        <TouchableOpacity style={styles.signupButton}>
+        <TouchableOpacity 
+          style={styles.signupButton}
+          // onPress={() => navigation.navigate("SignupScreen")}
+        >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
         <Text style={styles.forgotText}>
           Forgot your username and password?
         </Text>
       </View>
-    </View>
+      <View style={{height: 30}}></View>
+    </KeyboardAvoidingView>
   );
 };
 

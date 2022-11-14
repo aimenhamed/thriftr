@@ -1,0 +1,90 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+    backgroundView: {
+        backgroundColor: "#1F1F1F",
+        flex: 1,
+    },
+    upperView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    logoimage: {
+        zIndex: 2,
+    },
+    yellowBox: {
+        backgroundColor: "#FFE600",
+        transform: [{ rotate: "-15deg" }],
+        position: "absolute",
+        width: 830,
+        height: 520,
+        top: -250,
+        left: -100,
+    },
+    lowerView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    inputUsername: {
+        borderBottomWidth: 2,
+        borderColor: "white",
+        color: "#AAAAAA",
+        position: "absolute",
+        width: 200,
+        height: 30,
+        top: 0,
+        fontFamily: "AzeretMono_400Regular",
+    },
+    inputPhoneNumber: {
+        borderBottomWidth: 2,
+        borderColor: "white",
+        color: "#AAAAAA",
+        position: "absolute",
+        width: 200,
+        height: 30,
+        top: 50,
+        fontFamily: "AzeretMono_400Regular",
+    },
+    inputPassword: {
+        borderBottomWidth: 2,
+        borderColor: "white",
+        color: "#AAAAAA",
+        position: "absolute",
+        width: 200,
+        height: 30,
+        top: 100,
+        fontFamily: "AzeretMono_400Regular",
+    },
+    inputConfirmPassword: {
+        borderBottomWidth: 2,
+        borderColor: "white",
+        color: "#AAAAAA",
+        position: "absolute",
+        width: 200,
+        height: 30,
+        top: 150,
+        fontFamily: "AzeretMono_400Regular",
+    },
+    signupButton: {
+        backgroundColor: "white",
+        height: 40,
+        width: 200,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
+        top: 230,
+    },
+    signupText: {
+        fontSize: 16,
+        fontFamily: "AzeretMono_400Regular",
+    },
+    forgotText: {
+        color: "white",
+        fontSize: 12,
+        position: "absolute",
+        top: 300,
+        fontFamily: "AzeretMono_400Regular",
+    }
+});
