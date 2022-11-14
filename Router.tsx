@@ -110,9 +110,11 @@ const TabNavigator = () => {
   );
 
   return (
-    <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Thriftr"
+        sceneContainerStyle={{
+          backgroundColor: '#1F1F1F'
+        }}
         screenOptions={{
           swipeEnabled: false,
           tabBarShowLabel: false,
@@ -136,7 +138,7 @@ const TabNavigator = () => {
       >
         <Tab.Screen
           name="Matches"
-          component={MatchesStackScreen}
+          children={MatchesStackScreen}
           options={{
             tabBarIcon: (props) =>
               props.focused ? <MessagesFilled /> : <MessagesOutline />,
@@ -168,15 +170,14 @@ const TabNavigator = () => {
           }
         </Tab.Screen>
         <Tab.Screen
-          name="Account"
-          component={Template}
-          options={{
-            tabBarIcon: (props) =>
-              props.focused ? <AccountFilled /> : <AccountOutline />,
-          }}
-        />
+        name="Account"
+        children={() => <AccountScreen currentUser={true} profile={profile} />}
+        options={{
+          tabBarIcon: (props) =>
+            props.focused ? <AccountFilled /> : <AccountOutline />,
+        }}
+      />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 };
 
