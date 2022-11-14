@@ -87,6 +87,9 @@ export default function (props: AccountScreenProps) {
               backgroundColor: "white",
               marginTop: 2,
             }}
+            onPress={() => {
+              navigation.navigate("EditProfilePage");
+            }}
           >
             <Text style={{ fontFamily: "AzeretMono_400Regular", fontSize: 14 }}>
               Edit Profile
@@ -98,8 +101,10 @@ export default function (props: AccountScreenProps) {
         {props.profile.items.map((item, i) => (
           <Pressable
             onPress={() => {
-              navigation.navigate("modal");
-              setCurrentItem(item.itemId);
+              if (props.currentUser) {
+                navigation.navigate("modal");
+                setCurrentItem(item.itemId);
+              }
             }}
           >
             <Image

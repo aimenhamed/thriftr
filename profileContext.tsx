@@ -15,7 +15,12 @@ export const profileContext = React.createContext<ProfileContext>({
     image: require("./assets/test.png"),
     items: [],
     matches: [],
-    preferences: {},
+    preferences: {
+      categories: [],
+      sizes: [],
+      genders: [],
+      colors: [],
+    },
   },
   setCurrentProfile: () => {},
   item: undefined,
@@ -27,9 +32,10 @@ export const useProfile = (): ProfileContext => {
     userId: "74aa9a46-aff3-4ecc-a817-f6697b18eb74",
     name: "itsViggo",
     image: require("./assets/test.png"),
+    phoneNumber: "0412345678",
     items: [],
     matches: [],
-    preferences: {},
+    preferences: { categories: [], sizes: [], genders: [], colors: [] },
   } as Profile);
 
   const [item, setItem] = React.useState(undefined as string | undefined);

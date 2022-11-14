@@ -13,6 +13,7 @@ import { styles } from "./screens/Matches.style";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddListingScreen from "./screens/AddListingScreen";
 import { profileContext, useProfile } from "./profileContext";
+import EditProfileScreen from "./screens/EditProfileScreen";
 
 type TabsParamList = {
   Thriftr: undefined;
@@ -37,6 +38,10 @@ const Router = () => {
           <Stack.Screen name="main" component={TabNavigator} />
           <Stack.Group screenOptions={{ presentation: "modal" }}>
             <Stack.Screen name="modal" component={AddListingScreen} />
+            <Stack.Screen
+              name="EditProfilePage"
+              component={EditProfileScreen}
+            />
           </Stack.Group>
         </Stack.Navigator>
       </profileContext.Provider>

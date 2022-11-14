@@ -274,7 +274,11 @@ export default function () {
               backgroundColor: "#FFE600",
               alignItems: "center",
               justifyContent: "center",
+              opacity: !name || !size || !colour || !category || !description || !images.length ? 0.2 : 1
             }}
+            disabled={
+              !name || !size || !colour || !category || !description || !images.length
+            }
             onPress={() => {
               navigation.goBack();
               setCurrentProfile({
@@ -302,7 +306,7 @@ export default function () {
                   : [
                       ...profile.items,
                       {
-                        itemId: uuid.v4(),
+                        itemId: uuid.v4() as string,
                         name: name ?? "",
                         description: description ?? "",
                         color: colour ?? "",
