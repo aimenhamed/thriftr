@@ -82,7 +82,8 @@ export const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     position: "absolute",
-    top: 290,
+    top: 300,
     fontFamily: "AzeretMono_400Regular",
+    zIndex: 2,
   },
 });

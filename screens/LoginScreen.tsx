@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, Alert } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView } from "react-native";
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, {useState} from 'react';
@@ -22,7 +22,10 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
   const [password, setPassword] = useState('');
 
   return (
-    <View style={styles.backgroundView}>
+    <KeyboardAvoidingView 
+      style={styles.backgroundView}
+      behavior= 'padding'
+    >
       <View style={styles.upperView}>
         <ThriftBig
           style={styles.logoimage}
@@ -58,8 +61,6 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
         )}
-
-
         <TouchableOpacity 
           style={styles.signupButton}
           onPress={() => navigation.navigate("SignupScreen")}
@@ -70,7 +71,8 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
           Forgot your username and password?
         </Text>
       </View>
-    </View>
+      <View style={{height: 30}}></View>
+    </KeyboardAvoidingView>
   );
 };
 
