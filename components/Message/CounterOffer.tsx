@@ -11,6 +11,7 @@ import { Backend } from "../../backend";
 
 type CounterOfferProps = {
   user: Profile;
+  chat: Chat;
   matchedWith: Profile;
   message: Message;
   setChat: (chat: Chat) => void;
@@ -19,6 +20,7 @@ type CounterOfferProps = {
 // Matched person's counter offer
 const CounterOffer = ({
   user,
+  chat,
   matchedWith,
   message,
   setChat,
@@ -77,6 +79,7 @@ const CounterOffer = ({
           <Tick
             onPress={() => {
               const newChat = Backend.replyToOffer(
+                chat.chatId,
                 message.messageId,
                 "ACCEPTED"
               )!;
@@ -86,6 +89,7 @@ const CounterOffer = ({
           <Cross
             onPress={() => {
               const newChat = Backend.replyToOffer(
+                chat.chatId,
                 message.messageId,
                 "REJECTED"
               )!;
@@ -126,15 +130,15 @@ const CounterOffer = ({
           }}
         >
           <View style={{ flexDirection: "column", justifyContent: "center" }}>
-            <Text style={styles.regular}>Theirs</Text>
-            {theirItems.map((item) => (
+            <Text style={styles.regular}>Yours</Text>
+            {yourItems.map((item) => (
               <Image
                 key={item.itemId}
                 source={item.photos[0]}
                 style={{
                   width: 100,
                   height: 100,
-                  borderColor: "#FFE600",
+                  borderColor: "#FFF",
                   borderWidth: 3,
                 }}
               />
@@ -149,15 +153,15 @@ const CounterOffer = ({
               justifyContent: "center",
             }}
           >
-            <Text style={styles.regular}>Yours</Text>
-            {yourItems.map((item) => (
+            <Text style={styles.regular}>Theirs</Text>
+            {theirItems.map((item) => (
               <Image
                 key={item.itemId}
                 source={item.photos[0]}
                 style={{
                   width: 100,
                   height: 100,
-                  borderColor: "#FFF",
+                  borderColor: "#FFE600",
                   borderWidth: 3,
                   marginBottom: 6,
                 }}

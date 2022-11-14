@@ -85,6 +85,7 @@ const CounterTrade = ({ user, matchedWith, message }: CounterTradeProps) => {
                   height: 100,
                   borderColor: "#fff",
                   borderWidth: 3,
+                  marginBottom: 6,
                 }}
               />
             ))}

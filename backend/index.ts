@@ -35,29 +35,26 @@ class BackendMock {
   };
 
   public replyToOffer = (
+    chatId: string,
     messageId: string,
     status: "ACCEPTED" | "REJECTED"
   ): Chat | undefined => {
-    const chatWithMessage = this.chats.find((chat) =>
-      chat.messages.find((message) => message.messageId === messageId)
+    const chatWithMessage = this.getChat(chatId)!;
+
+    const updatedMessage = chatWithMessage.messages.find(
+      (message) => messageId === message.messageId
     )!;
+    updatedMessage.timestamp = new Date().getTime();
+    updatedMessage.content.status = status;
 
     this.chats = this.chats.map((chat) => {
       if (chatWithMessage.chatId === chat.chatId) {
         return {
           ...chat,
-          messages: chat.messages.map((message) => {
-            if (message.messageId === messageId) {
-              return {
-                ...message,
-                content: {
-                  ...message.content,
-                  status,
-                },
-              };
-            }
-            return message;
-          }),
+          messages: [
+            ...chat.messages.filter((m) => m.messageId !== messageId),
+            updatedMessage,
+          ],
         };
       }
       return chat;
