@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     width: "80%",
     fontSize: 18,
     lineHeight: 28,
-
   },
   boldCaption: {
     fontFamily: "AzeretMono_700Bold",

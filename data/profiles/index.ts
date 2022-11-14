@@ -100,12 +100,12 @@ export const yepstyle = (): Profile => {
       {
         itemId: "a25d56d5-6168-45bd-87d6-b68ca8c5d432",
         name: "Bear Print Hoodie",
-        description: "A hoodie is always a comfy addition to an outfit during chilly weather but what makes it even more fun? A print of a snuggly teddy bear! This drawcord hoodie features a minimal bear print and lettering for a cute touch while its ribbed hem and cuffs trap in heat. Available in light pink and blue.",
+        description:
+          "A hoodie is always a comfy addition to an outfit during chilly weather but what makes it even more fun? A print of a snuggly teddy bear! This drawcord hoodie features a minimal bear print and lettering for a cute touch while its ribbed hem and cuffs trap in heat. Available in light pink and blue.",
         photos: [
           require("../images/items/beebad68-d1bd-4658-b9c3-6da3f66e4def.png"),
           require("../images/items/97f2562e-d94d-4b95-b34c-9ff3f2881f3f.png"),
           require("../images/items/80b67f31-c475-4170-8a9c-21a509494dc8.png"),
-
         ],
         color: "BLUE",
         type: Category.HOODIE,
@@ -172,7 +172,8 @@ export const aaronSmith = (): Profile => {
       {
         itemId: "7124ea76-6a1e-40dc-9e51-41ee09aa5f24",
         name: "Purple Kathmandu down jacket",
-        description: "Womens size 12 purple Kathmandu down jacket. The bottom of the zipper is worn but works. Condition as per picture.",
+        description:
+          "Womens size 12 purple Kathmandu down jacket. The bottom of the zipper is worn but works. Condition as per picture.",
         photos: [
           require("../images/items/15bc95ef-52f5-418c-ade2-ce203c315cc9.jpg"),
           require("../images/items/0e4744e1-8e1c-4f83-a21a-804e01f864de.jpg"),

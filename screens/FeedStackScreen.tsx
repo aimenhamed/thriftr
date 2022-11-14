@@ -33,10 +33,8 @@ const FeedStackScreen = ({ userId }: FeedStackScreenProps) => {
       <FeedStack.Screen name="ItsAMatchScreen">
         {(props: any) => <ItsAMatchScreen {...props} />}
       </FeedStack.Screen>
-      <FeedStack.Screen
-        name="OfferSelectivelyScreen"
-      >
-        {(props: any) => (<OfferSelectivelyScreen {...props} />)}
+      <FeedStack.Screen name="OfferSelectivelyScreen">
+        {(props: any) => <OfferSelectivelyScreen {...props} />}
       </FeedStack.Screen>
     </FeedStack.Navigator>
   );

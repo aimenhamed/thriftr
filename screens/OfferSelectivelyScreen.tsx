@@ -1,4 +1,11 @@
-import { View, Text, ImageBackground, TouchableOpacity, ScrollView, DeviceEventEmitter } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView,
+  DeviceEventEmitter,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { PageProps } from "../Router";
 import { Item } from "../types/item";
@@ -11,35 +18,45 @@ import { useState } from "react";
 export type OfferSelectivelyScreenProps = {
   route: {
     params: {
-      userId: string,
-      itemMatched: Item,
+      userId: string;
+      itemMatched: Item;
       sellerMatched: {
-        name: string,
-        image: any,
-      },
-      swipedCardIndex: number,
-    },
+        name: string;
+        image: any;
+      };
+      swipedCardIndex: number;
+    };
   };
 } & PageProps;
 
 const getUsersItems = (userId: string) => {
   const userProfile = profiles.find((profile) => profile.userId === userId);
   return userProfile?.items;
-}
+};
 
-const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex, userId, itemMatched, sellerMatched }} }: OfferSelectivelyScreenProps) => {
+const OfferSelectivelyScreen = ({
+  navigation,
+  route: {
+    params: { swipedCardIndex, userId, itemMatched, sellerMatched },
+  },
+}: OfferSelectivelyScreenProps) => {
   const usersItems = getUsersItems(userId);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const onOfferButtonPress = () => {
     navigation.navigate("ThriftingScreen");
-    DeviceEventEmitter.emit("finishOfferSelectively", { swipedCardIndex, selectedItems });
+    DeviceEventEmitter.emit("finishOfferSelectively", {
+      swipedCardIndex,
+      selectedItems,
+    });
     DeviceEventEmitter.removeAllListeners("finishOfferSelectively");
   };
 
   const onBackButtonPress = () => {
     navigation.goBack();
-    DeviceEventEmitter.emit("cancelOfferSelectively", { startingIndex: swipedCardIndex });
+    DeviceEventEmitter.emit("cancelOfferSelectively", {
+      startingIndex: swipedCardIndex,
+    });
     DeviceEventEmitter.removeAllListeners("cancelOfferSelectively");
   };
 
@@ -55,7 +72,7 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex
       // Item is not currently selected.
       setSelectedItems([...selectedItems, itemId]);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -70,14 +87,15 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex
           end={{ x: 0, y: 0.5 }}
           style={styles.dimmer}
         >
-          <TouchableOpacity onPress={onBackButtonPress} style={styles.closeIcon}>
+          <TouchableOpacity
+            onPress={onBackButtonPress}
+            style={styles.closeIcon}
+          >
             <CloseIcon />
           </TouchableOpacity>
           <Text style={styles.caption}>
             Select items that you'd like to trade for @{sellerMatched.name}'s{" "}
-            <Text style={styles.boldCaption}>
-              {itemMatched.name}
-            </Text>
+            <Text style={styles.boldCaption}>{itemMatched.name}</Text>
           </Text>
           <ScrollView
             contentContainerStyle={styles.scrollViewContainer}
@@ -90,18 +108,23 @@ const OfferSelectivelyScreen = ({ navigation, route: { params: { swipedCardIndex
                 onPress={() => handleSelect(item.itemId)}
               >
                 <ImageBackground source={item.photos[0]}>
-                  {selectedItems.includes(item.itemId)
-                    ? <View style={styles.itemPhotoDimmer}>
-                        <Selected style={styles.selectedIcon} />
-                      </View>
-                    : <View style={styles.itemPhoto} />
-                  }
+                  {selectedItems.includes(item.itemId) ? (
+                    <View style={styles.itemPhotoDimmer}>
+                      <Selected style={styles.selectedIcon} />
+                    </View>
+                  ) : (
+                    <View style={styles.itemPhoto} />
+                  )}
                 </ImageBackground>
               </TouchableOpacity>
             ))}
           </ScrollView>
           <TouchableOpacity
-            style={selectedItems.length === 0 ? styles.disabledOfferButton : styles.offerButton}
+            style={
+              selectedItems.length === 0
+                ? styles.disabledOfferButton
+                : styles.offerButton
+            }
             onPress={onOfferButtonPress}
             disabled={selectedItems.length === 0}
           >

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, TextInput } from "react-native";
+import { Text, View, TextInput, Keyboard } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Backend } from "../../backend";
 import { Chat, Message } from "../../types/chat";
@@ -9,9 +9,15 @@ type MessageInputProps = {
   userId: string;
   chatId: string;
   setChat: (chat: Chat) => void;
+  setKeyboardVisible: (visible: boolean) => void;
 };
 
-const MessageInput = ({ userId, chatId, setChat }: MessageInputProps) => {
+const MessageInput = ({
+  userId,
+  chatId,
+  setChat,
+  setKeyboardVisible,
+}: MessageInputProps) => {
   const [text, setText] = useState<string>("");
 
   const sendMessage = () => {
@@ -59,24 +65,30 @@ const MessageInput = ({ userId, chatId, setChat }: MessageInputProps) => {
           value={text}
           multiline
           autoCorrect
+          onPressIn={() => setKeyboardVisible(true)}
+          onBlur={() => {
+            setKeyboardVisible(false);
+            Keyboard.dismiss();
+          }}
         />
       </View>
-      <View
+      <TouchableOpacity
         style={{
           borderColor: "#FFE600",
           borderWidth: 2,
           height: 50,
           justifyContent: "center",
           alignItems: "center",
-          width: "20%",
+          paddingHorizontal: 15,
+          width: "100%",
+          marginLeft: 10,
         }}
+        onPress={sendMessage}
       >
-        <TouchableOpacity onPress={sendMessage}>
-          <Text style={{ ...styles.text, color: "#FFE600", fontSize: 18 }}>
-            Send
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <Text style={{ ...styles.text, color: "#FFE600", fontSize: 18 }}>
+          Send
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

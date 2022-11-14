@@ -8,6 +8,7 @@ type YourItemsProps = {
   setSelectedItems: (items: string[]) => void;
   yourItems: Item[];
   setOfferStage: (stage: number) => void;
+  setCounterOffer: () => void;
 };
 
 const YourItems = ({
@@ -15,6 +16,7 @@ const YourItems = ({
   setSelectedItems,
   yourItems,
   setOfferStage,
+  setCounterOffer,
 }: YourItemsProps) => {
   const toggleSelected = (itemId: string) => {
     if (selectedItems.includes(itemId)) {
@@ -45,9 +47,30 @@ const YourItems = ({
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => setOfferStage(1)}>
-        <Text style={{ ...styles.text, marginBottom: 0 }}>Next</Text>
-      </TouchableOpacity>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "row",
+          width: "100%",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            setCounterOffer();
+            setOfferStage(0);
+          }}
+        >
+          <Text style={{ ...styles.text, marginBottom: 0 }}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setOfferStage(1)}
+        >
+          <Text style={{ ...styles.text, marginBottom: 0 }}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

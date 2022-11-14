@@ -63,7 +63,7 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
         )}
         <TouchableOpacity 
           style={styles.signupButton}
-          onPress={() => navigation.navigate("SignupScreen")}
+          // onPress={() => navigation.navigate("SignupScreen")}
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>

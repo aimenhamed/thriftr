@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, View, KeyboardAvoidingView } from "react-native";
 import { styles } from "./ChatScreen.style";
 import { ChatPageProps } from "../Router";
 import ImageStack from "../components/ImageStack/ImageStack";
@@ -19,6 +19,8 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
   const [chat, setChat] = useState(Backend.getChat(chatId)!);
   const [counterOffer, setCounterOffer] = useState<boolean>(false);
 
+  const [isKeyboardVisible, setKeyboardVisible] = useState<boolean>(false);
+
   const user = Backend.getProfile(userId)!;
   const matchedWith = Backend.getProfile(matched.matchId)!;
 
@@ -26,7 +28,7 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
     return null;
   }
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View style={styles.header}>
         <View style={styles.row}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -41,24 +43,32 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
         <Text
           style={{ ...styles.text, marginTop: "10%", marginLeft: "25%" }}
         >{`@${matchedWith?.name}`}</Text>
-        <TouchableOpacity
+        <View
           style={{
+            marginTop: "5%",
             width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10%",
+            justifyContent: "flex-end",
+            alignItems: "flex-end",
           }}
-          onPress={() => setCounterOffer(true)}
         >
-          <View style={{ borderColor: "#FFE600", borderWidth: 2, padding: 12 }}>
+          <TouchableOpacity
+            onPress={() => setCounterOffer(true)}
+            style={{
+              borderColor: "#FFE600",
+              borderWidth: 2,
+              paddingVertical: 4,
+              paddingHorizontal: 10,
+              width: "38%",
+            }}
+          >
             <Text style={{ ...styles.text, color: "#FFE600" }}>
               Counter Offer
             </Text>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
         <View
           style={{
-            marginTop: "10%",
+            marginTop: "5%",
             borderBottomColor: "white",
             borderBottomWidth: 1,
           }}
@@ -71,12 +81,15 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
         setChat={setChat}
         matchedWith={matchedWith}
         counterOffer={counterOffer}
+        setCounterOffer={() => setCounterOffer(false)}
       />
       <MessageInput
         userId={userId}
         chatId={chatId}
         setChat={(chat) => setChat(chat)}
+        setKeyboardVisible={(visible: boolean) => setKeyboardVisible(visible)}
       />
+      {isKeyboardVisible && <View style={{ height: 60 }} />}
       <BlockDialog
         visible={showBlockDialog}
         onDismiss={() => setShowBlockDialog(false)}
@@ -84,7 +97,7 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
           setShowBlockDialog(false), console.log("Blocked");
         }}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

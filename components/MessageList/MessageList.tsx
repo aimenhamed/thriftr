@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native";
 import { styles } from "./style";
 import ReceivedMessage from "../Message/ReceivedMessage";
@@ -19,6 +19,7 @@ type MessageListProps = {
   setChat: (chat: Chat) => void;
   matchedWith: Profile;
   counterOffer: boolean;
+  setCounterOffer: () => void;
 };
 
 const MessageList = ({
@@ -28,6 +29,7 @@ const MessageList = ({
   setChat,
   matchedWith,
   counterOffer,
+  setCounterOffer,
 }: MessageListProps) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const [offerStage, setOfferStage] = useState(0);
@@ -38,6 +40,29 @@ const MessageList = ({
     match.matchItemId,
   ]);
 
+  useEffect(() => {
+    if (offerStage === 2) {
+      Backend.sendMessage(chat.chatId, {
+        messageId: "",
+        sentBy: user.userId,
+        type: "COUNTER_OFFER",
+        content: {
+          offer: {
+            yourItems: yourSelectedItems,
+            theirItems: theirSelectedItems,
+          },
+          status: "PENDING",
+        },
+        timestamp: new Date().getTime(),
+      });
+      setChat(Backend.getChat(chat.chatId)!);
+      setOfferStage(3);
+    } else if (offerStage === 3) {
+      setCounterOffer();
+      setOfferStage(0);
+    }
+  }, [offerStage]);
+
   const renderCounterOffer = () => {
     if (counterOffer) {
       if (offerStage === 0) {
@@ -47,6 +72,7 @@ const MessageList = ({
             setSelectedItems={setYourSelectedItems}
             yourItems={user.items}
             setOfferStage={setOfferStage}
+            setCounterOffer={setCounterOffer}
           />
         );
       } else if (offerStage === 1) {
@@ -58,22 +84,6 @@ const MessageList = ({
             setOfferStage={setOfferStage}
           />
         );
-      } else if (offerStage === 2) {
-        Backend.sendMessage(chat.chatId, {
-          messageId: "",
-          sentBy: user.userId,
-          type: "COUNTER_OFFER",
-          content: {
-            offer: {
-              yourItems: yourSelectedItems,
-              theirItems: theirSelectedItems,
-            },
-            status: "PENDING",
-          },
-          timestamp: new Date().getTime(),
-        });
-        setChat(Backend.getChat(chat.chatId)!);
-        setOfferStage(3);
       }
     }
   };
@@ -111,6 +121,7 @@ const MessageList = ({
             <CounterOffer
               key={message.messageId}
               user={user}
+              chat={chat}
               matchedWith={matchedWith}
               message={message}
               setChat={setChat}

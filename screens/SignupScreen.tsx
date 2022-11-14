@@ -50,8 +50,8 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
         />
         
         <TouchableOpacity 
-          style={styles.signupButton}
-          // onPress={() => navigation.navigate("Signup")}
+          style={styles.signupButton} 
+          // onPress={ () => navigation.navigate("firstOnboarding")}
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
