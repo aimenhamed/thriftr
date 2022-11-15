@@ -87,9 +87,8 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
           {backgroundColor: isFirstPressed || isSecondPressed || isThirdPressed ? 
             "#FFE600" : "#575117"},
           {marginTop: 30}]}
-          // onPress={ () => isFirstPressed || isSecondPressed || isThirdPressed ?
-          //   navigation.navigate("SecondOnboardingScreen") : 
-          //   Alert.alert('Alert', 'Please selection an option')}
+          disabled = {isFirstPressed || isSecondPressed || isThirdPressed ? true : false}
+          // onPress={ () => navigation.navigate("SecondOnboardingScreen")}
         >
           <Text style={styles.buttonText}>
             Next
