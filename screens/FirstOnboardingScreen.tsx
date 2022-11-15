@@ -1,6 +1,6 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Pressable } from "react-native";
 import { PageProps } from "../Router";
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { styles } from "./FirstOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
@@ -12,6 +12,39 @@ type FirstOnboardingScreenProps = {
 
 const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
+  const [isFirstPressed, setFirstPressed] = useState(false);
+  const [isSecondPressed, setSecondPressed] = useState(false);
+  const [isThirdPressed, setThirdPressed] = useState(false);
+
+  const OptionButton = ({text, onPress, state}) => (
+    <TouchableOpacity 
+      style={[styles.optionButton, {backgroundColor: state ? "#FFE600" : "white" } ]}
+      onPress = {onPress}
+    >
+      <Text style={styles.buttonText}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  );
+
+  const handleFirstPressed = () => {
+    setFirstPressed(current => !current);
+    setSecondPressed(false);
+    setThirdPressed(false);
+  }
+
+  const handleSecondPressed = () => {
+    setFirstPressed(false);
+    setSecondPressed(current => !current);
+    setThirdPressed(false);
+  }
+
+  const handleThirdPressed = () => {
+    setFirstPressed(false);
+    setSecondPressed(false);
+    setThirdPressed(current => !current);
+  }
+
   return (
     <View style={styles.background}>
       <View style={styles.viewport}>
@@ -24,23 +57,21 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
       </View>
 
       <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "space-evenly"}]}>
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.buttonText}>
-            Male
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.buttonText}>
-            Female
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.optionButton}>
-          <Text style={styles.buttonText}>
-            Both
-          </Text>
-        </TouchableOpacity>
+        <OptionButton 
+          text = "Male"
+          onPress= {handleFirstPressed}
+          state = {isFirstPressed}
+        />
+        <OptionButton 
+          text = "Female"
+          onPress= {handleSecondPressed}
+          state = {isSecondPressed}
+        />
+        <OptionButton 
+          text = "Both"
+          onPress= {handleThirdPressed}
+          state = {isThirdPressed}
+        />
       </View>
 
       <View style={[styles.viewport, {alignItems: "center"}]}>

@@ -10,12 +10,12 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
     },    
     optionButton: {
-        backgroundColor: "white",
         width: 200,
         height: 40,
         justifyContent: "center",
         alignItems: "center",
         zIndex: 1,
+        pressed: false,
     },
     submitButton: {
         backgroundColor: "#FFE500",
