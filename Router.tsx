@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createMaterialTopTabNavigator,
@@ -7,6 +7,11 @@ import {
 import LoginScreen from "./screens/LoginScreen";
 import ThriftingScreen from "./screens/ThriftingScreen";
 import MatchesScreen from "./screens/MatchesScreen";
+import AccountScreen from "./screens/AccountScreen";
+import { styles } from "./screens/Matches.style";
+import AddListingScreen from "./screens/AddListingScreen";
+import { profileContext, useProfile } from "./profileContext";
+import EditProfileScreen from "./screens/EditProfileScreen";
 import Template from "./screens/template";
 import ChatScreen from "./screens/ChatScreen";
 import MessagesFilled from "./assets/MessagesOutline";
@@ -37,16 +42,38 @@ type TabsParamList = {
   ItsAMatchScreen: any;
 };
 
+const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
+
 export type PageProps = MaterialTopTabScreenProps<TabsParamList>;
 export type ChatPageProps = NativeStackScreenProps<MatchesParamList, "Chat">;
 
-const Tab = createMaterialTopTabNavigator<TabsParamList>();
 const MatchesStack = createNativeStackNavigator<MatchesParamList>();
 
 const Router = () => {
+  const profile = useProfile();
+  return (
+    <NavigationContainer>
+      <profileContext.Provider value={profile}>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="main" component={TabNavigator} />
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="modal" component={AddListingScreen} />
+            <Stack.Screen
+              name="EditProfilePage"
+              component={EditProfileScreen}
+            />
+          </Stack.Group>
+        </Stack.Navigator>
+      </profileContext.Provider>
+    </NavigationContainer>
+  );
+};
+
+const TabNavigator = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userId, setUserId] = useState("");
-
+  const { profile } = useContext(profileContext);
   const Main = (props: any) =>
     isAuthenticated ? (
       <FeedScreen
@@ -83,9 +110,11 @@ const Router = () => {
   );
 
   return (
-    <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Thriftr"
+        sceneContainerStyle={{
+          backgroundColor: '#1F1F1F'
+        }}
         screenOptions={{
           swipeEnabled: false,
           tabBarShowLabel: false,
@@ -109,7 +138,7 @@ const Router = () => {
       >
         <Tab.Screen
           name="Matches"
-          component={MatchesStackScreen}
+          children={MatchesStackScreen}
           options={{
             tabBarIcon: (props) =>
               props.focused ? <MessagesFilled /> : <MessagesOutline />,
@@ -141,15 +170,14 @@ const Router = () => {
           }
         </Tab.Screen>
         <Tab.Screen
-          name="Account"
-          component={Template}
-          options={{
-            tabBarIcon: (props) =>
-              props.focused ? <AccountFilled /> : <AccountOutline />,
-          }}
-        />
+        name="Account"
+        children={() => <AccountScreen currentUser={true} profile={profile} />}
+        options={{
+          tabBarIcon: (props) =>
+            props.focused ? <AccountFilled /> : <AccountOutline />,
+        }}
+      />
       </Tab.Navigator>
-    </NavigationContainer>
   );
 };
 
