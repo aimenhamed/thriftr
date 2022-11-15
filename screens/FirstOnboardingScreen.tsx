@@ -1,4 +1,4 @@
-import { View, Text, Button, Pressable } from "react-native";
+import { View, Text, Alert, } from "react-native";
 import { PageProps } from "../Router";
 import React, {useState, useEffect} from 'react';
 import { styles } from "./FirstOnboardingScreen.style";
@@ -16,6 +16,7 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
   const [isSecondPressed, setSecondPressed] = useState(false);
   const [isThirdPressed, setThirdPressed] = useState(false);
 
+
   const OptionButton = ({text, onPress, state}) => (
     <TouchableOpacity 
       style={[styles.optionButton, {backgroundColor: state ? "#FFE600" : "white" } ]}
@@ -31,19 +32,19 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
     setFirstPressed(current => !current);
     setSecondPressed(false);
     setThirdPressed(false);
-  }
+  };
 
   const handleSecondPressed = () => {
     setFirstPressed(false);
     setSecondPressed(current => !current);
     setThirdPressed(false);
-  }
+  };
 
   const handleThirdPressed = () => {
     setFirstPressed(false);
     setSecondPressed(false);
     setThirdPressed(current => !current);
-  }
+  };
 
   return (
     <View style={styles.background}>
@@ -59,17 +60,17 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
       <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "space-evenly"}]}>
         <OptionButton 
           text = "Male"
-          onPress= {handleFirstPressed}
+          onPress= { () => handleFirstPressed()}
           state = {isFirstPressed}
         />
         <OptionButton 
           text = "Female"
-          onPress= {handleSecondPressed}
+          onPress= { () => handleSecondPressed()}
           state = {isSecondPressed}
         />
         <OptionButton 
           text = "Both"
-          onPress= {handleThirdPressed}
+          onPress= { () => handleThirdPressed()}
           state = {isThirdPressed}
         />
       </View>
@@ -83,8 +84,12 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
         </Text>
         <TouchableOpacity 
           style={[styles.submitButton, 
+          {backgroundColor: isFirstPressed || isSecondPressed || isThirdPressed ? 
+            "#FFE600" : "#575117"},
           {marginTop: 30}]}
-          // onPress={ () => navigation.navigate("SecondOnboarding")}
+          // onPress={ () => isFirstPressed || isSecondPressed || isThirdPressed ?
+          //   navigation.navigate("SecondOnboardingScreen") : 
+          //   Alert.alert('Alert', 'Please selection an option')}
         >
           <Text style={styles.buttonText}>
             Next
