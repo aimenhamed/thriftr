@@ -5,6 +5,8 @@ import {
   MaterialTopTabScreenProps,
 } from "@react-navigation/material-top-tabs";
 import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+import FirstOnboardingScreen from "./screens/FirstOnboardingScreen";
 import ThriftingScreen from "./screens/ThriftingScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import AccountScreen from "./screens/AccountScreen";
