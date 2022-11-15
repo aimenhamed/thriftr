@@ -7,6 +7,7 @@ import {
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import FirstOnboardingScreen from "./screens/FirstOnboardingScreen";
+import SecondOnboardingScreen from "./screens/SecondOnboardingScreen";
 import ThriftingScreen from "./screens/ThriftingScreen";
 import MatchesScreen from "./screens/MatchesScreen";
 import AccountScreen from "./screens/AccountScreen";
@@ -42,6 +43,9 @@ type TabsParamList = {
   Template: any;
   ThriftingScreen: any;
   ItsAMatchScreen: any;
+  SignupScreen: any;
+  FirstOnboardingScreen: any;
+  SecondOnboardingScreen: any;
 };
 
 const Tab = createMaterialTopTabNavigator();
@@ -92,7 +96,10 @@ const TabNavigator = () => {
         {...props}
       />
     );
-
+  
+  const Signup = (props: any) => <SignupScreen {...props} userId={userId} />;
+  const FirstOnboarding = (props: any) => <FirstOnboardingScreen {...props} userId={userId}/>;
+  const SecondOnBoarding = (props: any) => <SecondOnboardingScreen {...props} userId={userId}/>;
   const Matches = (props: any) => <MatchesScreen {...props} userId={userId} />;
   const Chat = (props: any) => <ChatScreen {...props} />;
   const MatchesStackScreen = () => (
@@ -178,7 +185,15 @@ const TabNavigator = () => {
           tabBarIcon: (props) =>
             props.focused ? <AccountFilled /> : <AccountOutline />,
         }}
-      />
+        />
+        {/* <Tab.Screen
+          name="SecondOnboardingScreen"
+          component={SecondOnBoarding}
+          options={{
+            tabBarIcon: (props) =>
+              props.focused ? <AccountFilled /> : <AccountOutline />,
+          }}
+        /> */}
       </Tab.Navigator>
   );
 };
