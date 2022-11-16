@@ -1,15 +1,13 @@
-import { View, Text, Alert, } from "react-native";
+import { View, Text, Alert, useWindowDimensions, Keyboard, ImageSourcePropType, 
+        Pressable, Image} from "react-native";
 import { PageProps } from "../Router";
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import { styles } from "./ThirdOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
 import WhitePlus from "../assets/WhitePlus";
-import { profileContext } from "../profileContext";
-import { Profile } from "../types/profile";
 
 type ThirdOnboardingScreenProps = {
-  logIn: (userId: string) => void;
   navigation: () => any;
 } & PageProps;
 
@@ -32,12 +30,12 @@ const ThirdOnboardingScreen = ({ navigation }: ThirdOnboardingScreenProps) => {
                 {paddingLeft: 20}]}>
         <TouchableOpacity 
             style={styles.addButton}
-            // onPress = { () => navigation.navigate("AddListingScreen")}
+            onPress = { () => {navigation.navigate("modal")}}
         >
             <WhitePlus/>
         </TouchableOpacity>
       </View>
-
+        
       <View style={[styles.viewport, {alignItems: "center"}, {flex: 25}]}>
         <Text style={[styles.normalText, {marginTop: -50}]}>
           You can change this later
@@ -55,13 +53,8 @@ const ThirdOnboardingScreen = ({ navigation }: ThirdOnboardingScreenProps) => {
             onPress={ () => navigation.navigate("router2")}
         >
           <Text style={styles.buttonText}>
-            Next
+            Start Thrifting
           </Text>
-          <View style={{flex: 3}}>
-          </View>
-          <View style={{flex: 1}}>
-            <ArrowRight style={styles.arrow}/>
-          </View>
         </TouchableOpacity>
       </View>
 

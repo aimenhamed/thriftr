@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         transform: [{ rotate: "-15deg" }],
         position: "absolute",
         width: 830,
-        height: 520,
+        height: 600,
         top: -250,
         left: -100,
     },
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         width: 200,
         height: 30,
-        top: 0,
+        top: 30,
         fontFamily: "AzeretMono_400Regular",
     },
     inputPhoneNumber: {
@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         width: 200,
         height: 30,
-        top: 50,
+        top: 80,
         fontFamily: "AzeretMono_400Regular",
     },
     inputPassword: {
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         width: 200,
         height: 30,
-        top: 100,
+        top: 130,
         fontFamily: "AzeretMono_400Regular",
     },
     inputConfirmPassword: {
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
         position: "absolute",
         width: 200,
         height: 30,
-        top: 150,
+        top: 180,
         fontFamily: "AzeretMono_400Regular",
     },
     signupButton: {
@@ -74,7 +74,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         position: "absolute",
-        top: 230,
+        top: 260,
     },
     signupText: {
         fontSize: 16,
@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
         color: "white",
         fontSize: 12,
         position: "absolute",
-        top: 300,
+        top: 330,
         fontFamily: "AzeretMono_400Regular",
     },
     backarrow: {

@@ -15,6 +15,7 @@ import { profiles } from "../data/profiles";
 import { PageProps } from "../Router";
 import { Item } from "../types/item";
 import { styles } from "./Thrifting.style";
+import Hand from "../assets/Hand";
 
 export type ThriftingScreenProps = {
   logOut: () => void;
@@ -42,6 +43,8 @@ const isMatch = (
 };
 
 const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
+  const [showOverlay, setOverlay] = useState(true);
+
   let swiperRef:
     | Swiper<{ item: Item; seller: { name: string; image: any } }>
     | undefined = undefined;
@@ -109,6 +112,34 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   //! [number, number, number] instead of [number, number, number, number, number]
   return (
     <View style={styles.container}>
+      {showOverlay ? (
+        <TouchableOpacity style={[{flex: 1}, {zIndex: 2}]}>
+          <TouchableOpacity
+            style={styles.overlay}
+            onPress = {() => setOverlay(false)}
+          >
+            <View style={styles.upperView}>
+              <View style={styles.upperLeftView}>
+                <Hand style={{zIndex: 5}} />
+                <Text style={styles.normalText}>last photo</Text>
+              </View>
+              <View style={styles.upperRightView}>
+                <Hand style={{zIndex: 5}} />
+                <Text style={styles.normalText}>next photo</Text>
+              </View>
+            </View>
+            <View style={styles.lowerView}>
+              <Text style={styles.normalText}>open description</Text>
+              <Hand style={{zIndex: 5}} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={{flex: 17}}>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      ) : (
+        <View></View>
+      )}
+      
       <View style={styles.slantedBackground} />
       <Swiper
         ref={(swiper) => {
@@ -207,6 +238,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
 
       <View style={styles.userActions}>
         <TouchableOpacity
+          disabled = {showOverlay ? true : false}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeLeft()}
         >
@@ -214,6 +246,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          disabled = {showOverlay ? true : false}
           style={styles.userAction}
           onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}
         >
@@ -221,6 +254,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          disabled = {showOverlay ? true : false}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeRight()}
         >

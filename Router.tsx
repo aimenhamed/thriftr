@@ -187,7 +187,11 @@ const Router = () => {
         <RootStack.Screen
           name="ThirdOnboardingScreen"
           component={ThirdOnboardingScreen}
+          
         />
+        <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name="modal" component={AddListingScreen} />
+        </Stack.Group>
         <RootStack.Screen
           name="router2"  
           component={Router2}
