@@ -1,5 +1,5 @@
 import { View, Text, Alert, useWindowDimensions, Keyboard, ImageSourcePropType, 
-        Pressable, Image} from "react-native";
+        Pressable, Image, ScrollView} from "react-native";
 import { PageProps } from "../Router";
 import React, {useState, useEffect, useCallback, useContext, Profiler} from 'react';
 import { styles } from "./ThirdOnboardingScreen.style";
@@ -40,7 +40,37 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
         </Text>
       </View>
 
-        <View 
+      <View style={[{padding: 40}, {display:"flex"}, {flex:40}]}>
+            <View
+              style={[{ flexDirection: "row" },
+              {justifyContent: "space-between"},
+              {flexWrap: "wrap"}, {flex:1}]}
+            >
+              {profile.items.map((item, i) => (
+                <Pressable
+                  onPress={() => {
+                      navigation.navigate("modal"); setCurrentItem(item.itemId);
+                  }}
+                >
+                  <Image
+                    key={i}
+                    source={item.photos[0]}
+                    style={[{ width: 0.4 * (width - 50)}, {height : 0.4 * (width - 50)},
+                              {borderColor: "white"}, {borderWidth: 1}, {marginBottom:30}]}
+                  />
+                </Pressable>
+              ))}
+                <TouchableOpacity 
+                    style={[styles.addButton, { width: 0.4 * (width - 50)}, 
+                            {height : 0.4 * (width - 50)}]}
+                    onPress = { () => {navigation.navigate("modal")}}
+                >
+                    <WhitePlus/>
+                </TouchableOpacity>
+            </View>
+        </View>
+
+        {/* <View 
           style={[styles.viewport, 
                   {alignItems: "flex-start"}, 
                   {justifyContent: "flex-start"}, 
@@ -52,23 +82,9 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
           >
               <WhitePlus/>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
-        <View style={{ flexDirection: "row" }}>
-          {profile.items.map((item, i) => (
-            <Pressable
-              onPress={() => {
-                  navigation.navigate("modal"); setCurrentItem(item.itemId);
-              }}
-            >
-              <Image
-                key={i}
-                source={item.photos[0]}
-                style={{ width: width / 3, height: width / 3 }}
-              />
-            </Pressable>
-          ))}
-        </View>
+        
         
       <View style={[styles.viewport, {alignItems: "center"}, {flex: 25}]}>
         <Text style={[styles.normalText, {marginTop: -50}]}>
