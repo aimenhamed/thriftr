@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     addButton: {
         width: 135,
         height: 135,
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: "white",
         justifyContent: "center",
         alignItems: "center"
