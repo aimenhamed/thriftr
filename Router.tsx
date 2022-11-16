@@ -44,10 +44,6 @@ type TabsParamList = {
   Template: any;
   ThriftingScreen: any;
   ItsAMatchScreen: any;
-  SignupScreen: any;
-  FirstOnboardingScreen: any;
-  SecondOnboardingScreen: any;
-  ThirdOnboardingScrren: any;
 };
 
 const Tab = createMaterialTopTabNavigator();
@@ -58,10 +54,9 @@ export type ChatPageProps = NativeStackScreenProps<MatchesParamList, "Chat">;
 
 const MatchesStack = createNativeStackNavigator<MatchesParamList>();
 
-const Router = () => {
+const Router2 = () => {
   const profile = useProfile();
   return (
-    <NavigationContainer>
       <profileContext.Provider value={profile}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="main" component={TabNavigator} />
@@ -74,7 +69,6 @@ const Router = () => {
           </Stack.Group>
         </Stack.Navigator>
       </profileContext.Provider>
-    </NavigationContainer>
   );
 };
 
@@ -83,26 +77,11 @@ const TabNavigator = () => {
   const [userId, setUserId] = useState("");
   const { profile } = useContext(profileContext);
   const Main = (props: any) =>
-    isAuthenticated ? (
       <FeedScreen
-        logOut={() => setIsAuthenticated(false)}
+        logOut={() => setIsAuthenticated(true)}
         userId={userId}
         {...props}
       />
-    ) : (
-      <LoginScreen
-        logIn={(uId: string) => {
-          setIsAuthenticated(true);
-          setUserId(uId);
-        }}
-        {...props}
-      />
-    );
-  
-  const Signup = (props: any) => <SignupScreen {...props} userId={userId} />;
-  const FirstOnboarding = (props: any) => <FirstOnboardingScreen {...props} userId={userId}/>;
-  const SecondOnBoarding = (props: any) => <SecondOnboardingScreen {...props} userId={userId}/>;
-  const ThirdOnBoarding = (props: any) => <ThirdOnboardingScreen {...props} userId={userId}/>;
   const Matches = (props: any) => <MatchesScreen {...props} userId={userId} />;
   const Chat = (props: any) => <ChatScreen {...props} />;
   const MatchesStackScreen = () => (
@@ -164,21 +143,11 @@ const TabNavigator = () => {
           }}
         >
           {(props: any) =>
-            isAuthenticated ? (
               <FeedStackScreen
                 logOut={() => setIsAuthenticated(false)}
                 userId={userId}
                 {...props}
               />
-            ) : (
-              <LoginScreen
-                logIn={(uId: string) => {
-                  setIsAuthenticated(true);
-                  setUserId(uId);
-                }}
-                {...props}
-              />
-            )
           }
         </Tab.Screen>
         <Tab.Screen
@@ -189,16 +158,44 @@ const TabNavigator = () => {
             props.focused ? <AccountFilled /> : <AccountOutline />,
         }}
         />
-        {/* <Tab.Screen
-          name="ThirdOnboardingScreen"
-          component={ThirdOnBoarding}
-          options={{
-            tabBarIcon: (props) =>
-              props.focused ? <AccountFilled /> : <AccountOutline />,
-          }}
-        /> */}
       </Tab.Navigator>
   );
 };
+
+const RootStack = createNativeStackNavigator();
+
+const Router = () => {
+  return (
+    <NavigationContainer>
+      <RootStack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
+        <RootStack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+        />
+        <RootStack.Screen
+          name="SignupScreen"
+          component={SignupScreen}
+        />
+        <RootStack.Screen
+          name="FirstOnboardingScreen"
+          component={FirstOnboardingScreen}
+        />
+        <RootStack.Screen
+          name="SecondOnboardingScreen"
+          component={SecondOnboardingScreen}
+        />
+        <RootStack.Screen
+          name="ThirdOnboardingScreen"
+          component={ThirdOnboardingScreen}
+        />
+        <RootStack.Screen
+          name="router2"  
+          component={Router2}
+        />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
+};
+
 
 export default Router;

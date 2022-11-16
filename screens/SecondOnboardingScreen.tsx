@@ -189,7 +189,7 @@ const SecondOnboardingScreen = ({ navigation }: SecondOnboardingScreenProps) => 
             || isHoodiesPressed || isHatsPressed || 
             isSweatersPressed || isJewelleryPressed || isJacketsPressed ||
             isShortsPressed || isGlovesPressed) ? false : true}
-          // onPress={ () => navigation.navigate("ThirdOnboardingScreen")}
+          onPress={ () => navigation.navigate("ThirdOnboardingScreen")}
         >
           <Text style={styles.buttonText}>
             Next

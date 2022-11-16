@@ -48,7 +48,7 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
         {returnValue(username, password) ? (
           <TouchableOpacity
           onPress={() => logIn(userId)}
-          // onPress={() => navigation.navigate("ThriftingScreen")}
+          onPress={() => navigation.navigate("router2")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
@@ -63,7 +63,7 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
         )}
         <TouchableOpacity 
           style={styles.signupButton}
-          // onPress={() => navigation.navigate("SignupScreen")}
+          onPress={() => navigation.navigate("SignupScreen")}
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>

@@ -52,7 +52,7 @@ const ThirdOnboardingScreen = ({ navigation }: ThirdOnboardingScreenProps) => {
         //     "#FFE600" : "#575117"},
         //   {marginTop: 30}]}
           // disabled = {isFirstPressed || isSecondPressed || isThirdPressed ? true : false}
-          // onPress={ () => navigation.navigate("SecondOnboardingScreen")}
+            onPress={ () => navigation.navigate("router2")}
         >
           <Text style={styles.buttonText}>
             Next

@@ -86,5 +86,11 @@ export const styles = StyleSheet.create({
         position: "absolute",
         top: 300,
         fontFamily: "AzeretMono_400Regular",
+    },
+    backarrow: {
+        zIndex: 3,
+        position: "absolute",
+        top: 50,
+        left: 20,
     }
 });
