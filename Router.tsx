@@ -165,39 +165,47 @@ const TabNavigator = () => {
 const RootStack = createNativeStackNavigator();
 
 const Router = () => {
+  const profile = useProfile()
   return (
-    <NavigationContainer>
-      <RootStack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
-        <RootStack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-        />
-        <RootStack.Screen
-          name="SignupScreen"
-          component={SignupScreen}
-        />
-        <RootStack.Screen
-          name="FirstOnboardingScreen"
-          component={FirstOnboardingScreen}
-        />
-        <RootStack.Screen
-          name="SecondOnboardingScreen"
-          component={SecondOnboardingScreen}
-        />
-        <RootStack.Screen
-          name="ThirdOnboardingScreen"
-          component={ThirdOnboardingScreen}
-          
-        />
-        <Stack.Group screenOptions={{ presentation: "modal" }}>
-            <Stack.Screen name="modal" component={AddListingScreen} />
-        </Stack.Group>
-        <RootStack.Screen
-          name="router2"  
-          component={Router2}
-        />
-      </RootStack.Navigator>
-    </NavigationContainer>
+    <profileContext.Provider value={profile}>
+      <NavigationContainer>
+        <RootStack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
+          <RootStack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
+          />
+          <RootStack.Screen
+            name="SignupScreen"
+            component={SignupScreen}
+          />
+          <RootStack.Screen
+            name="FirstOnboardingScreen"
+            component={FirstOnboardingScreen}
+          />
+          <RootStack.Screen
+            name="SecondOnboardingScreen"
+            component={SecondOnboardingScreen}
+          />
+          <RootStack.Screen
+            name="ThirdOnboardingScreen"
+            component={ThirdOnboardingScreen}
+            
+          />
+          <RootStack.Screen
+            name="router2"  
+            component={Router2}
+          />
+          <RootStack.Screen name="main" component={TabNavigator} />
+          <RootStack.Group screenOptions={{ presentation: "modal" }}>
+            <RootStack.Screen name="modal" component={AddListingScreen} />
+            <RootStack.Screen
+              name="EditProfilePage"
+              component={EditProfileScreen}
+            />
+          </RootStack.Group>
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </profileContext.Provider>
   );
 };
 
