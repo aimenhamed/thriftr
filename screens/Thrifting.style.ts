@@ -38,4 +38,46 @@ export const styles = StyleSheet.create({
     color: "#1F1F1F",
     fontFamily: "AzeretMono_400Regular",
   },
+  overlay: {
+    backgroundColor: "#000000",
+    flex: 83,
+    zIndex: 3,
+    borderColor: "white",
+    position: "relative",
+    borderWidth: 2,
+    opacity: 0.85,
+  },
+  upperView: {
+    flex: 3,
+    borderColor: "white",
+    borderBottomWidth: 2,
+    flexDirection: "row",
+  },
+  lowerView: {
+    flex: 1,
+    borderColor: "white",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  upperLeftView: {
+    borderRightWidth: 1,
+    borderColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  upperRightView: {
+    borderLeftWidth: 1,
+    borderColor: "white",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  normalText: {
+    fontSize: 16,
+    fontFamily: "AzeretMono_400Regular",
+    color: "white",
+    zIndex: 1
+},
 });

@@ -16,6 +16,7 @@ const SignupScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
   let keyboardShown = false;
 
   const returnValue = (username: string, phoneNumber: string, 
@@ -99,6 +100,7 @@ const SignupScreen = ({ navigation }) => {
         <Text style={styles.forgotText} onPress={ () => navigation.navigate("LoginScreen")}>
            Already have an account?
         </Text>
+
       </View>
       <View style={{height: 30}}></View>
     </KeyboardAvoidingView>
