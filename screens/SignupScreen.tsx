@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, Touchable} from "react-native";
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, Touchable, Alert} from "react-native";
 import { PageProps } from "../Router";
 import React, {useState} from 'react';
 import { styles } from "./SignupScreen.style";
 import ThriftBig from "../assets/ThriftrBig";
+import BlackBackArrow from "../assets/BlackBackArrow";
 import { TextInput } from "react-native-gesture-handler";
 
 type SignupScreenProps = {
@@ -17,9 +18,24 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   let keyboardShown = false;
 
+  const returnValue = (username: string, phoneNumber: string, 
+                      password: string, confirmPassword: string) => {
+    if (username.trim().length > 0 && phoneNumber.trim().length > 0 &&
+        password.trim().length > 0 && confirmPassword.trim().length > 0) {
+      return true
+    } else {
+      return false
+    }
+  }
   return (
     <KeyboardAvoidingView style={styles.backgroundView} behavior="padding">
       <View style={styles.upperView}>
+        <TouchableOpacity 
+          style={styles.backarrow}
+          onPress={() => navigation.navigate("LoginScreen")}
+        >
+          <BlackBackArrow/>
+        </TouchableOpacity>
         <ThriftBig
           style={styles.logoimage}
         />
@@ -34,6 +50,7 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
         <TextInput
             style={styles.inputPhoneNumber}
             placeholder="Phone number"
+            keyboardType="numeric"
             onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
         />
         <TextInput
@@ -48,14 +65,25 @@ const SignupScreen = ({ navigation }: SignupScreenProps) => {
             onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
             secureTextEntry = {true} 
         />
-        
-        <TouchableOpacity 
-          style={styles.signupButton} 
-          // onPress={ () => navigation.navigate("FirstOnboarding")}
+
+        {returnValue(username, phoneNumber, password, confirmPassword) ? (
+          <TouchableOpacity
+          onPress={ () => navigation.navigate("FirstOnboardingScreen")}
+          // onPress={() => navigation.navigate("router2")}
+          style={styles.signupButton}
         >
           <Text style={styles.signupText}>Signup</Text>
-        </TouchableOpacity>
-        <Text style={styles.forgotText} onPress={ () => navigation.navigate("Thriftr")}>
+          </TouchableOpacity>
+        ): (
+          <TouchableOpacity
+            onPress={() => Alert.alert('Alert', 'Please fill in all details')}
+            style={styles.signupButton}
+          >
+            <Text style={styles.signupText}>Signup</Text>
+          </TouchableOpacity>
+        )}
+
+        <Text style={styles.forgotText} onPress={ () => navigation.navigate("LoginScreen")}>
            Already have an account?
         </Text>
       </View>
