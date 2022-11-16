@@ -6,12 +6,12 @@ import ThriftBig from "../assets/ThriftrBig";
 import BlackBackArrow from "../assets/BlackBackArrow";
 import { TextInput } from "react-native-gesture-handler";
 
-type SignupScreenProps = {
-    logIn: (userId: string) => void;
-    navigation: () => any;
-  } & PageProps;
+// type SignupScreenProps = {
+//     logIn: (userId: string) => void;
+//     navigation: () => any;
+//   } & PageProps;
 
-const SignupScreen = ({ navigation }: SignupScreenProps) => {
+const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');

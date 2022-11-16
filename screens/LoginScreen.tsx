@@ -49,7 +49,7 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
         
         {returnValue(username, password) ? (
           <TouchableOpacity
-          onPress={() => logIn(userId)}
+          onPress={() => navigation.navigate("router2")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
