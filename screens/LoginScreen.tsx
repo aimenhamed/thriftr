@@ -37,18 +37,19 @@ const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
           style={styles.inputUsername} 
           placeholder="Username" 
           onChangeText={(username) => setUsername(username)}
+          placeholderTextColor= "#AAAAAA"
         />
         <TextInput 
           style={styles.inputPassword} 
           placeholder="Password" 
           onChangeText={(password) => setPassword(password)}
           secureTextEntry = {true}
+          placeholderTextColor= "#AAAAAA"
         />
         
         {returnValue(username, password) ? (
           <TouchableOpacity
           onPress={() => logIn(userId)}
-          onPress={() => navigation.navigate("router2")}
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
