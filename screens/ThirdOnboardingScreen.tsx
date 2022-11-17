@@ -26,7 +26,7 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
 
   return (
     <View style={styles.background}>
-      <TouchableOpacity 
+      <TouchableOpacity
           style={styles.backarrow}
           onPress={() => navigation.navigate("SecondOnboardingScreen")}
         >
@@ -48,12 +48,12 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
             >
               {profile.items.map((item, i) => (
                 <Pressable
+                  key={i}
                   onPress={() => {
                       navigation.navigate("modal"); setCurrentItem(item.itemId);
                   }}
                 >
                   <Image
-                    key={i}
                     source={item.photos[0]}
                     style={[{ width: 0.4 * (width - 50)}, {height : 0.4 * (width - 50)},
                               {borderColor: "white"}, {borderWidth: 1}, {marginBottom:30}]}

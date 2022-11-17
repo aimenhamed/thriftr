@@ -22,35 +22,34 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState('');
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.backgroundView}
-      behavior= 'padding'
+      behavior="position"
     >
+      <View style={styles.yellowBox}></View>
       <View style={styles.upperView}>
         <ThriftBig
           style={styles.logoimage}
         />
-        <View style={styles.yellowBox}></View>
       </View>
       <View style={styles.lowerView}>
-        <TextInput 
-          style={styles.inputUsername} 
-          placeholder="Username" 
+        <TextInput
+          style={styles.inputUsername}
+          placeholder="Username"
           onChangeText={(username) => setUsername(username)}
           placeholderTextColor= "#AAAAAA"
         />
-        <TextInput 
-          style={styles.inputPassword} 
-          placeholder="Password" 
+        <TextInput
+          style={styles.inputPassword}
+          placeholder="Password"
           onChangeText={(password) => setPassword(password)}
           secureTextEntry = {true}
           placeholderTextColor= "#AAAAAA"
         />
-        
+
         {returnValue(username, password) ? (
           <TouchableOpacity
           onPress={() => navigation.navigate("router2")}
-          // onPress={() => logIn(userId)} 
           style={styles.loginButton}
         >
           <Text style={styles.loginText}>Login</Text>
@@ -69,9 +68,11 @@ const LoginScreen = ({ navigation }) => {
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
-        <Text style={styles.forgotText}>
-          Forgot your username and password?
-        </Text>
+        <TouchableOpacity style={styles.forgotButton}>
+          <Text style={styles.forgotText}>
+            Forgot your username and password?
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={{height: 30}}></View>
     </KeyboardAvoidingView>

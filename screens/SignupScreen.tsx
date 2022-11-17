@@ -6,11 +6,6 @@ import ThriftBig from "../assets/ThriftrBig";
 import BlackBackArrow from "../assets/BlackBackArrow";
 import { TextInput } from "react-native-gesture-handler";
 
-// type SignupScreenProps = {
-//     logIn: (userId: string) => void;
-//     navigation: () => any;
-//   } & PageProps;
-
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -19,7 +14,7 @@ const SignupScreen = ({ navigation }) => {
 
   let keyboardShown = false;
 
-  const returnValue = (username: string, phoneNumber: string, 
+  const returnValue = (username: string, phoneNumber: string,
                       password: string, confirmPassword: string) => {
     if (username.trim().length > 0 && phoneNumber.trim().length > 0 &&
         password.trim().length > 0 && confirmPassword.trim().length > 0) {
@@ -39,7 +34,7 @@ const SignupScreen = ({ navigation }) => {
   return (
     <KeyboardAvoidingView style={styles.backgroundView} behavior="padding">
       <View style={styles.upperView}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.backarrow}
           onPress={() => navigation.navigate("LoginScreen")}
         >
@@ -97,9 +92,11 @@ const SignupScreen = ({ navigation }) => {
           </TouchableOpacity>
         )}
 
-        <Text style={styles.forgotText} onPress={ () => navigation.navigate("LoginScreen")}>
-           Already have an account?
-        </Text>
+        <TouchableOpacity style={styles.alreadyHaveAccountButton}>
+          <Text style={styles.alreadyHaveAccountText} onPress={() => navigation.navigate("LoginScreen")}>
+            Already have an account?
+          </Text>
+        </TouchableOpacity>
 
       </View>
       <View style={{height: 30}}></View>

@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
     backgroundView: {
         backgroundColor: "#1F1F1F",
         flex: 1,
+        overflow: "hidden",
     },
     upperView: {
         flex: 1,
@@ -80,11 +81,14 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "AzeretMono_400Regular",
     },
-    forgotText: {
-        color: "white",
-        fontSize: 12,
+    alreadyHaveAccountButton: {
         position: "absolute",
         top: 330,
+        height: 40,
+    },
+    alreadyHaveAccountText: {
+        color: "white",
+        fontSize: 12,
         fontFamily: "AzeretMono_400Regular",
     },
     backarrow: {
