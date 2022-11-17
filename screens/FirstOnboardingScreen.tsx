@@ -5,12 +5,12 @@ import { styles } from "./FirstOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
 
-type FirstOnboardingScreenProps = {
-  logIn: (userId: string) => void;
-  navigation: () => any;
-} & PageProps;
+// type FirstOnboardingScreenProps = {
+//   logIn: (userId: string) => void;
+//   navigation: () => any;
+// } & PageProps;
 
-const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
+const FirstOnboardingScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [isFirstPressed, setFirstPressed] = useState(false);
   const [isSecondPressed, setSecondPressed] = useState(false);
@@ -48,16 +48,18 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
 
   return (
     <View style={styles.background}>
-      <View style={styles.viewport}>
-        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 20}, {paddingBottom: 10}]}>
+      <View style={[styles.viewport, {justifyContent: "flex-start"}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingBottom: 10}, 
+                      {paddingLeft: 15}, {paddingTop: 100}]}>
           Before we start...
         </Text>
-        <Text style={[styles.normalText, {fontSize: 16}, {padding: 20}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 15}]}>
           Are you looking for male or female clothes?
         </Text>
       </View>
 
-      <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "space-evenly"}]}>
+      <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "center"},
+                    {flex: 40}]}>
         <OptionButton 
           text = "Male"
           onPress= { () => handleFirstPressed()}
@@ -75,7 +77,7 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
         />
       </View>
 
-      <View style={[styles.viewport, {alignItems: "center"}]}>
+      <View style={[styles.viewport, {alignItems: "center"}, {flex: 25}]}>
         <Text style={[styles.normalText, {marginTop: -50}]}>
           You can change this later
         </Text>

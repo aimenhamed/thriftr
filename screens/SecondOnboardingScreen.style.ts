@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
     viewport: {
         flex: 20,
         justifyContent: "center",
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     horizontalViewport : {
         flexDirection: "row",
@@ -46,6 +48,12 @@ export const styles = StyleSheet.create({
     },
     arrow: {
         zIndex: 2,
+    },
+    backarrow: {
+        zIndex: 3,
+        position: "absolute",
+        top: 50,
+        left: 20,
     }
 })
 

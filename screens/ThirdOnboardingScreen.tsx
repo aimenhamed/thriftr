@@ -1,28 +1,20 @@
 import { View, Text, Alert, useWindowDimensions, Keyboard, ImageSourcePropType, 
-        Pressable, Image, ScrollView} from "react-native";
+        Pressable, Image, ScrollView, TouchableOpacity} from "react-native";
 import { PageProps } from "../Router";
 import React, {useState, useEffect, useCallback, useContext, Profiler} from 'react';
 import { styles } from "./ThirdOnboardingScreen.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
 import WhitePlus from "../assets/WhitePlus";
 import { useNavigation } from "@react-navigation/native";
 import { profileContext, useProfile } from "../profileContext";
 import { Profile } from "../types/profile";
+import WhiteBackArrow from "../assets/WhiteBackArrow";
 
-// type ThirdOnboardingScreenProps = {
-//   navigation: () => any;
-// } & PageProps;
 
 type ThirdOnboardingScreenProps = {
   currentUser: Boolean;
   profile: Profile;
 };
-
-// type AccountScreenProps = {
-//   currentUser: Boolean;
-//   profile: Profile;
-// };
 
 const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
@@ -34,13 +26,21 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
 
   return (
     <View style={styles.background}>
-      <View style={styles.viewport}>
-        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 20}]}>
+      <TouchableOpacity 
+          style={styles.backarrow}
+          onPress={() => navigation.navigate("SecondOnboardingScreen")}
+        >
+          <WhiteBackArrow/>
+      </TouchableOpacity>
+
+      <View style={[styles.viewport, {justifyContent:"flex-start"}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 13}, 
+                      {paddingTop: 100}]}>
           What items do you want to list for trade?
         </Text>
       </View>
 
-      <View style={[{padding: 40}, {display:"flex"}, {flex:40}]}>
+      <View style={[{paddingLeft: 40}, {paddingRight: 40}, {display:"flex"}, {flex:40}]}>
             <View
               style={[{ flexDirection: "row" },
               {justifyContent: "space-between"},
@@ -70,22 +70,6 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
             </View>
         </View>
 
-        {/* <View 
-          style={[styles.viewport, 
-                  {alignItems: "flex-start"}, 
-                  {justifyContent: "flex-start"}, 
-                  {flex:40},
-                  {paddingLeft: 20}]}>
-          <TouchableOpacity 
-              style={styles.addButton}
-              onPress = { () => {navigation.navigate("modal")}}
-          >
-              <WhitePlus/>
-          </TouchableOpacity>
-        </View> */}
-
-        
-        
       <View style={[styles.viewport, {alignItems: "center"}, {flex: 25}]}>
         <Text style={[styles.normalText, {marginTop: -50}]}>
           You can change this later

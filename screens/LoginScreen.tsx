@@ -4,9 +4,9 @@ import { styles } from "./LoginScreen.style";
 import React, {useState} from 'react';
 import ThriftBig from "../assets/ThriftrBig";
 
-type LoginScreenProps = {
-  logIn: (userId: string) => void;
-} & PageProps;
+// type LoginScreenProps = {
+//   logIn: (userId: string) => void;
+// } & PageProps;
 
 const returnValue = (username: string, password: string) => {
   if (username.trim().length > 0 && password.trim().length > 0) {
@@ -16,7 +16,7 @@ const returnValue = (username: string, password: string) => {
   }
 }
 
-const LoginScreen = ({ logIn, navigation }: LoginScreenProps) => {
+const LoginScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

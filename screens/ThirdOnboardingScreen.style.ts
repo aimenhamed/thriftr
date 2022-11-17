@@ -8,6 +8,9 @@ export const styles = StyleSheet.create({
     viewport: {
         flex: 20,
         justifyContent: "center",
+        alignItems: "center",
+        paddingLeft: 30,
+        paddingRight: 30,
     },    
     submitButton: {
         backgroundColor: "#FFE500",
@@ -38,6 +41,12 @@ export const styles = StyleSheet.create({
         borderColor: "white",
         justifyContent: "center",
         alignItems: "center"
+    },
+    backarrow: {
+        zIndex: 3,
+        position: "absolute",
+        top: 50,
+        left: 20,
     }
 })
 
