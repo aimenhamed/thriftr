@@ -25,6 +25,7 @@ import FeedStackScreen from "./screens/FeedStackScreen";
 import { Match } from "./types/match";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Backend } from "./backend";
 
 type MatchesParamList = {
   MatchesScreen: undefined;
@@ -104,16 +105,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Thriftr"
-        options={{
-          tabBarIcon: (props) =>
-            props.focused ? <ThriftrFilled /> : <ThriftrOutlined />,
-        }}
-        children={Main}
-      />
-      <Tab.Screen
         name="Account"
-        children={() => <AccountScreen currentUser={true} profile={profile} />}
+        children={() => <AccountScreen currentUser={true} profile={profile && Backend.getProfile(Backend.getCurrentUserId())} />}
         options={{
           tabBarIcon: (props) =>
             props.focused ? <AccountFilled /> : <AccountOutline />,

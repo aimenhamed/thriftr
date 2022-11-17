@@ -6,7 +6,6 @@ import {
   Dimensions,
   DeviceEventEmitter,
 } from "react-native";
-import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
 import LikeIcon from "../assets/LikeIcon";
 import OfferIcon from "../assets/OfferIcon";
