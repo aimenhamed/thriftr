@@ -6,6 +6,11 @@ export const styles = StyleSheet.create({
         flex: 1,
         overflow: "hidden",
     },
+    keyboardDismisser: {
+        position: "absolute",
+        height: "200%",
+        width: "100%",
+    },
     upperView: {
         marginTop: 200,
         marginBottom: 250,

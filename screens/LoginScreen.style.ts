@@ -5,6 +5,11 @@ export const styles = StyleSheet.create({
     backgroundColor: "#1F1F1F",
     flex: 1,
   },
+  keyboardDismisser: {
+    position: "absolute",
+    height: "200%",
+    width: "100%",
+  },
   upperView: {
     marginTop: 200,
     marginBottom: 250,

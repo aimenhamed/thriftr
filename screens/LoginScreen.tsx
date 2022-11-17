@@ -1,12 +1,8 @@
-import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView, Keyboard } from "react-native";
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, {useState} from 'react';
 import ThriftBig from "../assets/ThriftrBig";
-
-// type LoginScreenProps = {
-//   logIn: (userId: string) => void;
-// } & PageProps;
 
 const returnValue = (username: string, password: string) => {
   if (username.trim().length > 0 && password.trim().length > 0) {
@@ -26,8 +22,9 @@ const LoginScreen = ({ navigation }) => {
       style={styles.backgroundView}
       behavior="position"
     >
-      <View style={styles.yellowBox}></View>
-      <View style={styles.upperView}>
+      <View style={styles.keyboardDismisser} onTouchStart={Keyboard.dismiss} />
+      <View style={styles.yellowBox} onTouchStart={Keyboard.dismiss} />
+      <View style={styles.upperView} onTouchStart={Keyboard.dismiss}>
         <ThriftBig
           style={styles.logoimage}
         />

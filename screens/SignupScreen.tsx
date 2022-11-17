@@ -1,10 +1,9 @@
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, Touchable, Alert} from "react-native";
-import { PageProps } from "../Router";
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, Keyboard, Alert} from "react-native";
 import React, {useState} from 'react';
 import { styles } from "./SignupScreen.style";
 import ThriftBig from "../assets/ThriftrBig";
 import BlackBackArrow from "../assets/BlackBackArrow";
-import { TextInput } from "react-native-gesture-handler";
+import { TextInput, TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -33,73 +32,75 @@ const SignupScreen = ({ navigation }) => {
 }
   return (
     <KeyboardAvoidingView style={styles.backgroundView} behavior="position">
-      <View style={styles.yellowBox}></View>
-      <View style={styles.upperView}>
-        <TouchableOpacity
-          style={styles.backArrow}
-          onPress={() => navigation.navigate("LoginScreen")}
-        >
-          <BlackBackArrow/>
-        </TouchableOpacity>
-        <ThriftBig
-          style={styles.logoimage}
-        />
-      </View>
-      <View style={styles.lowerView}>
-        <TextInput
-            style={styles.inputUsername}
-            placeholder="Username"
-            onChangeText={(username) => setUsername(username)}  
-            placeholderTextColor= "#AAAAAA"
-        />
-        <TextInput
-            style={styles.inputPhoneNumber}
-            placeholder="Phone number"
-            keyboardType="numeric"
-            onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-            placeholderTextColor= "#AAAAAA"
-        />
-        <TextInput
-            style={styles.inputPassword}
-            placeholder="Password"
-            onChangeText={(password) => setPassword(password)}
-            secureTextEntry = {true}
-            placeholderTextColor= "#AAAAAA"
-        />
-        <TextInput
-            style={styles.inputConfirmPassword}
-            placeholder="Re-enter password"
-            onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
-            secureTextEntry = {true} 
-            placeholderTextColor= "#AAAAAA"
-        />
-
-        {returnValue(username, phoneNumber, password, confirmPassword) ? (
+        <View style={styles.keyboardDismisser} onTouchStart={Keyboard.dismiss} />
+        <View style={styles.yellowBox} onTouchStart={Keyboard.dismiss} />
+        <View style={styles.upperView} onTouchStart={Keyboard.dismiss}>
           <TouchableOpacity
-          onPress={ () => checkPassword(password, confirmPassword) ? 
-                          navigation.navigate("FirstOnboardingScreen") : 
-                          Alert.alert('Alert', 'Passwords are not the same')}
-          style={styles.signupButton}
-        >
-          <Text style={styles.signupText}>Signup</Text>
+            style={styles.backArrow}
+            onPress={() => navigation.navigate("LoginScreen")}
+          >
+            <BlackBackArrow/>
           </TouchableOpacity>
-        ): (
-          <TouchableOpacity
-            onPress={() => Alert.alert('Alert', 'Please fill in all details')}
+          <ThriftBig
+            style={styles.logoimage}
+          />
+        </View>
+        <View style={styles.lowerView}>
+          <TextInput
+              style={styles.inputUsername}
+              placeholder="Username"
+              onChangeText={(username) => setUsername(username)}  
+              placeholderTextColor= "#AAAAAA"
+          />
+          <TextInput
+              style={styles.inputPhoneNumber}
+              placeholder="Phone number"
+              keyboardType="numeric"
+              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+              placeholderTextColor= "#AAAAAA"
+          />
+          <TextInput
+              style={styles.inputPassword}
+              placeholder="Password"
+              onChangeText={(password) => setPassword(password)}
+              secureTextEntry = {true}
+              placeholderTextColor= "#AAAAAA"
+          />
+          <TextInput
+              style={styles.inputConfirmPassword}
+              placeholder="Re-enter password"
+              onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
+              secureTextEntry = {true} 
+              placeholderTextColor= "#AAAAAA"
+          />
+
+          {returnValue(username, phoneNumber, password, confirmPassword) ? (
+            <TouchableOpacity
+            onPress={ () => checkPassword(password, confirmPassword) ? 
+                            navigation.navigate("FirstOnboardingScreen") : 
+                            Alert.alert('Alert', 'Passwords are not the same')}
             style={styles.signupButton}
           >
             <Text style={styles.signupText}>Signup</Text>
+            </TouchableOpacity>
+          ): (
+            <TouchableOpacity
+              onPress={() => Alert.alert('Alert', 'Please fill in all details')}
+              style={styles.signupButton}
+            >
+              <Text style={styles.signupText}>Signup</Text>
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity style={styles.alreadyHaveAccountButton}>
+            <Text style={styles.alreadyHaveAccountText} onPress={() => navigation.navigate("LoginScreen")}>
+              Already have an account?
+            </Text>
           </TouchableOpacity>
-        )}
 
-        <TouchableOpacity style={styles.alreadyHaveAccountButton}>
-          <Text style={styles.alreadyHaveAccountText} onPress={() => navigation.navigate("LoginScreen")}>
-            Already have an account?
-          </Text>
-        </TouchableOpacity>
+        </View>
+        <View style={{height: 30}}></View>
 
-      </View>
-      <View style={{height: 30}}></View>
     </KeyboardAvoidingView>
 
   );

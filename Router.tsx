@@ -189,7 +189,6 @@ const Router = () => {
           <RootStack.Screen
             name="ThirdOnboardingScreen"
             component={ThirdOnboardingScreen}
-            
           />
           <RootStack.Screen
             name="router2"  
