@@ -1,16 +1,16 @@
-import { View, Text, Alert, } from "react-native";
+import { View, Text, Alert, TouchableOpacity} from "react-native";
 import { PageProps } from "../Router";
 import React, {useState, useEffect} from 'react';
 import { styles } from "./SecondOnboardingScreen.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
+import WhiteBackArrow from "../assets/WhiteBackArrow";
 
-type SecondOnboardingScreenProps = {
-  logIn: (userId: string) => void;
-  navigation: () => any;
-} & PageProps;
+// type SecondOnboardingScreenProps = {
+//   logIn: (userId: string) => void;
+//   navigation: () => any;
+// } & PageProps;
 
-const SecondOnboardingScreen = ({ navigation }: SecondOnboardingScreenProps) => {
+const SecondOnboardingScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [isShirtsPressed, setShirtsPressed] = useState(false);
   const [isPantsPressed, setPantsPressed] = useState(false);
@@ -77,7 +77,15 @@ const SecondOnboardingScreen = ({ navigation }: SecondOnboardingScreenProps) => 
 
   return (
     <View style={styles.background}>
+      <TouchableOpacity 
+          style={styles.backarrow}
+          onPress={() => navigation.navigate("FirstOnboardingScreen")}
+        >
+          <WhiteBackArrow/>
+      </TouchableOpacity>
+
       <View style={[styles.viewport, {justifyContent: "flex-start"}]}>
+      
         <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 15},
                       {paddingTop: 100}]}>
           What categories of clothes do you you want appearing in your feed?

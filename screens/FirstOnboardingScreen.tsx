@@ -5,12 +5,12 @@ import { styles } from "./FirstOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
 
-type FirstOnboardingScreenProps = {
-  logIn: (userId: string) => void;
-  navigation: () => any;
-} & PageProps;
+// type FirstOnboardingScreenProps = {
+//   logIn: (userId: string) => void;
+//   navigation: () => any;
+// } & PageProps;
 
-const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
+const FirstOnboardingScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [isFirstPressed, setFirstPressed] = useState(false);
   const [isSecondPressed, setSecondPressed] = useState(false);

@@ -41,6 +41,12 @@ export const styles = StyleSheet.create({
         borderColor: "white",
         justifyContent: "center",
         alignItems: "center"
+    },
+    backarrow: {
+        zIndex: 3,
+        position: "absolute",
+        top: 50,
+        left: 20,
     }
 })
 

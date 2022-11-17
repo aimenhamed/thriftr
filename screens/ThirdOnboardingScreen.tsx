@@ -1,14 +1,15 @@
 import { View, Text, Alert, useWindowDimensions, Keyboard, ImageSourcePropType, 
-        Pressable, Image, ScrollView} from "react-native";
+        Pressable, Image, ScrollView, TouchableOpacity} from "react-native";
 import { PageProps } from "../Router";
 import React, {useState, useEffect, useCallback, useContext, Profiler} from 'react';
 import { styles } from "./ThirdOnboardingScreen.style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
 import WhitePlus from "../assets/WhitePlus";
 import { useNavigation } from "@react-navigation/native";
 import { profileContext, useProfile } from "../profileContext";
 import { Profile } from "../types/profile";
+import WhiteBackArrow from "../assets/WhiteBackArrow";
+
 
 type ThirdOnboardingScreenProps = {
   currentUser: Boolean;
@@ -25,6 +26,13 @@ const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
 
   return (
     <View style={styles.background}>
+      <TouchableOpacity 
+          style={styles.backarrow}
+          onPress={() => navigation.navigate("SecondOnboardingScreen")}
+        >
+          <WhiteBackArrow/>
+      </TouchableOpacity>
+
       <View style={[styles.viewport, {justifyContent:"flex-start"}]}>
         <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 13}, 
                       {paddingTop: 100}]}>

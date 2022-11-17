@@ -48,6 +48,12 @@ export const styles = StyleSheet.create({
     },
     arrow: {
         zIndex: 2,
+    },
+    backarrow: {
+        zIndex: 3,
+        position: "absolute",
+        top: 50,
+        left: 20,
     }
 })
 
