@@ -8,6 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "#1F1F1F",
     width: "100%",
   },
+  handStyle: {
+    zIndex: 5,
+    margin: 20,
+  },
   slantedBackground: {
     position: "absolute",
     top: -300,
@@ -79,5 +83,5 @@ export const styles = StyleSheet.create({
     fontFamily: "AzeretMono_400Regular",
     color: "white",
     zIndex: 1
-},
+  },
 });

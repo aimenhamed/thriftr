@@ -110,38 +110,38 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
     });
   };
 
+  const PaginationOverlay = (
+    <TouchableOpacity style={[{flex: 1}, {zIndex: 2}]}>
+      <TouchableOpacity
+        style={styles.overlay}
+        onPress = {() => setOverlay(false)}
+      >
+        <View style={styles.upperView}>
+          <View style={styles.upperLeftView}>
+            <Hand style={styles.handStyle} />
+            <Text style={styles.normalText}>previous photo</Text>
+          </View>
+          <View style={styles.upperRightView}>
+            <Hand style={styles.handStyle} />
+            <Text style={styles.normalText}>next photo</Text>
+          </View>
+        </View>
+        <View style={styles.lowerView}>
+          <Text style={styles.normalText}>open description</Text>
+          <Hand style={styles.handStyle} />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={{flex: 17}}>
+      </TouchableOpacity>
+    </TouchableOpacity>
+  );
+
   //! Ignore type error below, the react-native-deck-swiper library incorrectly defined
   //! outputOverlayLabelsOpacityRangeX and outputOverlayLabelsOpacityRangeY to be of type
   //! [number, number, number] instead of [number, number, number, number, number]
   return (
     <View style={styles.container}>
-      {showOverlay ? (
-        <TouchableOpacity style={[{flex: 1}, {zIndex: 2}]}>
-          <TouchableOpacity
-            style={styles.overlay}
-            onPress = {() => setOverlay(false)}
-          >
-            <View style={styles.upperView}>
-              <View style={styles.upperLeftView}>
-                <Hand style={{zIndex: 5}} />
-                <Text style={styles.normalText}>last photo</Text>
-              </View>
-              <View style={styles.upperRightView}>
-                <Hand style={{zIndex: 5}} />
-                <Text style={styles.normalText}>next photo</Text>
-              </View>
-            </View>
-            <View style={styles.lowerView}>
-              <Text style={styles.normalText}>open description</Text>
-              <Hand style={{zIndex: 5}} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={{flex: 17}}>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      ) : (
-        <View></View>
-      )}
+      {showOverlay ? PaginationOverlay : null}
 
       <View style={styles.slantedBackground} />
       <Swiper
