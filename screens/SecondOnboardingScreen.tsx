@@ -77,8 +77,9 @@ const SecondOnboardingScreen = ({ navigation }: SecondOnboardingScreenProps) => 
 
   return (
     <View style={styles.background}>
-      <View style={styles.viewport}>
-        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 20}]}>
+      <View style={[styles.viewport, {justifyContent: "flex-start"}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 15},
+                      {paddingTop: 100}]}>
           What categories of clothes do you you want appearing in your feed?
         </Text>
       </View>

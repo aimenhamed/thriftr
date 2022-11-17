@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
     viewport: {
         flex: 20,
         justifyContent: "center",
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     horizontalViewport : {
         flexDirection: "row",

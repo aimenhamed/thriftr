@@ -6,8 +6,10 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     viewport: {
-        flex: 1,
+        flex: 20,
         justifyContent: "center",
+        paddingLeft: 30,
+        paddingRight: 30,
     },    
     optionButton: {
         width: 200,
@@ -16,6 +18,7 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         zIndex: 1,
         pressed: false,
+        margin: 20,
     },
     submitButton: {
         backgroundColor: "#FFE500",

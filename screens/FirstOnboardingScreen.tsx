@@ -48,16 +48,18 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
 
   return (
     <View style={styles.background}>
-      <View style={styles.viewport}>
-        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 20}, {paddingBottom: 10}]}>
+      <View style={[styles.viewport, {justifyContent: "flex-start"}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingBottom: 10}, 
+                      {paddingLeft: 15}, {paddingTop: 100}]}>
           Before we start...
         </Text>
-        <Text style={[styles.normalText, {fontSize: 16}, {padding: 20}]}>
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 15}]}>
           Are you looking for male or female clothes?
         </Text>
       </View>
 
-      <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "space-evenly"}]}>
+      <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "center"},
+                    {flex: 40}]}>
         <OptionButton 
           text = "Male"
           onPress= { () => handleFirstPressed()}
@@ -75,7 +77,7 @@ const FirstOnboardingScreen = ({ navigation }: FirstOnboardingScreenProps) => {
         />
       </View>
 
-      <View style={[styles.viewport, {alignItems: "center"}]}>
+      <View style={[styles.viewport, {alignItems: "center"}, {flex: 25}]}>
         <Text style={[styles.normalText, {marginTop: -50}]}>
           You can change this later
         </Text>
