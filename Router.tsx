@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createMaterialTopTabNavigator,
@@ -48,17 +48,9 @@ export type ChatPageProps = NativeStackScreenProps<MatchesParamList, "Chat">;
 export type PageProps = MaterialTopTabScreenProps<TabsParamList>;
 
 const TabNavigator = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userId, setUserId] = useState("");
   const { profile } = useContext(profileContext);
-  const Main = (props: any) => (
-    <FeedStackScreen
-      logOut={() => setIsAuthenticated(false)}
-      userId={userId}
-      {...props}
-    />
-  );
-  const Matches = (props: any) => <MatchesScreen {...props} userId={userId} />;
+  const Main = (props: any) => <FeedStackScreen {...props} />;
+  const Matches = (props: any) => <MatchesScreen {...props} />;
   const Chat = (props: any) => <ChatScreen {...props} />;
   const MatchesStackScreen = () => (
     <MatchesStack.Navigator>
@@ -71,7 +63,7 @@ const TabNavigator = () => {
         name="Chat"
         component={Chat}
         options={{ headerShown: false }}
-        initialParams={{ userId, chatId: "", matched: {} as Match }}
+        initialParams={{ chatId: "", matched: {} as Match }}
       />
     </MatchesStack.Navigator>
   );

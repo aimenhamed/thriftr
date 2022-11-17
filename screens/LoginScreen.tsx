@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
 } from "react-native";
-import { PageProps } from "../Router";
+import { LoginProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, { useState } from "react";
 import ThriftBig from "../assets/ThriftrBig";
@@ -21,7 +21,7 @@ const returnValue = (username: string, password: string) => {
   }
 };
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }: LoginProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -54,7 +54,6 @@ const LoginScreen = ({ navigation }) => {
               Backend.setCurrentUserId(userId);
               navigation.navigate("main");
             }}
-            // onPress={() => logIn(userId)}
             style={styles.loginButton}
           >
             <Text style={styles.loginText}>Login</Text>
