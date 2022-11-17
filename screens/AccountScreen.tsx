@@ -12,7 +12,7 @@ import { Profile } from "../types/profile";
 
 type AccountScreenProps = {
   currentUser: Boolean;
-  profile: Profile;
+  profile: Profile | undefined;
 };
 
 export default function (props: AccountScreenProps) {
@@ -30,7 +30,7 @@ export default function (props: AccountScreenProps) {
           }}
         >
           <Image
-            source={props.profile.image}
+            source={props.profile && props.profile.image}
             style={{
               width: width / 4,
               height: width / 4,
@@ -48,7 +48,6 @@ export default function (props: AccountScreenProps) {
               }}
               onPress={() => {
                 navigation.navigate("modal");
-                setCurrentItem(undefined);
               }}
             >
               <Image
@@ -98,7 +97,7 @@ export default function (props: AccountScreenProps) {
         )}
       </View>
       <View style={{ flexDirection: "row" }}>
-        {props.profile.items.map((item, i) => (
+        {props.profile && props.profile.items.map((item, i) => (
           <Pressable
             onPress={() => {
               if (props.currentUser) {
