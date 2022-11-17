@@ -1,8 +1,8 @@
-import { View, Image, Text, TouchableOpacity } from "react-native";
-import images from "../../assets";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Backend } from "../../backend";
 import { Match } from "../../types/match";
 import { getLastMessage } from "../../utils";
+import ImageStack from "../ImageStack/ImageStack";
 import { styles } from "./style";
 
 type MatchCardProps = {
@@ -11,8 +11,16 @@ type MatchCardProps = {
 };
 
 const MatchCard = ({ matched, press }: MatchCardProps) => {
+  const myProfile = Backend.getProfile(matched.userId)!;
   const matchedWith = Backend.getProfile(matched.matchId)!;
   const chat = Backend.getChat(matched.chatId)!;
+
+  const matchedItem = matchedWith.items.find(
+    (item) => item.itemId === matched.matchItemId
+  )!;
+  const myItem = myProfile.items.find(
+    (item) => item.itemId === matched.itemId
+  )!;
 
   const lastMessage = getLastMessage(chat);
   return (
@@ -26,17 +34,14 @@ const MatchCard = ({ matched, press }: MatchCardProps) => {
           flexDirection: "row",
         }}
       >
-        <View style={styles.stack}>
-          <Image
-            source={images[matched.matchItemId]}
-            style={{ ...styles.image, top: 12, right: 20 }}
-          />
-          <Image source={images[matched.matchItemId]} style={styles.image} />
-        </View>
+        <ImageStack
+          topImage={myItem.photos[0]}
+          bottomImage={matchedItem.photos[0]}
+        />
         <Text
           style={{
             ...styles.text,
-            fontWeight: "bold",
+            fontFamily: "AzeretMono_700Bold",
             marginTop: 15,
             marginLeft: 15,
           }}

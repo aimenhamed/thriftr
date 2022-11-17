@@ -1,30 +1,35 @@
-import { View, Image, Text } from "react-native";
-import images from "../../assets";
-import { profiles } from "../../data/profiles";
+import { Text, Pressable } from "react-native";
+import ImageStack from "../ImageStack/ImageStack";
 import { Match } from "../../types/match";
 import { styles } from "./style";
+import { Backend } from "../../backend";
 
 type NewMatchCardProps = {
   matched: Match;
+  press: () => void;
 };
 
-const NewMatchCard = ({ matched }: NewMatchCardProps) => {
-  const matchedWith = profiles.find(
-    (profile) => profile.userId === matched.matchId
-  );
+const NewMatchCard = ({ matched, press }: NewMatchCardProps) => {
+  const myProfile = Backend.getProfile(matched.userId)!;
+  const matchedWith = Backend.getProfile(matched.matchId)!;
+
+  const matchedItem = matchedWith.items.find(
+    (item) => item.itemId === matched.matchItemId
+  )!;
+  const myItem = myProfile.items.find(
+    (item) => item.itemId === matched.itemId
+  )!;
+
   return (
-    <View>
-      <View style={styles.stack}>
-        <Image
-          source={images[matched.matchItemId]}
-          style={{ ...styles.image, top: 12, right: 20 }}
-        />
-        <Image source={images[matched.matchItemId]} style={styles.image} />
-      </View>
+    <Pressable onPress={press}>
+      <ImageStack
+        topImage={myItem.photos[0]}
+        bottomImage={matchedItem.photos[0]}
+      />
       <Text style={styles.text}>{`@${
-        matchedWith?.name.substring(10) || "missing"
+        matchedWith?.name.substring(0, 5) || "missing"
       }..`}</Text>
-    </View>
+    </Pressable>
   );
 };
 

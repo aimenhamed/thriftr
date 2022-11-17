@@ -46,4 +46,18 @@ export const chats: Chat[] = [
     )[0],
     chatId: "ef466674-51c6-4fe1-aee0-80360fd9f73a",
   },
+  {
+    chatId: "cf466674-51c6-4fe1-aee0-80360fd9f73a",
+    messages: [
+      {
+        messageId: "yeet-13",
+        sentBy: "741e7fef-f550-44a9-b091-5913473934d8",
+        type: "MESSAGE",
+        content: {
+          text: "Hi :)",
+        },
+        timestamp: 1620000000000,
+      }
+    ]
+  }
 ];
