@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, View, KeyboardAvoidingView } from "react-native";
+import { Text, View, KeyboardAvoidingView, Pressable } from "react-native";
 import { styles } from "./ChatScreen.style";
 import { ChatPageProps } from "../Router";
 import ImageStack from "../components/ImageStack/ImageStack";
@@ -34,15 +34,19 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Back />
           </TouchableOpacity>
+          <Pressable onPress={() => navigation.navigate('Account', {profileId: matched.matchId})}>
           <ImageStack
             topImage={images[matched.matchItemId]}
             bottomImage={images[matched.matchItemId]}
           />
+          </Pressable>
           <Flag onPress={() => setShowBlockDialog(true)} />
         </View>
+        <Pressable onPress={() => navigation.navigate('Account', {profileId: matched.matchId})}>
         <Text
           style={{ ...styles.text, marginTop: "10%", marginLeft: "25%" }}
         >{`@${matchedWith?.name}`}</Text>
+        </Pressable>
         <View
           style={{
             marginTop: "5%",

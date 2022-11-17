@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import {
   View,
@@ -6,24 +5,21 @@ import {
   Pressable,
   Text,
   useWindowDimensions,
+  ScrollView
 } from "react-native";
 import { Backend } from "../backend";
 import { profileContext } from "../profileContext";
-import { Profile } from "../types/profile";
+import { PageProps } from "../Router";
 
-type AccountScreenProps = {
-  profileId: string;
-};
-
-export default function (props: AccountScreenProps) {
+export default function ({navigation, route}: PageProps) {
+  const { profileId } = route.params;
   const { height, width } = useWindowDimensions();
-  const navigation = useNavigation();
   const { profile: profileUpdate } = useContext(profileContext);
-  const profile = Backend.getProfile(props.profileId);
-  const currentUser = props.profileId === Backend.getCurrentUserId();
+  const profile = Backend.getProfile(profileId);
+  const currentUser = profileId === Backend.getCurrentUserId();
 
   return (
-    <View>
+    <ScrollView style={{backgroundColor: '#1F1F1F'}}>
       <View style={{ padding: 25 }}>
         <View
           style={{
@@ -117,6 +113,6 @@ export default function (props: AccountScreenProps) {
           </Pressable>
         ))}
       </View>
-    </View>
+    </ScrollView>
   );
 }

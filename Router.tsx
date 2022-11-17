@@ -30,6 +30,7 @@ import { Backend } from "./backend";
 type MatchesParamList = {
   MatchesScreen: undefined;
   Chat: { userId: string; chatId: string; matched: Match };
+  Account: {profileId: string};
 };
 
 type TabsParamList = {
@@ -53,6 +54,7 @@ const TabNavigator = () => {
   const Main = (props: any) => <FeedStackScreen {...props} />;
   const Matches = (props: any) => <MatchesScreen {...props} />;
   const Chat = (props: any) => <ChatScreen {...props} />;
+  const Account = (props: any) => <AccountScreen {...props} />;
   const MatchesStackScreen = () => (
     <MatchesStack.Navigator>
       <MatchesStack.Screen
@@ -65,6 +67,12 @@ const TabNavigator = () => {
         component={Chat}
         options={{ headerShown: false }}
         initialParams={{ chatId: "", matched: {} as Match }}
+      />
+      <MatchesStack.Screen
+        name="Account"
+        component={Account}
+        options={{ headerShown: false }}
+        initialParams={{ profileId: '' }}
       />
     </MatchesStack.Navigator>
   );
@@ -114,7 +122,8 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Account"
-        children={() => <AccountScreen profileId={profile && Backend.getCurrentUserId()} />}
+        component={AccountScreen}
+        initialParams={{ profileId: Backend.getCurrentUserId() }}
         options={{
           tabBarIcon: (props) =>
             props.focused ? <AccountFilled /> : <AccountOutline />,
