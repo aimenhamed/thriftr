@@ -1,7 +1,14 @@
-import { View, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import ThriftBig from "../assets/ThriftrBig";
 
 // type LoginScreenProps = {
@@ -10,60 +17,57 @@ import ThriftBig from "../assets/ThriftrBig";
 
 const returnValue = (username: string, password: string) => {
   if (username.trim().length > 0 && password.trim().length > 0) {
-    return true
+    return true;
   } else {
-    return false
+    return false;
   }
-}
+};
 
 const LoginScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.backgroundView}
-      behavior= 'padding'
-    >
+    <KeyboardAvoidingView style={styles.backgroundView} behavior="padding">
       <View style={styles.upperView}>
-        <ThriftBig
-          style={styles.logoimage}
-        />
+        <ThriftBig style={styles.logoimage} />
         <View style={styles.yellowBox}></View>
       </View>
       <View style={styles.lowerView}>
-        <TextInput 
-          style={styles.inputUsername} 
-          placeholder="Username" 
+        <TextInput
+          style={styles.inputUsername}
+          placeholder="Username"
           onChangeText={(username) => setUsername(username)}
-          placeholderTextColor= "#AAAAAA"
+          placeholderTextColor="#AAAAAA"
         />
-        <TextInput 
-          style={styles.inputPassword} 
-          placeholder="Password" 
+        <TextInput
+          style={styles.inputPassword}
+          placeholder="Password"
           onChangeText={(password) => setPassword(password)}
-          secureTextEntry = {true}
-          placeholderTextColor= "#AAAAAA"
+          secureTextEntry={true}
+          placeholderTextColor="#AAAAAA"
         />
-        
+
         {returnValue(username, password) ? (
           <TouchableOpacity
-          onPress={() => navigation.navigate("router2")}
-          // onPress={() => logIn(userId)} 
-          style={styles.loginButton}
-        >
-          <Text style={styles.loginText}>Login</Text>
+            onPress={() => navigation.navigate("main")}
+            // onPress={() => logIn(userId)}
+            style={styles.loginButton}
+          >
+            <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
-        ): (
+        ) : (
           <TouchableOpacity
-            onPress={() => Alert.alert('Alert', 'Please enter username and password')}
+            onPress={() =>
+              Alert.alert("Alert", "Please enter username and password")
+            }
             style={styles.loginButton}
           >
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.signupButton}
           onPress={() => navigation.navigate("SignupScreen")}
         >
@@ -73,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
           Forgot your username and password?
         </Text>
       </View>
-      <View style={{height: 30}}></View>
+      <View style={{ height: 30 }}></View>
     </KeyboardAvoidingView>
   );
 };
