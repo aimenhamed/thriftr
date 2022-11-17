@@ -5,6 +5,8 @@ import { styles } from "./SignupScreen.style";
 import ThriftBig from "../assets/ThriftrBig";
 import BlackBackArrow from "../assets/BlackBackArrow";
 import { TextInput } from "react-native-gesture-handler";
+import { Backend } from "../backend";
+import uuid from "react-native-uuid";
 
 // type SignupScreenProps = {
 //     logIn: (userId: string) => void;
@@ -81,9 +83,31 @@ const SignupScreen = ({ navigation }) => {
 
         {returnValue(username, phoneNumber, password, confirmPassword) ? (
           <TouchableOpacity
-          onPress={ () => checkPassword(password, confirmPassword) ? 
+          /*onPress={ () => { checkPassword(password, confirmPassword) ? 
                           navigation.navigate("FirstOnboardingScreen") : 
-                          Alert.alert('Alert', 'Passwords are not the same')}
+                          Alert.alert('Alert', 'Passwords are not the same')}}*/
+          onPress={() => {
+            if (checkPassword(password, confirmPassword)) {
+              navigation.navigate("FirstOnboardingScreen")
+              const userId = uuid.v4() as string;
+              Backend.addProfile({
+                userId,
+                items: [],
+                name: username,
+                matches: [],
+                preferences: {
+                  categories: [],
+                  sizes: [],
+                  genders: [],
+                  colors: []
+                },
+                image: require("./assets/test.png")
+              });
+              Backend.setCurrentUserId(userId);
+            } else {
+              Alert.alert('Alert', 'Passwords are not the same')
+            }
+          }}
           style={styles.signupButton}
         >
           <Text style={styles.signupText}>Signup</Text>
