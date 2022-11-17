@@ -23,6 +23,7 @@ const returnValue = (username: string, password: string) => {
 
 const LoginScreen = ({ navigation }: LoginProps) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
+  // all login creditenials sign in as aaronsmith
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
