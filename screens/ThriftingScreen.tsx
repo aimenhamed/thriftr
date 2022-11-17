@@ -5,6 +5,7 @@ import {
   Text,
   Dimensions,
   DeviceEventEmitter,
+  Animated,
 } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import IgnoreIcon from "../assets/IgnoreIcon";
@@ -16,6 +17,10 @@ import { PageProps } from "../Router";
 import { Item } from "../types/item";
 import { styles } from "./Thrifting.style";
 import Hand from "../assets/Hand";
+import HandSwipe from "../assets/HandSwipe";
+import ArrowSwipeRight from "../assets/ArrowSwipeRight";
+import ArrowSwipeUp from "../assets/ArrowSwipeUp";
+import ArrowSwipeLeft from "../assets/ArrowSwipeLeft";
 import { Backend } from "../backend";
 
 export type ThriftingScreenProps = {
@@ -46,7 +51,10 @@ const isMatch = (
 };
 
 const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
-  const [showOverlay, setOverlay] = useState(true);
+  const [showPaginationOverlay, setPaginationOverlay] = useState(true);
+  const [showSwipeRightOverlay, setSwipeRightOverlay] = useState(false);
+  const [showSwipeLeftOverlay, setSwipeLeftOverlay] = useState(false);
+  const [showSwipeUpOverlay, setSwipeUpOverlay] = useState(false);
 
   let swiperRef:
     | Swiper<{ item: Item; seller: { name: string; image: any } }>
@@ -110,38 +118,122 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
     });
   };
 
+  const PaginationOverlay = (
+    <View
+      style={styles.overlay}
+      onTouchEnd = {() => {
+        setSwipeRightOverlay(true);
+        setPaginationOverlay(false);
+      }}
+    >
+      <View style={styles.upperView}>
+        <View style={styles.upperLeftView}>
+          <Hand style={styles.handStyle} />
+          <Text style={styles.normalText}>previous</Text>
+          <Text style={styles.normalText}>photo</Text>
+        </View>
+        <View style={styles.upperRightView}>
+          <Hand style={styles.handStyle} />
+          <Text style={styles.normalText}>next</Text>
+          <Text style={styles.normalText}>photo</Text>
+
+        </View>
+      </View>
+      <View style={styles.lowerView}>
+        <Text style={styles.normalText}>open description</Text>
+        <Hand style={styles.handStyle} />
+      </View>
+    </View>
+  );
+
+  const SwipeRightOverlay = (
+    <View
+      style={styles.overlay}
+      onTouchEnd = {() => {
+        setSwipeUpOverlay(true);
+        setSwipeRightOverlay(false);
+      }}
+    >
+      <View style={styles.centerView}>
+        <View style={styles.swipeArrows}>
+          <ArrowSwipeUp opacity={0} />
+          <View style={styles.horizontalSwipeArrows}>
+            <ArrowSwipeLeft opacity={0}/>
+            <HandSwipe style={styles.handStyle} />
+            <ArrowSwipeRight />
+          </View>
+        </View>
+
+        <View style={styles.swipeTutorialCaption}>
+          <Text style={styles.normalText}>swipe <Text style={styles.bold}>right</Text></Text>
+          <Text style={styles.normalText}>to <Text style={styles.likeColor}>like</Text> an item</Text>
+        </View>
+      </View>
+    </View>
+  );
+
+  const SwipeUpOverlay = (
+    <View
+      style={styles.overlay}
+      onTouchEnd = {() => {
+        setSwipeUpOverlay(false);
+        setSwipeLeftOverlay(true);
+      }}
+    >
+      <View style={styles.centerView}>
+        <View style={styles.swipeArrows}>
+          <ArrowSwipeUp />
+          <View style={styles.horizontalSwipeArrows}>
+            <ArrowSwipeLeft opacity={0}/>
+            <HandSwipe style={styles.handStyle} />
+            <ArrowSwipeRight opacity={0}/>
+          </View>
+        </View>
+
+        <View style={styles.swipeTutorialCaption}>
+          <Text style={styles.normalText}>swipe <Text style={styles.bold}>up</Text></Text>
+          <Text style={styles.normalText}>to <Text style={styles.likeColor}>like</Text> an item,</Text>
+          <Text style={styles.normalText}>but only match with specific</Text>
+          <Text style={styles.normalText}>items that you offer</Text>
+        </View>
+      </View>
+    </View>
+  );
+
+  const SwipeLeftOverlay = (
+    <View
+      style={styles.overlay}
+      onTouchEnd = {() => {
+        setSwipeLeftOverlay(false);
+      }}
+    >
+      <View style={styles.centerView}>
+        <View style={styles.swipeArrows}>
+          <ArrowSwipeUp opacity={0} />
+          <View style={styles.horizontalSwipeArrows}>
+            <ArrowSwipeLeft />
+            <HandSwipe style={styles.handStyle} />
+            <ArrowSwipeRight opacity={0}/>
+          </View>
+        </View>
+
+        <View style={styles.swipeTutorialCaption}>
+          <Text style={styles.normalText}>swipe <Text style={styles.bold}>left</Text></Text>
+          <Text style={styles.normalText}>to <Text style={styles.ignoreColor}>ignore</Text> an item</Text>
+        </View>
+      </View>
+    </View>
+  );
+
   //! Ignore type error below, the react-native-deck-swiper library incorrectly defined
   //! outputOverlayLabelsOpacityRangeX and outputOverlayLabelsOpacityRangeY to be of type
   //! [number, number, number] instead of [number, number, number, number, number]
   return (
     <View style={styles.container}>
-      {showOverlay ? (
-        <TouchableOpacity style={[{flex: 1}, {zIndex: 2}]}>
-          <TouchableOpacity
-            style={styles.overlay}
-            onPress = {() => setOverlay(false)}
-          >
-            <View style={styles.upperView}>
-              <View style={styles.upperLeftView}>
-                <Hand style={{zIndex: 5}} />
-                <Text style={styles.normalText}>last photo</Text>
-              </View>
-              <View style={styles.upperRightView}>
-                <Hand style={{zIndex: 5}} />
-                <Text style={styles.normalText}>next photo</Text>
-              </View>
-            </View>
-            <View style={styles.lowerView}>
-              <Text style={styles.normalText}>open description</Text>
-              <Hand style={{zIndex: 5}} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={{flex: 17}}>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      ) : (
-        <View></View>
-      )}
+      {showPaginationOverlay ? PaginationOverlay : null}
+      {showSwipeRightOverlay ? SwipeRightOverlay : null}
+      {showSwipeLeftOverlay ? SwipeLeftOverlay : null}
+      {showSwipeUpOverlay ? SwipeUpOverlay : null}
 
       <View style={styles.slantedBackground} />
       <Swiper
@@ -241,7 +333,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
 
       <View style={styles.userActions}>
         <TouchableOpacity
-          disabled = {showOverlay ? true : false}
+          disabled = {showPaginationOverlay ? true : false}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeLeft()}
         >
@@ -249,7 +341,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showOverlay ? true : false}
+          disabled = {showPaginationOverlay ? true : false}
           style={styles.userAction}
           onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}
         >
@@ -257,7 +349,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showOverlay ? true : false}
+          disabled = {showPaginationOverlay ? true : false}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeRight()}
         >

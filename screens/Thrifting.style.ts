@@ -8,6 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "#1F1F1F",
     width: "100%",
   },
+  handStyle: {
+    zIndex: 5,
+    margin: 20,
+  },
   slantedBackground: {
     position: "absolute",
     top: -300,
@@ -40,21 +44,21 @@ export const styles = StyleSheet.create({
   },
   overlay: {
     backgroundColor: "#000000",
-    flex: 83,
-    zIndex: 3,
-    borderColor: "white",
-    position: "relative",
-    borderWidth: 2,
     opacity: 0.85,
+    height: "83%",
+    zIndex: 3,
+    position: "relative",
+    borderColor: "white",
+    borderWidth: 2,
   },
   upperView: {
-    flex: 3,
+    height: "76%",
     borderColor: "white",
     borderBottomWidth: 2,
     flexDirection: "row",
   },
   lowerView: {
-    flex: 1,
+    height: "24%",
     borderColor: "white",
     flexDirection: "row",
     justifyContent: "center",
@@ -74,10 +78,40 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  centerView: {
+    // justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  bold: {
+    fontFamily: "AzeretMono_700Bold",
+  },
   normalText: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: "AzeretMono_400Regular",
     color: "white",
-    zIndex: 1
-},
+    zIndex: 1,
+    margin: 3,
+    textAlign: "center",
+  },
+  swipeArrows: {
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    top: "30%",
+  },
+  horizontalSwipeArrows: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  swipeTutorialCaption: {
+    marginTop: "100%",
+  },
+  likeColor: {
+    color: "#00BF36",
+  },
+  ignoreColor: {
+    color: "#FF0000",
+  },
 });
