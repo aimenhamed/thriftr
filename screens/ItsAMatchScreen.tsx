@@ -16,6 +16,8 @@ import Bag from "../assets/Bag";
 import MessagesOutline from "../assets/MessagesFilled";
 import { profiles } from "../data/profiles";
 
+const FallbackImage = require("../data/images/items/d9f3c27c-a378-49ae-9589-7f91e0f41b59.png");
+
 export type ItsAMatchScreenProps = {
   route: {
     params: {
@@ -35,7 +37,7 @@ const getUsersMatchedItem = (userId: string, receivingItemId: string) => {
     (match) => match.matchItemId === receivingItemId
   );
   const usersMatchedItemId = match?.itemId;
-  return userProfile?.items.find((item) => item.itemId === usersMatchedItemId);
+  return userProfile?.items.find((item) => item.itemId === usersMatchedItemId) ?? userProfile?.items[0];
 };
 
 const getUsersProfilePicture = (userId: string) => {
@@ -79,7 +81,7 @@ const ItsAMatchScreen = ({
           <View style={styles.swapDiagram}>
             <View style={styles.userAndItem}>
               <Image
-                source={usersGivingItem?.photos[0]}
+                source={usersGivingItem?.photos[0] ?? FallbackImage }
                 style={styles.itemImage}
               />
               <Image
