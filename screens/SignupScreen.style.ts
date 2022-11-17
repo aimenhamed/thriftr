@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
         overflow: "hidden",
     },
     upperView: {
+        marginTop: 200,
+        marginBottom: 250,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -91,10 +93,10 @@ export const styles = StyleSheet.create({
         fontSize: 12,
         fontFamily: "AzeretMono_400Regular",
     },
-    backarrow: {
+    backArrow: {
         zIndex: 3,
         position: "absolute",
-        top: 50,
+        top: -150,
         left: 20,
     }
 });

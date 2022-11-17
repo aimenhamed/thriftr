@@ -32,10 +32,11 @@ const SignupScreen = ({ navigation }) => {
     }
 }
   return (
-    <KeyboardAvoidingView style={styles.backgroundView} behavior="padding">
+    <KeyboardAvoidingView style={styles.backgroundView} behavior="position">
+      <View style={styles.yellowBox}></View>
       <View style={styles.upperView}>
         <TouchableOpacity
-          style={styles.backarrow}
+          style={styles.backArrow}
           onPress={() => navigation.navigate("LoginScreen")}
         >
           <BlackBackArrow/>
@@ -43,7 +44,6 @@ const SignupScreen = ({ navigation }) => {
         <ThriftBig
           style={styles.logoimage}
         />
-        <View style={styles.yellowBox}></View>
       </View>
       <View style={styles.lowerView}>
         <TextInput
