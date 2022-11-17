@@ -207,6 +207,7 @@ export default function () {
             setColourItemsOpen(false);
             setCategoryItemsOpen(false);
           }}
+          editable={!sizeItemsOpen && !colourItemsOpen && !categoryItemsOpen}
           onChangeText={(newText) => setDescription(newText)}
           placeholderTextColor="#AAAAAA"
           multiline={true}
