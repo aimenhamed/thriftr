@@ -10,12 +10,13 @@ const MatchesScreen = ({ navigation }: ChatPageProps) => {
   const user = profiles.find(
     (profile) => profile.userId === Backend.getCurrentUserId()
   )!;
-  const newMatches = user?.matches.filter((match) => match.newMatch) || [];
-  const filteredMatches = user?.matches.filter((match) => !match.blocked);
 
   if (!user) {
     return null;
   }
+
+  const filteredMatches = user.matches.filter((match) => !match.blocked);
+  const newMatches = filteredMatches.filter((match) => match.newMatch) || [];
 
   return (
     <ScrollView style={styles.container}>
@@ -28,7 +29,17 @@ const MatchesScreen = ({ navigation }: ChatPageProps) => {
       <View style={styles.row}>
         {newMatches.length > 0 &&
           newMatches.map((match) => (
-            <NewMatch key={match.matchId} matched={match} />
+            <NewMatch
+              key={match.matchId + "NEW MATCH"}
+              matched={match}
+              press={() =>
+                navigation.navigate("Chat", {
+                  userId: Backend.getCurrentUserId(),
+                  chatId: match.chatId,
+                  matched: match,
+                })
+              }
+            />
           ))}
       </View>
       <View style={styles.row}>

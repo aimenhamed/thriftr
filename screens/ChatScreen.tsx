@@ -3,7 +3,6 @@ import { Text, View, KeyboardAvoidingView, Pressable } from "react-native";
 import { styles } from "./ChatScreen.style";
 import { ChatPageProps } from "../Router";
 import ImageStack from "../components/ImageStack/ImageStack";
-import images from "../assets";
 import MessageList from "../components/MessageList/MessageList";
 import MessageInput from "../components/MessageInput/MessageInput";
 import BlockDialog from "../components/BlockDialog/BlockDialog";
@@ -27,26 +26,47 @@ const ChatScreen = ({ navigation, route }: ChatPageProps) => {
   if (!user) {
     return null;
   }
+
+  const matchedItem = matchedWith.items.find(
+    (item) => item.itemId === matched.matchItemId
+  )!;
+  const myItem = user.items.find(
+    (item) => item.itemId === matched.itemId
+  )!;
+
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View style={styles.header}>
         <View style={styles.row}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Back />
-          </TouchableOpacity>
-          <Pressable onPress={() => navigation.navigate('Account', {profileId: matched.matchId})}>
-          <ImageStack
-            topImage={images[matched.matchItemId]}
-            bottomImage={images[matched.matchItemId]}
-          />
-          </Pressable>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Back />
+            </TouchableOpacity>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("Account", { profileId: matched.matchId })
+              }
+            >
+              <ImageStack
+                topImage={myItem.photos[0]}
+                bottomImage={matchedItem.photos[0]}
+                stackStyling={{width: 55}}
+                topImageStyling={{height: 35, width: 35, right: 15}}
+                bottomImageStyling={{height: 35, width: 35}}
+              />
+            </Pressable>
+            <Pressable
+              onPress={() =>
+                navigation.navigate("Account", { profileId: matched.matchId })
+              }
+            >
+              <Text
+                style={{ ...styles.text, marginTop: "10%", marginLeft: 16 }}
+              >{`@${matchedWith?.name}`}</Text>
+            </Pressable>
+          </View>
           <Flag onPress={() => setShowBlockDialog(true)} />
         </View>
-        <Pressable onPress={() => navigation.navigate('Account', {profileId: matched.matchId})}>
-        <Text
-          style={{ ...styles.text, marginTop: "10%", marginLeft: "25%" }}
-        >{`@${matchedWith?.name}`}</Text>
-        </Pressable>
         <View
           style={{
             marginTop: "5%",

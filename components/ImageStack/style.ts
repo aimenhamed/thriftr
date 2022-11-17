@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
-  stack: {
-    width: 75,
-    height: 45,
-  },
   image: {
     position: "absolute",
     top: 1,
