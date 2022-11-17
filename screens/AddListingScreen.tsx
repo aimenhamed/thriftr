@@ -178,7 +178,6 @@ export default function () {
                 style={{
                   fontFamily: "AzeretMono_400Regular",
                   color: "#FF0000",
-                  marginTop: 24
                 }}
               >
                 Delete Listing
