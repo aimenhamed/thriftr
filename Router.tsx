@@ -105,6 +105,14 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="Thriftr"
+        options={{
+          tabBarIcon: (props) =>
+            props.focused ? <ThriftrFilled /> : <ThriftrOutlined />,
+        }}
+        children={Main}
+      />
+      <Tab.Screen
         name="Account"
         children={() => <AccountScreen currentUser={true} profile={profile && Backend.getProfile(Backend.getCurrentUserId())} />}
         options={{
