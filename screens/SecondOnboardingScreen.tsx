@@ -32,7 +32,7 @@ const SecondOnboardingScreen = ({ navigation }) => {
 
   return (
     <View style={styles.background}>
-      <TouchableOpacity 
+      <TouchableOpacity
           style={styles.backarrow}
           onPress={() => navigation.navigate("FirstOnboardingScreen")}
         >

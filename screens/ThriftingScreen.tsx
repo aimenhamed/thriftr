@@ -16,6 +16,7 @@ import { PageProps } from "../Router";
 import { Item } from "../types/item";
 import { styles } from "./Thrifting.style";
 import Hand from "../assets/Hand";
+import { Backend } from "../backend";
 
 export type ThriftingScreenProps = {
   logOut: () => void;
@@ -30,19 +31,21 @@ const isMatch = (
   userId: string,
   selectedItems: string[] = []
 ): boolean => {
-  const userProfile = profiles.find((profile) => profile.userId === userId);
-  const filteredMatches =
-    selectedItems.length > 0
-      ? userProfile?.matches.filter((match) =>
-          selectedItems.includes(match.itemId)
-        )
-      : userProfile?.matches;
-  return (
-    filteredMatches?.some((match) => match.matchItemId === item.itemId) || false
-  );
+  // const userProfile = profiles.find((profile) => profile.userId === userId);
+  // const filteredMatches =
+  //   selectedItems.length > 0
+  //     ? userProfile?.matches.filter((match) =>
+  //         selectedItems.includes(match.itemId)
+  //       )
+  //     : userProfile?.matches;
+  // return (
+  //   filteredMatches?.some((match) => match.matchItemId === item.itemId) || false
+  // );
+  const japaneseEmbroideredHoodieItemId = "220daba3-4260-4764-92f6-97d82b013a57";
+  return item.itemId === japaneseEmbroideredHoodieItemId;
 };
 
-const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
+const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
   const [showOverlay, setOverlay] = useState(true);
 
   let swiperRef:
@@ -59,9 +62,9 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   DeviceEventEmitter.addListener(
     "finishOfferSelectively",
     ({ swipedCardIndex, selectedItems }) => {
-      if (isMatch(items[swipedCardIndex].item, userId, selectedItems)) {
+      if (isMatch(items[swipedCardIndex].item, Backend.getCurrentUserId(), selectedItems)) {
         navigation.navigate("ItsAMatchScreen", {
-          userId,
+          userId: Backend.getCurrentUserId(),
           itemMatched: items[swipedCardIndex].item,
           sellerMatched: items[swipedCardIndex].seller,
         });
@@ -72,7 +75,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   );
 
   const items = profiles
-    .filter((profile) => profile.userId !== userId)
+    .filter((profile) => profile.userId !== Backend.getCurrentUserId())
     .map((profile) =>
       profile.items.map((item) => ({
         item,
@@ -89,9 +92,9 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
   };
 
   const onLike = (swipedCardIndex: number) => {
-    if (isMatch(items[swipedCardIndex].item, userId)) {
+    if (isMatch(items[swipedCardIndex].item, Backend.getCurrentUserId())) {
       navigation.navigate("ItsAMatchScreen", {
-        userId,
+        userId: Backend.getCurrentUserId(),
         itemMatched: items[swipedCardIndex].item,
         sellerMatched: items[swipedCardIndex].seller,
       });
@@ -100,7 +103,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
 
   const onOfferSelectively = (swipedCardIndex: number) => {
     navigation.navigate("OfferSelectivelyScreen", {
-      userId,
+      userId: Backend.getCurrentUserId(),
       itemMatched: items[swipedCardIndex].item,
       sellerMatched: items[swipedCardIndex].seller,
       swipedCardIndex,
@@ -139,7 +142,7 @@ const ThriftingScreen = ({ navigation, userId }: ThriftingScreenProps) => {
       ) : (
         <View></View>
       )}
-      
+
       <View style={styles.slantedBackground} />
       <Swiper
         ref={(swiper) => {
