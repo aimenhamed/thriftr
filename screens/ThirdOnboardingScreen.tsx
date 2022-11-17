@@ -13,11 +13,13 @@ import { useNavigation } from "@react-navigation/native";
 import { profileContext } from "../profileContext";
 import WhiteBackArrow from "../assets/WhiteBackArrow";
 import { LoginProps } from "../Router";
+import { Backend } from "../backend";
 
 const ThirdOnboardingScreen = () => {
   const navigation = useNavigation<LoginProps["navigation"]>();
   const { width } = useWindowDimensions();
-  const { profile, setCurrentItem } = useContext(profileContext);
+  const profile = Backend.getProfile(Backend.getCurrentUserId());
+  const { profile: profileUpdate } = useContext(profileContext);
 
   return (
     <View style={styles.background}>
@@ -57,11 +59,11 @@ const ThirdOnboardingScreen = () => {
             { flex: 1 },
           ]}
         >
-          {profile.items.map((item, i) => (
+          {profileUpdate && profile?.items.map((item, i) => (
             <Pressable
               onPress={() => {
                 navigation.navigate("modal");
-                setCurrentItem(item.itemId);
+                Backend.setCurrentItemId(item.itemId);
               }}
             >
               <Image

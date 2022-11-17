@@ -16,10 +16,11 @@ import { styles } from "./Matches.style";
 import Dropdown from "../components/Dropdown";
 import { useCallback } from "react";
 import * as ImagePicker from "expo-image-picker";
-import { profileContext } from "../profileContext";
 import { Category, Gender, Size } from "../types/preferences";
 import { Condition } from "../types/item";
 import uuid from "react-native-uuid";
+import { Backend } from "../backend";
+import { profileContext } from "../profileContext";
 
 export default function () {
   const navigation = useNavigation();
@@ -28,10 +29,12 @@ export default function () {
   const [categoryItemsOpen, setCategoryItemsOpen] = React.useState(false);
 
   const { height, width } = useWindowDimensions();
-  const { profile, setCurrentProfile, item } = useContext(profileContext);
+  const profile = Backend.getProfile(Backend.getCurrentUserId());
+  const { setCurrentProfile } = useContext(profileContext);
+  const item = Backend.getItem(Backend.getCurrentUserId(), Backend.getCurrentItemId());
 
   const currentItem = item
-    ? profile.items.find((x) => x.itemId === item)
+    ? profile?.items.find((x) => x.itemId === item.itemId)
     : undefined;
 
   const onSizeItemsOpen = useCallback(() => {
@@ -281,7 +284,46 @@ export default function () {
             }
             onPress={() => {
               navigation.goBack();
-              setCurrentProfile({
+              profile && Backend.updateProfile({
+                userId: profile.userId,
+                name: profile.name,
+                image: profile.image,
+                items: currentItem
+                  ? profile.items.map((item) => {
+                      if (item.itemId !== currentItem.itemId) {
+                        return item;
+                      } else {
+                        return {
+                          itemId: item.itemId,
+                          name: name ?? "",
+                          description: description ?? "",
+                          color: colour ?? "",
+                          type: category ?? Category.GLOVES,
+                          size: size ?? Size.LARGE,
+                          photos: images,
+                          gender: Gender.FEMALE,
+                          condition: Condition.NEW,
+                        };
+                      }
+                    })
+                  : [
+                      ...profile.items,
+                      {
+                        itemId: uuid.v4() as string,
+                        name: name ?? "",
+                        description: description ?? "",
+                        color: colour ?? "",
+                        type: category ?? Category.GLOVES,
+                        size: size ?? Size.LARGE,
+                        photos: images,
+                        gender: Gender.FEMALE,
+                        condition: Condition.NEW,
+                      },
+                    ],
+                matches: profile.matches,
+                preferences: profile.preferences,
+              });
+              profile && setCurrentProfile({
                 userId: profile.userId,
                 name: profile.name,
                 image: profile.image,

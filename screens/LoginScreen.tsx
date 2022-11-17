@@ -11,6 +11,7 @@ import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, { useState } from "react";
 import ThriftBig from "../assets/ThriftrBig";
+import { Backend } from "../backend";
 
 const returnValue = (username: string, password: string) => {
   if (username.trim().length > 0 && password.trim().length > 0) {
@@ -26,16 +27,11 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   return (
-    <KeyboardAvoidingView
-      style={styles.backgroundView}
-      behavior="position"
-    >
+    <KeyboardAvoidingView style={styles.backgroundView} behavior="position">
       <View style={styles.keyboardDismisser} onTouchStart={Keyboard.dismiss} />
       <View style={styles.yellowBox} onTouchStart={Keyboard.dismiss} />
       <View style={styles.upperView} onTouchStart={Keyboard.dismiss}>
-        <ThriftBig
-          style={styles.logoimage}
-        />
+        <ThriftBig style={styles.logoimage} />
       </View>
       <View style={styles.lowerView}>
         <TextInput
@@ -54,7 +50,10 @@ const LoginScreen = ({ navigation }) => {
 
         {returnValue(username, password) ? (
           <TouchableOpacity
-            onPress={() => navigation.navigate("main")}
+            onPress={() => {
+              Backend.setCurrentUserId(userId);
+              navigation.navigate("main");
+            }}
             // onPress={() => logIn(userId)}
             style={styles.loginButton}
           >
@@ -62,7 +61,12 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={() => Alert.alert('Login Failed', 'Please enter your username and password')}
+            onPress={() =>
+              Alert.alert(
+                "Login Failed",
+                "Please enter your username and password"
+              )
+            }
             style={styles.loginButton}
           >
             <Text style={styles.loginText}>Login</Text>

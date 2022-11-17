@@ -4,14 +4,12 @@ import { styles } from "./Matches.style";
 import Match from "../components/Match/Match";
 import NewMatch from "../components/NewMatch/NewMatch";
 import { ChatPageProps } from "../Router";
+import { Backend } from "../backend";
 
-type MatchesScreenProps = {
-  userId: string;
-} & ChatPageProps;
-
-const MatchesScreen = ({ userId, navigation }: MatchesScreenProps) => {
-  const user =
-    profiles.find((profile) => profile.userId === userId) || profiles[1];
+const MatchesScreen = ({ navigation }: ChatPageProps) => {
+  const user = profiles.find(
+    (profile) => profile.userId === Backend.getCurrentUserId()
+  )!;
   const newMatches = user?.matches.filter((match) => match.newMatch) || [];
   const filteredMatches = user?.matches.filter((match) => !match.blocked);
 
@@ -46,7 +44,7 @@ const MatchesScreen = ({ userId, navigation }: MatchesScreenProps) => {
             matched={match}
             press={() =>
               navigation.navigate("Chat", {
-                userId,
+                userId: Backend.getCurrentUserId(),
                 chatId: match.chatId,
                 matched: match,
               })
