@@ -131,7 +131,7 @@ const TabNavigator = () => {
   );
 };
 
-type RootParamList = {
+export type RootParamList = {
   LoginScreen: undefined;
   SignupScreen: undefined;
   FirstOnboardingScreen: undefined;
@@ -141,6 +141,8 @@ type RootParamList = {
   modal: undefined;
   EditProfilePage: undefined;
 };
+
+export type LoginProps = NativeStackScreenProps<RootParamList, "LoginScreen">;
 
 const RootStack = createNativeStackNavigator<RootParamList>();
 

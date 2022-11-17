@@ -1,42 +1,23 @@
 import {
   View,
   Text,
-  Alert,
   useWindowDimensions,
-  Keyboard,
-  ImageSourcePropType,
   Pressable,
   Image,
-  ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { PageProps } from "../Router";
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  Profiler,
-} from "react";
+import React, { useContext } from "react";
 import { styles } from "./ThirdOnboardingScreen.style";
-import ArrowRight from "../assets/ArrowRight";
 import WhitePlus from "../assets/WhitePlus";
 import { useNavigation } from "@react-navigation/native";
-import { profileContext, useProfile } from "../profileContext";
-import { Profile } from "../types/profile";
+import { profileContext } from "../profileContext";
 import WhiteBackArrow from "../assets/WhiteBackArrow";
+import { LoginProps } from "../Router";
 
-type ThirdOnboardingScreenProps = {
-  currentUser: Boolean;
-  profile: Profile;
-};
-
-const ThirdOnboardingScreen = (props: ThirdOnboardingScreenProps) => {
-  const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
-  const navigation = useNavigation();
-  const { height, width } = useWindowDimensions();
+const ThirdOnboardingScreen = () => {
+  const navigation = useNavigation<LoginProps["navigation"]>();
+  const { width } = useWindowDimensions();
   const { profile, setCurrentItem } = useContext(profileContext);
-  //const profile = useProfile();
 
   return (
     <View style={styles.background}>
