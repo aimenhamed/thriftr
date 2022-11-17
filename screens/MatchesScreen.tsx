@@ -13,6 +13,7 @@ const MatchesScreen = ({ userId, navigation }: MatchesScreenProps) => {
   const user =
     profiles.find((profile) => profile.userId === userId) || profiles[1];
   const newMatches = user?.matches.filter((match) => match.newMatch) || [];
+  const filteredMatches = user?.matches.filter((match) => !match.blocked);
 
   if (!user) {
     return null;
@@ -39,7 +40,7 @@ const MatchesScreen = ({ userId, navigation }: MatchesScreenProps) => {
         </View>
       </View>
       <View style={styles.column}>
-        {user.matches.map((match) => (
+        {filteredMatches.map((match) => (
           <Match
             key={match.matchId + match.userId}
             matched={match}
