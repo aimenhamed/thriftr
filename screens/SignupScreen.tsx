@@ -101,7 +101,7 @@ const SignupScreen = ({ navigation }) => {
                   genders: [],
                   colors: []
                 },
-                image: require("./assets/test.png")
+                image: require("../assets/test.png")
               });
               Backend.setCurrentUserId(userId);
             } else {

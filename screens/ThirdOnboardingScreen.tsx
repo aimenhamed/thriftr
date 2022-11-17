@@ -19,6 +19,7 @@ const ThirdOnboardingScreen = () => {
   const navigation = useNavigation<LoginProps["navigation"]>();
   const { width } = useWindowDimensions();
   const profile = Backend.getProfile(Backend.getCurrentUserId());
+  const { profile: profileUpdate } = useContext(profileContext);
 
   return (
     <View style={styles.background}>
@@ -58,7 +59,7 @@ const ThirdOnboardingScreen = () => {
             { flex: 1 },
           ]}
         >
-          {profile?.items.map((item, i) => (
+          {profileUpdate && profile?.items.map((item, i) => (
             <Pressable
               onPress={() => {
                 navigation.navigate("modal");
