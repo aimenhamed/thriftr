@@ -10,15 +10,6 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         paddingLeft: 30,
         paddingRight: 30,
-    },    
-    optionButton: {
-        width: 200,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1,
-        pressed: false,
-        margin: 20,
     },
     submitButton: {
         backgroundColor: "#FFE500",

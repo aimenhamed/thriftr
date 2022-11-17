@@ -4,11 +4,7 @@ import React, {useState, useEffect} from 'react';
 import { styles } from "./FirstOnboardingScreen.style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import ArrowRight from "../assets/ArrowRight";
-
-// type FirstOnboardingScreenProps = {
-//   logIn: (userId: string) => void;
-//   navigation: () => any;
-// } & PageProps;
+import { OptionButton } from "../components/OptionButton/OptionButton";
 
 const FirstOnboardingScreen = ({ navigation }) => {
   const userId = "74aa9a46-aff3-4ecc-a817-f6697b18eb74";
@@ -16,62 +12,36 @@ const FirstOnboardingScreen = ({ navigation }) => {
   const [isSecondPressed, setSecondPressed] = useState(false);
   const [isThirdPressed, setThirdPressed] = useState(false);
 
-
-  const OptionButton = ({text, onPress, state}) => (
-    <TouchableOpacity 
-      style={[styles.optionButton, {backgroundColor: state ? "#FFE600" : "white" } ]}
-      onPress = {onPress}
-    >
-      <Text style={styles.buttonText}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
-
-  const handleFirstPressed = () => {
-    setFirstPressed(current => !current);
-    setSecondPressed(false);
-    setThirdPressed(false);
-  };
-
-  const handleSecondPressed = () => {
-    setFirstPressed(false);
-    setSecondPressed(current => !current);
-    setThirdPressed(false);
-  };
-
-  const handleThirdPressed = () => {
-    setFirstPressed(false);
-    setSecondPressed(false);
-    setThirdPressed(current => !current);
-  };
+  const handleFirstPressed = () => setFirstPressed(current => !current);
+  const handleSecondPressed = () => setSecondPressed(current => !current);
+  const handleThirdPressed = () => setThirdPressed(current => !current);
 
   return (
     <View style={styles.background}>
       <View style={[styles.viewport, {justifyContent: "flex-start"}]}>
-        <Text style={[styles.normalText, {fontSize: 16}, {paddingBottom: 10}, 
+        <Text style={[styles.normalText, {fontSize: 16}, {paddingBottom: 20},
                       {paddingLeft: 15}, {paddingTop: 100}]}>
           Before we start...
         </Text>
         <Text style={[styles.normalText, {fontSize: 16}, {paddingLeft: 15}]}>
-          Are you looking for male or female clothes?
+          What gender clothes are you looking for?
         </Text>
       </View>
 
       <View style={[styles.viewport, {alignItems: "center"}, {justifyContent: "center"},
                     {flex: 40}]}>
-        <OptionButton 
+        <OptionButton
           text = "Male"
           onPress= { () => handleFirstPressed()}
           state = {isFirstPressed}
         />
-        <OptionButton 
+        <OptionButton
           text = "Female"
           onPress= { () => handleSecondPressed()}
           state = {isSecondPressed}
         />
-        <OptionButton 
-          text = "Both"
+        <OptionButton
+          text = "Unisex"
           onPress= { () => handleThirdPressed()}
           state = {isThirdPressed}
         />
