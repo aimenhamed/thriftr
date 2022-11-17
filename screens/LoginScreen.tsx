@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         ): (
           <TouchableOpacity
-            onPress={() => Alert.alert('Alert', 'Please enter username and password')}
+            onPress={() => Alert.alert('Login Failed', 'Please enter your username and password')}
             style={styles.loginButton}
           >
             <Text style={styles.loginText}>Login</Text>

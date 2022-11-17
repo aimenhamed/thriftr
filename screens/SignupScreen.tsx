@@ -78,14 +78,14 @@ const SignupScreen = ({ navigation }) => {
             <TouchableOpacity
             onPress={ () => checkPassword(password, confirmPassword) ? 
                             navigation.navigate("FirstOnboardingScreen") : 
-                            Alert.alert('Alert', 'Passwords are not the same')}
+                            Alert.alert('Signup Failed', 'Passwords are not the same')}
             style={styles.signupButton}
           >
             <Text style={styles.signupText}>Signup</Text>
             </TouchableOpacity>
           ): (
             <TouchableOpacity
-              onPress={() => Alert.alert('Alert', 'Please fill in all details')}
+              onPress={() => Alert.alert('Signup Failed', 'Please fill in all details')}
               style={styles.signupButton}
             >
               <Text style={styles.signupText}>Signup</Text>
