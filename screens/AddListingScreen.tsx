@@ -31,11 +31,8 @@ export default function () {
   const { height, width } = useWindowDimensions();
   const profile = Backend.getProfile(Backend.getCurrentUserId());
   const { setCurrentProfile } = useContext(profileContext);
-  const item = Backend.getItem(Backend.getCurrentUserId(), Backend.getCurrentItemId());
-
-  const currentItem = item
-    ? profile?.items.find((x) => x.itemId === item.itemId)
-    : undefined;
+  const currentItemId = Backend.getCurrentItemId();
+  const currentItem = currentItemId ? Backend.getItem(Backend.getCurrentUserId(), currentItemId) : undefined;
 
   const onSizeItemsOpen = useCallback(() => {
     setColourItemsOpen(false), setCategoryItemsOpen(false), Keyboard.dismiss();

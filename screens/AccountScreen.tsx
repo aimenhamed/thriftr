@@ -7,18 +7,20 @@ import {
   Text,
   useWindowDimensions,
 } from "react-native";
+import { Backend } from "../backend";
 import { profileContext } from "../profileContext";
 import { Profile } from "../types/profile";
 
 type AccountScreenProps = {
-  currentUser: Boolean;
-  profile: Profile | undefined;
+  profileId: string;
 };
 
 export default function (props: AccountScreenProps) {
   const { height, width } = useWindowDimensions();
   const navigation = useNavigation();
-  const { setCurrentItem } = useContext(profileContext);
+  const { profile: profileUpdate } = useContext(profileContext);
+  const profile = Backend.getProfile(props.profileId);
+  const currentUser = props.profileId === Backend.getCurrentUserId();
 
   return (
     <View>
@@ -30,14 +32,14 @@ export default function (props: AccountScreenProps) {
           }}
         >
           <Image
-            source={props.profile && props.profile.image}
+            source={profileUpdate && profile && profile.image}
             style={{
               width: width / 4,
               height: width / 4,
               borderRadius: width / 8,
             }}
           />
-          {props.currentUser && (
+          {currentUser && (
             <Pressable
               style={{
                 width: width / 4,
@@ -47,6 +49,7 @@ export default function (props: AccountScreenProps) {
                 alignItems: "center",
               }}
               onPress={() => {
+                Backend.setCurrentItemId(undefined);
                 navigation.navigate("modal");
               }}
             >
@@ -74,9 +77,9 @@ export default function (props: AccountScreenProps) {
             marginTop: 2,
           }}
         >
-          {"@" + props.profile.name}
+          {"@" + (profileUpdate && profile && profile.name)}
         </Text>
-        {props.currentUser && (
+        {currentUser && (
           <Pressable
             style={{
               justifyContent: "center",
@@ -96,13 +99,13 @@ export default function (props: AccountScreenProps) {
           </Pressable>
         )}
       </View>
-      <View style={{ flexDirection: "row" }}>
-        {props.profile && props.profile.items.map((item, i) => (
+      <View style={{ flexDirection: "row", flexWrap: 'wrap'}}>
+        {profileUpdate && profile && profile.items.map((item, i) => (
           <Pressable
             onPress={() => {
-              if (props.currentUser) {
+              if (currentUser) {
+                Backend.setCurrentItemId(item.itemId);
                 navigation.navigate("modal");
-                setCurrentItem(item.itemId);
               }
             }}
           >

@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import { profileContext } from "../profileContext";
 import { Category, Colour, Gender, Size } from "../types/preferences";
+import { Backend } from "../backend";
 
 export default function () {
   const navigation = useNavigation();
@@ -251,6 +252,20 @@ export default function () {
               opacity: !name ? 0.2 : 1
             }}
             onPress={() => {
+              Backend.updateProfile({
+                userId: profile.userId,
+                name: name,
+                image: image,
+                items: profile.items,
+                matches: profile.matches,
+                preferences: {
+                  categories: categoryPreferences,
+                  colors: colourPreferences,
+                  sizes: sizePreferences,
+                  genders: genderPreferences,
+                },
+                phoneNumber: phone,
+              })
               setCurrentProfile({
                 userId: profile.userId,
                 name: name,

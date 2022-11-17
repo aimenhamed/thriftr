@@ -9,7 +9,7 @@ class BackendMock {
   private profiles: Profile[];
   private chats: Chat[];
   private currentUserId: string ;
-  private currentItemId: string;
+  private currentItemId: string | undefined;
 
   constructor() {
     this.profiles = profileData;
@@ -29,6 +29,7 @@ class BackendMock {
   public updateProfile = (newProfile: Profile): void => {
     const i = this.profiles.findIndex((profile) => profile.userId === newProfile.userId);
     this.profiles[i] = newProfile;
+    console.log(this.profiles[this.profiles.findIndex((profile) => profile.userId === newProfile.userId)]);
   };
 
   public setCurrentUserId = (userId: string): void => {
@@ -39,11 +40,11 @@ class BackendMock {
     return this.currentUserId;
   }
 
-  public setCurrentItemId = (itemId: string): void => {
+  public setCurrentItemId = (itemId: string | undefined): void => {
     this.currentItemId = itemId;
   }
 
-  public getCurrentItemId = (): string => {
+  public getCurrentItemId = (): string | undefined => {
     return this.currentItemId;
   }
 

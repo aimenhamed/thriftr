@@ -62,8 +62,8 @@ const ThirdOnboardingScreen = () => {
           {profileUpdate && profile?.items.map((item, i) => (
             <Pressable
               onPress={() => {
-                navigation.navigate("modal");
                 Backend.setCurrentItemId(item.itemId);
+                navigation.navigate("modal");
               }}
             >
               <Image
@@ -86,6 +86,7 @@ const ThirdOnboardingScreen = () => {
               { height: 0.4 * (width - 50) },
             ]}
             onPress={() => {
+              Backend.setCurrentItemId(undefined);
               navigation.navigate("modal");
             }}
           >

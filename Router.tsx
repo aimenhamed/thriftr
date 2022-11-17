@@ -114,7 +114,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Account"
-        children={() => <AccountScreen currentUser={true} profile={profile && Backend.getProfile(Backend.getCurrentUserId())} />}
+        children={() => <AccountScreen profileId={profile && Backend.getCurrentUserId()} />}
         options={{
           tabBarIcon: (props) =>
             props.focused ? <AccountFilled /> : <AccountOutline />,
