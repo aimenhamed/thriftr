@@ -14,18 +14,10 @@ export const styles = StyleSheet.create({
     horizontalViewport : {
         flexDirection: "row",
         alignContent: "space-around"
-    },   
+    },
     insideHorizontalViewport : {
         flex: 1,
         alignItems: "center",
-    }, 
-    optionButton: {
-        width: 135,
-        height: 40,
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 1,
-        pressed: false,
     },
     submitButton: {
         backgroundColor: "#FFE500",
