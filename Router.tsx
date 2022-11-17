@@ -45,6 +45,7 @@ type TabsParamList = {
 
 const Tab = createMaterialTopTabNavigator();
 const MatchesStack = createNativeStackNavigator<MatchesParamList>();
+const AccountStack = createNativeStackNavigator();
 
 export type ChatPageProps = NativeStackScreenProps<MatchesParamList, "Chat">;
 export type PageProps = MaterialTopTabScreenProps<TabsParamList>;
@@ -54,7 +55,6 @@ const TabNavigator = () => {
   const Main = (props: any) => <FeedStackScreen {...props} />;
   const Matches = (props: any) => <MatchesScreen {...props} />;
   const Chat = (props: any) => <ChatScreen {...props} />;
-  const Account = (props: any) => <AccountScreen {...props} />;
   const MatchesStackScreen = () => (
     <MatchesStack.Navigator>
       <MatchesStack.Screen
@@ -68,14 +68,27 @@ const TabNavigator = () => {
         options={{ headerShown: false }}
         initialParams={{ chatId: "", matched: {} as Match }}
       />
-      <MatchesStack.Screen
-        name="Account"
-        component={Account}
-        options={{ headerShown: false }}
-        initialParams={{ profileId: '' }}
-      />
     </MatchesStack.Navigator>
   );
+
+  const Account = (props: any) => <AccountScreen {...props} />;
+  const CurrentAccount = (props: any) => <AccountScreen {...props} />;
+  const AccountStackScreen = () => (
+    <AccountStack.Navigator>
+      <AccountStack.Screen
+        name="CurrentAccount"
+        component={CurrentAccount}
+        initialParams={{ profileId: Backend.getCurrentUserId() }}
+        options={{headerShown: false}}
+        />
+      <AccountStack.Screen
+        name="Account"
+        component={Account}
+        initialParams={{ profileId: '' }}
+        options={{headerShown: false}}
+        />
+    </AccountStack.Navigator>
+  )
 
   return (
     <Tab.Navigator
@@ -121,8 +134,8 @@ const TabNavigator = () => {
         children={Main}
       />
       <Tab.Screen
-        name="Account"
-        component={AccountScreen}
+        name="AccountTab"
+        children={AccountStackScreen}
         initialParams={{ profileId: Backend.getCurrentUserId() }}
         options={{
           tabBarIcon: (props) =>

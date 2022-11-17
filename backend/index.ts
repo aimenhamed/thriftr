@@ -22,6 +22,9 @@ class BackendMock {
     return this.profiles.find((profile) => profile.userId === userId);
   };
 
+  public getProfileByName = (userName: string): Profile | undefined => {
+    return this.profiles.find((profile) => profile.name === userName);
+  };
   public getChat = (chatId: string): Chat | undefined => {
     return this.chats.find((chat) => chat.chatId === chatId);
   };

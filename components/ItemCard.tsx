@@ -1,5 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
+import { Backend } from "../backend";
 import { Item } from "../types/item";
 
 export type ItemCardProps = {
@@ -26,6 +28,7 @@ const ItemCard = ({
 }: ItemCardProps) => {
   const [expandDescription, setExpandDescription] = useState(false);
   const [photoPage, setPhotoPage] = useState(0);
+  const navigation = useNavigation();
 
   useEffect(() => {
     setPhotoPage(0);
@@ -34,6 +37,7 @@ const ItemCard = ({
 
   const redirectToProfile = () => {
     console.log("//TODO redirecting to", seller.name);
+    navigation.navigate('Account', {profileId: Backend.getProfileByName(seller.name)?.userId})
   };
 
   const paginateLeft = () => {
