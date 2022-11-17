@@ -25,7 +25,7 @@ const ThirdOnboardingScreen = () => {
         style={styles.backarrow}
         onPress={() => navigation.navigate("SecondOnboardingScreen")}
       >
-        <WhiteBackArrow />
+        <WhiteBackArrow/>
       </TouchableOpacity>
 
       <View style={[styles.viewport, { justifyContent: "flex-start" }]}>

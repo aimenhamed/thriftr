@@ -5,7 +5,14 @@ export const styles = StyleSheet.create({
     backgroundColor: "#1F1F1F",
     flex: 1,
   },
+  keyboardDismisser: {
+    position: "absolute",
+    height: "200%",
+    width: "100%",
+  },
   upperView: {
+    marginTop: 200,
+    marginBottom: 250,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -78,11 +85,14 @@ export const styles = StyleSheet.create({
     color: "white",
     fontFamily: "AzeretMono_400Regular",
   },
+  forgotButton: {
+    position: "absolute",
+    top: 330,
+    height: 40,
+  },
   forgotText: {
     color: "white",
     fontSize: 12,
-    position: "absolute",
-    top: 330,
     fontFamily: "AzeretMono_400Regular",
     zIndex: 2,
   },

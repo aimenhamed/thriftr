@@ -5,15 +5,12 @@ import {
   TextInput,
   Alert,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import { PageProps } from "../Router";
 import { styles } from "./LoginScreen.style";
 import React, { useState } from "react";
 import ThriftBig from "../assets/ThriftrBig";
-
-// type LoginScreenProps = {
-//   logIn: (userId: string) => void;
-// } & PageProps;
 
 const returnValue = (username: string, password: string) => {
   if (username.trim().length > 0 && password.trim().length > 0) {
@@ -29,10 +26,16 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
 
   return (
-    <KeyboardAvoidingView style={styles.backgroundView} behavior="padding">
-      <View style={styles.upperView}>
-        <ThriftBig style={styles.logoimage} />
-        <View style={styles.yellowBox}></View>
+    <KeyboardAvoidingView
+      style={styles.backgroundView}
+      behavior="position"
+    >
+      <View style={styles.keyboardDismisser} onTouchStart={Keyboard.dismiss} />
+      <View style={styles.yellowBox} onTouchStart={Keyboard.dismiss} />
+      <View style={styles.upperView} onTouchStart={Keyboard.dismiss}>
+        <ThriftBig
+          style={styles.logoimage}
+        />
       </View>
       <View style={styles.lowerView}>
         <TextInput
@@ -59,9 +62,7 @@ const LoginScreen = ({ navigation }) => {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            onPress={() =>
-              Alert.alert("Alert", "Please enter username and password")
-            }
+            onPress={() => Alert.alert('Login Failed', 'Please enter your username and password')}
             style={styles.loginButton}
           >
             <Text style={styles.loginText}>Login</Text>
@@ -73,9 +74,11 @@ const LoginScreen = ({ navigation }) => {
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
-        <Text style={styles.forgotText}>
-          Forgot your username and password?
-        </Text>
+        <TouchableOpacity style={styles.forgotButton}>
+          <Text style={styles.forgotText}>
+            Forgot your username and password?
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={{ height: 30 }}></View>
     </KeyboardAvoidingView>

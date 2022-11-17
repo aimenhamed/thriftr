@@ -4,8 +4,16 @@ export const styles = StyleSheet.create({
     backgroundView: {
         backgroundColor: "#1F1F1F",
         flex: 1,
+        overflow: "hidden",
+    },
+    keyboardDismisser: {
+        position: "absolute",
+        height: "200%",
+        width: "100%",
     },
     upperView: {
+        marginTop: 200,
+        marginBottom: 250,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
@@ -80,17 +88,20 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontFamily: "AzeretMono_400Regular",
     },
-    forgotText: {
-        color: "white",
-        fontSize: 12,
+    alreadyHaveAccountButton: {
         position: "absolute",
         top: 330,
+        height: 40,
+    },
+    alreadyHaveAccountText: {
+        color: "white",
+        fontSize: 12,
         fontFamily: "AzeretMono_400Regular",
     },
-    backarrow: {
+    backArrow: {
         zIndex: 3,
         position: "absolute",
-        top: 50,
+        top: -150,
         left: 20,
     }
 });
