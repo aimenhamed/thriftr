@@ -98,6 +98,7 @@ export default function ({navigation, route}: PageProps) {
       <View style={{ flexDirection: "row", flexWrap: 'wrap'}}>
         {profileUpdate && profile && profile.items.map((item, i) => (
           <Pressable
+            key={i}
             onPress={() => {
               if (currentUser) {
                 Backend.setCurrentItemId(item.itemId);

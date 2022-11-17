@@ -336,8 +336,9 @@ export default function () {
             />
           </Pressable>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {Object.values(Category).map((value) => (
+            {Object.values(Category).map((value, i) => (
               <Pressable
+                key={i}
                 style={{
                   width: "40%",
                   backgroundColor: categoryPreferences.find((i) => i === value)
@@ -383,8 +384,9 @@ export default function () {
             />
           </Pressable>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {Object.values(Colour).map((value) => (
+            {Object.values(Colour).map((value, i) => (
               <Pressable
+                key={i}
                 style={{
                   width: "40%",
                   backgroundColor: colourPreferences.find((i) => i === value)
@@ -430,8 +432,9 @@ export default function () {
             />
           </Pressable>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {Object.values(Size).map((value) => (
+            {Object.values(Size).map((value, i) => (
               <Pressable
+                key={i}
                 style={{
                   width: "40%",
                   backgroundColor: sizePreferences.find((i) => i === value)
@@ -477,8 +480,9 @@ export default function () {
             />
           </Pressable>
           <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-            {Object.values(Gender).map((value) => (
+            {Object.values(Gender).map((value, i) => (
               <Pressable
+                key={i}
                 style={{
                   width: "40%",
                   backgroundColor: genderPreferences.find((i) => i === value)

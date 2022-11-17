@@ -286,7 +286,7 @@ export default function () {
           }}
         >
           {images.map((uri, i) => (
-            <View>
+            <View key={i}>
             <Image
               source={uri}
               key={i}

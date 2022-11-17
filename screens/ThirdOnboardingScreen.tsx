@@ -61,6 +61,7 @@ const ThirdOnboardingScreen = () => {
         >
           {profileUpdate && profile?.items.map((item, i) => (
             <Pressable
+              key={i}
               onPress={() => {
                 Backend.setCurrentItemId(item.itemId);
                 navigation.navigate("modal");
