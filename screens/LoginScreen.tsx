@@ -40,12 +40,14 @@ const LoginScreen = ({ navigation }: LoginProps) => {
           placeholder="Username"
           onChangeText={(username) => setUsername(username)}
           placeholderTextColor="#AAAAAA"
+          value={username}
         />
         <TextInput
           style={styles.inputPassword}
           placeholder="Password"
           onChangeText={(password) => setPassword(password)}
           secureTextEntry={true}
+          value={password}
           placeholderTextColor="#AAAAAA"
         />
 
@@ -53,6 +55,8 @@ const LoginScreen = ({ navigation }: LoginProps) => {
           <TouchableOpacity
             onPress={() => {
               Backend.setCurrentUserId(userId);
+              setUsername('');
+              setPassword('');
               navigation.navigate("main");
             }}
             style={styles.loginButton}

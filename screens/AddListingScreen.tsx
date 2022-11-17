@@ -124,12 +124,67 @@ export default function () {
       }}
     >
       <View style={{ ...styles.container, padding: 40, display: "flex" }}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
         <Pressable onPress={() => navigation.goBack()}>
           <Image
             source={require("../assets/x.png")}
             style={{ width: 24, height: 24 }}
           />
         </Pressable>
+        {currentItem && <Pressable onPress={() => {
+            navigation.goBack();
+            currentItem && Backend.deleteItem(Backend.getCurrentUserId(), currentItem.itemId);
+            profile && setCurrentProfile({
+              userId: profile.userId,
+              name: profile.name,
+              image: profile.image,
+              items: currentItem
+                ? profile.items.map((item) => {
+                    if (item.itemId !== currentItem.itemId) {
+                      return item;
+                    } else {
+                      return {
+                        itemId: item.itemId,
+                        name: name ?? "",
+                        description: description ?? "",
+                        color: colour ?? "",
+                        type: category ?? Category.GLOVES,
+                        size: size ?? Size.LARGE,
+                        photos: images,
+                        gender: Gender.FEMALE,
+                        condition: Condition.NEW,
+                      };
+                    }
+                  })
+                : [
+                    ...profile.items,
+                    {
+                      itemId: uuid.v4() as string,
+                      name: name ?? "",
+                      description: description ?? "",
+                      color: colour ?? "",
+                      type: category ?? Category.GLOVES,
+                      size: size ?? Size.LARGE,
+                      photos: images,
+                      gender: Gender.FEMALE,
+                      condition: Condition.NEW,
+                    },
+                  ],
+              matches: profile.matches,
+              preferences: profile.preferences,
+            });
+          }}>
+              <Text
+                style={{
+                  fontFamily: "AzeretMono_400Regular",
+                  color: "#FF0000",
+                  marginTop: 24
+                }}
+              >
+                Delete Listing
+              </Text>
+            </Pressable>}
+            </View>
         <TextInput
           style={{
             height: 30,
@@ -231,6 +286,7 @@ export default function () {
           }}
         >
           {images.map((uri, i) => (
+            <View>
             <Image
               source={uri}
               key={i}
@@ -242,6 +298,15 @@ export default function () {
                 marginBottom: 30,
               }}
             />
+          <Pressable 
+            style={{ width: 24, height: 24, position: 'absolute'}}
+            onPress={() => setImages([...images.splice(0, i), ...images.splice(i + 1)])}
+          >
+          <Image
+            source={require("../assets/x.png")}
+          />
+          </Pressable>
+          </View>
           ))}
           {images.length < 4 && (
             <Pressable

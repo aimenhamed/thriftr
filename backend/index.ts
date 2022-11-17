@@ -29,8 +29,11 @@ class BackendMock {
   public updateProfile = (newProfile: Profile): void => {
     const i = this.profiles.findIndex((profile) => profile.userId === newProfile.userId);
     this.profiles[i] = newProfile;
-    console.log(this.profiles[this.profiles.findIndex((profile) => profile.userId === newProfile.userId)]);
   };
+
+  public deleteProfile = (userId: string): void => {
+    this.profiles = this.profiles.filter((profile) => profile.userId !== userId);
+  }
 
   public setCurrentUserId = (userId: string): void => {
     this.currentUserId = userId;
@@ -54,6 +57,15 @@ class BackendMock {
 
   public getItem = (userId: string, itemId: string): Item | undefined => {
     return this.profiles.find((profile) => profile.userId === userId)?.items.find((item) => item.itemId === itemId);
+  }
+
+  public deleteItem = (userId: string, itemId: string): void => {
+    const profileIndex = this.profiles.findIndex((profile) => profile.userId === userId);
+    if (profileIndex === -1) {
+      return
+    } else {
+      this.profiles[profileIndex].items = this.profiles[profileIndex].items.filter((item) => item.itemId !== itemId);
+    }
   }
 
   public sendMessage = (chatId: string, message: Message): void => {

@@ -16,7 +16,8 @@ import { Backend } from "../backend";
 
 export default function () {
   const navigation = useNavigation();
-  const { profile, setCurrentProfile } = useContext(profileContext);
+  const profile = Backend.getProfile(Backend.getCurrentUserId());
+  const { setCurrentProfile } = useContext(profileContext);
   const [image, setImage] = useState(profile.image);
   const [phone, setPhone] = useState(profile.phoneNumber);
   const [name, setName] = useState(profile.name);
@@ -57,12 +58,27 @@ export default function () {
     <View style={{ ...styles.container, padding: 25, display: "flex" }}>
       {editProfileScreen && (
         <View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
           <Pressable onPress={() => navigation.goBack()} style={{ margin: 15 }}>
             <Image
               source={require("../assets/x.png")}
               style={{ width: 24, height: 24 }}
             />
           </Pressable>
+          <Pressable onPress={() => {
+            navigation.navigate('LoginScreen');
+            Backend.deleteProfile(Backend.getCurrentUserId());
+          }}>
+              <Text
+                style={{
+                  fontFamily: "AzeretMono_400Regular",
+                  color: "#FF0000",
+                }}
+              >
+                Delete account
+              </Text>
+            </Pressable>
+          </View>
           <View style={{ alignItems: "center" }}>
             {image && (
               <Image
@@ -292,6 +308,16 @@ export default function () {
               Finish Editing
             </Text>
           </Pressable>
+          <Pressable onPress={() => navigation.navigate('LoginScreen')} style={{marginTop: 24}}>
+              <Text
+                style={{
+                  fontFamily: "AzeretMono_400Regular",
+                  color: "#FFE600",
+                }}
+              >
+                Log out
+              </Text>
+            </Pressable>
           </View>
         </View>
       )}
