@@ -269,7 +269,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
 
       <View style={styles.userActions}>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeLeft()}
         >
@@ -277,7 +277,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}
         >
@@ -285,7 +285,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeRight()}
         >
