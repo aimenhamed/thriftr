@@ -46,8 +46,17 @@ const isMatch = (
   // return (
   //   filteredMatches?.some((match) => match.matchItemId === item.itemId) || false
   // );
+
   const japaneseEmbroideredHoodieItemId = "220daba3-4260-4764-92f6-97d82b013a57";
-  return item.itemId === japaneseEmbroideredHoodieItemId;
+  const greenJacketItemId = "4ed21f2a-dcb5-49be-a398-335704328fa1";
+
+  if (selectedItems.length === 0) {
+    // normal like, don't need to check
+    return item.itemId === japaneseEmbroideredHoodieItemId;
+  } else {
+    // offer selectively, need to check
+    return item.itemId === japaneseEmbroideredHoodieItemId && selectedItems.includes(greenJacketItemId);
+  }
 };
 
 const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
@@ -264,76 +273,12 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
         overlayOpacityHorizontalThreshold={1}
         overlayOpacityVerticalThreshold={1}
         animateOverlayLabelsOpacity
-        overlayLabels={{
-          left: {
-            title: "Ignore",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#FF0000",
-                color: "#FF0000",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "flex-end",
-                justifyContent: "flex-start",
-                marginTop: 20,
-                marginLeft: -20,
-              },
-            },
-          },
-          right: {
-            title: "Like",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#00BF36",
-                color: "#00BF36",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                marginTop: 20,
-                marginLeft: 20,
-              },
-            },
-          },
-          top: {
-            title: "Offer\nSelectively",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#00BF36",
-                color: "#00BF36",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-                textAlign: "center",
-                marginBottom: "50%",
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              },
-            },
-          },
-        }}
+        overlayLabels={overlayLabels}
       />
 
       <View style={styles.userActions}>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeLeft()}
         >
@@ -341,7 +286,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Ignore</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => onOfferSelectively(nextCardIndex(lastSwipedCard))}
         >
@@ -349,7 +294,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
           <Text style={styles.userActionText}>Offer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          disabled = {showPaginationOverlay ? true : false}
+          disabled={showPaginationOverlay || showSwipeLeftOverlay || showSwipeRightOverlay || showSwipeUpOverlay}
           style={styles.userAction}
           onPress={() => swiperRef?.swipeRight()}
         >
@@ -359,6 +304,72 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
       </View>
     </View>
   );
+};
+
+const overlayLabels = {
+  left: {
+    title: "Ignore",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#FF0000",
+        color: "#FF0000",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-end",
+        justifyContent: "flex-start",
+        marginTop: 20,
+        marginLeft: -20,
+      },
+    },
+  },
+  right: {
+    title: "Like",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#00BF36",
+        color: "#00BF36",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        marginTop: 20,
+        marginLeft: 20,
+      },
+    },
+  },
+  top: {
+    title: "Offer\nSelectively",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#00BF36",
+        color: "#00BF36",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+        textAlign: "center",
+        marginBottom: "50%",
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+      },
+    },
+  },
 };
 
 export default ThriftingScreen;

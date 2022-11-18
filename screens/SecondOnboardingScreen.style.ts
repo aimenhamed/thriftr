@@ -8,12 +8,12 @@ export const styles = StyleSheet.create({
     viewport: {
         flex: 20,
         justifyContent: "center",
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 10,
+        paddingRight: 10,
     },
     horizontalViewport : {
         flexDirection: "row",
-        alignContent: "space-around"
+        alignContent: "space-around",
     },
     insideHorizontalViewport : {
         flex: 1,

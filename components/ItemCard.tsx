@@ -36,7 +36,6 @@ const ItemCard = ({
   }, [itemId]);
 
   const redirectToProfile = () => {
-    console.log("//TODO redirecting to", seller.name);
     navigation.navigate('Account', {profileId: Backend.getProfileByName(seller.name)?.userId})
   };
 
