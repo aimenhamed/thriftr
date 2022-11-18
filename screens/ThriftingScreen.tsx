@@ -46,8 +46,17 @@ const isMatch = (
   // return (
   //   filteredMatches?.some((match) => match.matchItemId === item.itemId) || false
   // );
+
   const japaneseEmbroideredHoodieItemId = "220daba3-4260-4764-92f6-97d82b013a57";
-  return item.itemId === japaneseEmbroideredHoodieItemId;
+  const greenJacketItemId = "4ed21f2a-dcb5-49be-a398-335704328fa1";
+
+  if (selectedItems.length === 0) {
+    // normal like, don't need to check
+    return item.itemId === japaneseEmbroideredHoodieItemId;
+  } else {
+    // offer selectively, need to check
+    return item.itemId === japaneseEmbroideredHoodieItemId && selectedItems.includes(greenJacketItemId);
+  }
 };
 
 const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
