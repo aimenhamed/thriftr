@@ -22,9 +22,6 @@ import LikeIcon from "../assets/LikeIcon";
 import OfferIcon from "../assets/OfferIcon";
 import Swiper from "react-native-deck-swiper";
 
-const SCREEN_WIDTH = Dimensions.get("screen").width;
-const SCREEN_HEIGHT = Dimensions.get("screen").height;
-
 export default function ({navigation, route}: PageProps) {
   const { profileId } = route.params;
   const { height, width } = useWindowDimensions();
@@ -148,7 +145,7 @@ export default function ({navigation, route}: PageProps) {
         </View>
       </ScrollView>
     ) : (
-      <View style={[accountScreenStyles.browseItem, { height: height - 148, width: width - 48 }]}>
+      <View style={accountScreenStyles.browseItem}>
         {item && profile && (
           <Swiper
             ref={(swiper) => {
@@ -166,12 +163,12 @@ export default function ({navigation, route}: PageProps) {
             marginTop={20}
             containerStyle={{ height: "80%" }}
             cardStyle={{ height: "100%" }}
-            verticalThreshold={SCREEN_HEIGHT / 5}
-            horizontalThreshold={SCREEN_WIDTH / 4}
+            verticalThreshold={height / 5}
+            horizontalThreshold={width / 4}
             disableBottomSwipe
             animateCardOpacity
-            // outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
-            // outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
+            outputOverlayLabelsOpacityRangeX={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
+            outputOverlayLabelsOpacityRangeY={[1, 0.5, 0, 0.5, 1]} //! Incorrectly defined type here
             overlayOpacityHorizontalThreshold={1}
             overlayOpacityVerticalThreshold={1}
             animateOverlayLabelsOpacity
@@ -273,10 +270,10 @@ const overlayLabels = {
 
 const accountScreenStyles = StyleSheet.create({
   browseItem: {
-    backgroundColor: "pink",
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#1F1F1F",
     alignSelf: "center",
-    justifyContent: "center"
-    // marginTop: 24,
-    // marginBottom: 24,
+    justifyContent: "center",
   }
 })
