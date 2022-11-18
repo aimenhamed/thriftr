@@ -49,17 +49,6 @@ import ThriftBig from "../assets/ThriftrBig";
             placeholderTextColor="#AAAAAA"
             onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
           />
-          
-            {/* <TouchableOpacity
-              disabled={returnValue(phoneNumber)}
-              onPress={() => {Alert.alert("Alert", 
-                              "A message has been sent to your phone containing your account information")}}
-              style={[styles.getDetailsButton, 
-                    {backgroundColor: returnValue(phoneNumber) ? 
-                      "#575117" : "#FFE600"}]}
-            >
-              <Text style={styles.getDetailsText}>Get Details</Text>
-            </TouchableOpacity> */}
             
         {returnValue(phoneNumber) ? (
           <TouchableOpacity
@@ -67,15 +56,15 @@ import ThriftBig from "../assets/ThriftrBig";
                           "A message has been sent to your phone containing your account information")}}
           style={styles.getDetailsButton}
           >
-            <Text style={styles.getDetailsText}>Get Details</Text>
+            <Text style={styles.getDetailsText}>Recover Details</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-          onPress={() => {Alert.alert("Get Details Failed", 
+          onPress={() => {Alert.alert("Recover Details Failed", 
                           "Please enter your phone number")}}
           style={styles.getDetailsButton}
           >
-            <Text style={styles.getDetailsText}>Get Details</Text>
+            <Text style={styles.getDetailsText}>Recover Details</Text>
           </TouchableOpacity>
         )}
 
