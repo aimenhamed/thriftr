@@ -264,71 +264,7 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
         overlayOpacityHorizontalThreshold={1}
         overlayOpacityVerticalThreshold={1}
         animateOverlayLabelsOpacity
-        overlayLabels={{
-          left: {
-            title: "Ignore",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#FF0000",
-                color: "#FF0000",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "flex-end",
-                justifyContent: "flex-start",
-                marginTop: 20,
-                marginLeft: -20,
-              },
-            },
-          },
-          right: {
-            title: "Like",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#00BF36",
-                color: "#00BF36",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                marginTop: 20,
-                marginLeft: 20,
-              },
-            },
-          },
-          top: {
-            title: "Offer\nSelectively",
-            style: {
-              label: {
-                backgroundColor: "#1F1F1F",
-                borderColor: "#00BF36",
-                color: "#00BF36",
-                borderWidth: 4,
-                fontFamily: "AzeretMono_400Regular",
-                borderRadius: 0,
-                fontSize: 36,
-                textAlign: "center",
-                marginBottom: "50%",
-              },
-              wrapper: {
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "flex-end",
-              },
-            },
-          },
-        }}
+        overlayLabels={overlayLabels}
       />
 
       <View style={styles.userActions}>
@@ -359,6 +295,72 @@ const ThriftingScreen = ({ navigation }: ThriftingScreenProps) => {
       </View>
     </View>
   );
+};
+
+const overlayLabels = {
+  left: {
+    title: "Ignore",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#FF0000",
+        color: "#FF0000",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-end",
+        justifyContent: "flex-start",
+        marginTop: 20,
+        marginLeft: -20,
+      },
+    },
+  },
+  right: {
+    title: "Like",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#00BF36",
+        color: "#00BF36",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        marginTop: 20,
+        marginLeft: 20,
+      },
+    },
+  },
+  top: {
+    title: "Offer\nSelectively",
+    style: {
+      label: {
+        backgroundColor: "#1F1F1F",
+        borderColor: "#00BF36",
+        color: "#00BF36",
+        borderWidth: 4,
+        fontFamily: "AzeretMono_400Regular",
+        borderRadius: 0,
+        fontSize: 36,
+        textAlign: "center",
+        marginBottom: "50%",
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-end",
+      },
+    },
+  },
 };
 
 export default ThriftingScreen;
