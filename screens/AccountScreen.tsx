@@ -1,25 +1,35 @@
-import { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Image,
   Pressable,
   Text,
   useWindowDimensions,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
 import { Backend } from "../backend";
+import ItemCard from "../components/ItemCard";
 import { profileContext } from "../profileContext";
 import { PageProps } from "../Router";
+import { Item } from "../types/item";
+import { styles } from "./Thrifting.style";
+import IgnoreIcon from "../assets/IgnoreIcon";
+import LikeIcon from "../assets/LikeIcon";
+import OfferIcon from "../assets/OfferIcon";
 
 export default function ({navigation, route}: PageProps) {
   const { profileId } = route.params;
   const { height, width } = useWindowDimensions();
   const { profile: profileUpdate } = useContext(profileContext);
+  const [accountScreen, setAccountScreen] = useState(true);
+  const [item, setItem] = useState(undefined as Item | undefined);
   const profile = Backend.getProfile(profileId);
   const currentUser = profileId === Backend.getCurrentUserId();
 
   return (
     <ScrollView style={{backgroundColor: '#1F1F1F'}}>
+      { accountScreen ? <View>
       <View style={{ padding: 25 }}>
         <View
           style={{
@@ -103,6 +113,9 @@ export default function ({navigation, route}: PageProps) {
               if (currentUser) {
                 Backend.setCurrentItemId(item.itemId);
                 navigation.navigate("modal");
+              } else {
+                setAccountScreen(false);
+                setItem(item)
               }
             }}
           >
@@ -114,6 +127,34 @@ export default function ({navigation, route}: PageProps) {
           </Pressable>
         ))}
       </View>
+      </View> : <View style={{ 
+    height: height - 148,
+    width: width - 48,
+    backgroundColor: "#FFE600", alignSelf: 'center', marginTop: 24, marginBottom: 24}}>
+            {item && profile && <ItemCard item={item} seller={{name: profile?.name, image: profile?.image}}/>}
+            <View style={styles.userActions}>
+        <TouchableOpacity
+          style={styles.userAction}
+          onPress={() => setAccountScreen(true)}
+        >
+          <IgnoreIcon />
+          <Text style={styles.userActionText}>Ignore</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.userAction}
+          onPress={() => setAccountScreen(true)}>
+          <OfferIcon />
+          <Text style={styles.userActionText}>Offer</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.userAction}
+          onPress={() => setAccountScreen(true)}
+        >
+          <LikeIcon />
+          <Text style={styles.userActionText}>Like</Text>
+        </TouchableOpacity>
+      </View>
+        </View>}
     </ScrollView>
   );
 }
