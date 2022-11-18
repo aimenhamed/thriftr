@@ -82,7 +82,10 @@ const LoginScreen = ({ navigation }: LoginProps) => {
         >
           <Text style={styles.signupText}>Signup</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.forgotButton}>
+        <TouchableOpacity 
+          style={styles.forgotButton}
+          onPress={() => navigation.navigate("ForgotDetailsScreen")}
+        >
           <Text style={styles.forgotText}>
             Forgot your username and password?
           </Text>
