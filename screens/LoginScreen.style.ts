@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   backgroundView: {
     backgroundColor: "#1F1F1F",
     flex: 1,
+    overflow: "hidden",
   },
   keyboardDismisser: {
     position: "absolute",

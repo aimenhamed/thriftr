@@ -5,6 +5,7 @@ import {
   MaterialTopTabScreenProps,
 } from "@react-navigation/material-top-tabs";
 import LoginScreen from "./screens/LoginScreen";
+import ForgotDetailsScreen from "./screens/ForgotDetailsScreen";
 import SignupScreen from "./screens/SignupScreen";
 import FirstOnboardingScreen from "./screens/FirstOnboardingScreen";
 import SecondOnboardingScreen from "./screens/SecondOnboardingScreen";
@@ -157,6 +158,7 @@ const TabNavigator = () => {
 
 export type RootParamList = {
   LoginScreen: undefined;
+  ForgotDetailsScreen: undefined;
   SignupScreen: undefined;
   FirstOnboardingScreen: undefined;
   SecondOnboardingScreen: undefined;
@@ -180,6 +182,7 @@ const Router = () => {
           screenOptions={{ headerShown: false }}
         >
           <RootStack.Screen name="LoginScreen" component={LoginScreen} />
+          <RootStack.Screen name="ForgotDetailsScreen" component={ForgotDetailsScreen} />
           <RootStack.Screen name="SignupScreen" component={SignupScreen} />
           <RootStack.Screen
             name="FirstOnboardingScreen"
