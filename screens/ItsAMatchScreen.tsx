@@ -53,8 +53,7 @@ const ItsAMatchScreen = ({
   const usersGivingItem = getUsersMatchedItem(userId, itemMatched.itemId);
 
   const onSendMessagePress = () => {
-    console.log("// TODO: send message button pressed");
-    // navigation.navigate("Matches", { screen: "name???" });
+    navigation.navigate("Matches");
   };
 
   const onKeepThriftingPress = () => {
