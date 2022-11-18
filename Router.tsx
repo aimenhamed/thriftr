@@ -26,6 +26,7 @@ import { Match } from "./types/match";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Backend } from "./backend";
+import OfferSelectivelyScreenAccount from "./screens/OfferSelectivelyScreenAccount";
 
 type MatchesParamList = {
   MatchesScreen: undefined;
@@ -73,20 +74,28 @@ const TabNavigator = () => {
 
   const Account = (props: any) => <AccountScreen {...props} />;
   const CurrentAccount = (props: any) => <AccountScreen {...props} />;
+  const OfferSelectivelyScreenForAccountPage = (props: any) => <OfferSelectivelyScreenAccount {...props} />;
   const AccountStackScreen = () => (
-    <AccountStack.Navigator>
+    <AccountStack.Navigator screenOptions={{ headerShown: false }}>
       <AccountStack.Screen
         name="CurrentAccount"
         component={CurrentAccount}
         initialParams={{ profileId: Backend.getCurrentUserId() }}
-        options={{headerShown: false}}
-        />
+      />
       <AccountStack.Screen
         name="Account"
         component={Account}
         initialParams={{ profileId: '' }}
-        options={{headerShown: false}}
-        />
+      />
+      <AccountStack.Screen
+        name="OfferSelectivelyScreenAccount"
+        component={OfferSelectivelyScreenForAccountPage}
+        options={{
+          gestureDirection: "vertical",
+          gestureEnabled: false,
+          animationDuration: 200,
+        }}
+      />
     </AccountStack.Navigator>
   )
 
