@@ -42,7 +42,6 @@ export default function ({navigation, route}: PageProps) {
       itemMatched: item,
       sellerMatched: { name: profile?.name, image: profile?.image },
     });
-    console.log("REDIRECTED!", swipedCardIndex)
   };
 
   return accountScreen
@@ -182,20 +181,21 @@ export default function ({navigation, route}: PageProps) {
         <View style={styles.userActions}>
           <TouchableOpacity
             style={styles.userAction}
-            onPress={() => setAccountScreen(true)}
+            onPress={() => swiperRef?.swipeLeft()}
           >
             <IgnoreIcon />
             <Text style={styles.userActionText}>Ignore</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.userAction}
-            onPress={() => setAccountScreen(true)}>
+            onPress={() => swiperRef?.swipeTop()}
+          >
             <OfferIcon />
             <Text style={styles.userActionText}>Offer</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.userAction}
-            onPress={() => setAccountScreen(true)}
+            onPress={() => swiperRef?.swipeRight()}
           >
             <LikeIcon />
             <Text style={styles.userActionText}>Like</Text>
